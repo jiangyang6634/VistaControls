@@ -1,0 +1,245 @@
+using System;
+using System.Globalization;
+using System.IO;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+
+namespace VistaControls.Converters
+{
+    /// <summary>
+    /// 将图标文件名转换为完整路径的转换器
+    /// </summary>
+    public class IconPathConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string iconName && !string.IsNullOrEmpty(iconName))
+            {
+                try
+                {
+                    // 获取当前程序集的位置
+                    var assembly = Assembly.GetExecutingAssembly();
+                    var assemblyPath = Path.GetDirectoryName(assembly.Location);
+                    
+                    // 构建图标路径
+                    var iconPath = Path.Combine(assemblyPath ?? "", "icons", iconName);
+                    
+                    // 如果文件存在，返回 BitmapImage
+                    if (File.Exists(iconPath))
+                    {
+                        var bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(iconPath, UriKind.Absolute);
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.EndInit();
+                        return bitmap;
+                    }
+                    
+                    // 如果文件不存在，尝试使用 pack URI（适用于嵌入资源）
+                    var packUri = new Uri($"pack://application:,,,/VistaControls;component/icons/{iconName}", UriKind.Absolute);
+                    try
+                    {
+                        var bitmap2 = new BitmapImage();
+                        bitmap2.BeginInit();
+                        bitmap2.UriSource = packUri;
+                        bitmap2.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap2.EndInit();
+                        return bitmap2;
+                    }
+                    catch
+                    {
+                        // 如果 pack URI 也失败，返回 null
+                        return null!;
+                    }
+                }
+                catch
+                {
+                    return null!;
+                }
+            }
+            
+            return null!;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 将字符串转换为 Visibility 的转换器
+    /// </summary>
+    public class StringToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string str && !string.IsNullOrEmpty(str))
+            {
+                return System.Windows.Visibility.Visible;
+            }
+            return System.Windows.Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 将 null 转换为 Visibility 的转换器（null 时隐藏，非 null 时显示）
+    /// </summary>
+    public class NullToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return value == null ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 将布尔值转换为圆角半径的转换器
+    /// </summary>
+    public class BoolToCornerRadiusConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool isRound && isRound)
+            {
+                if (parameter is string radiusStr && double.TryParse(radiusStr, out var radius))
+                {
+                    return new System.Windows.CornerRadius(radius);
+                }
+                return new System.Windows.CornerRadius(20);
+            }
+            return new System.Windows.CornerRadius(0);
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 将布尔值转换为 Visibility 的转换器
+    /// </summary>
+    public class BoolToVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool boolValue)
+            {
+                return boolValue ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            }
+            return System.Windows.Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is System.Windows.Visibility visibility)
+            {
+                return visibility == System.Windows.Visibility.Visible;
+            }
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// 将消息类型转换为颜色的转换器
+    /// </summary>
+    public class MessageTypeToColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is VistaControls.MessageType messageType)
+            {
+                return messageType switch
+                {
+                    VistaControls.MessageType.Success => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#67C23A")),
+                    VistaControls.MessageType.Warning => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E6A23C")),
+                    VistaControls.MessageType.Info => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#909399")),
+                    VistaControls.MessageType.Error => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F56C6C")),
+                    _ => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#909399"))
+                };
+            }
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#909399"));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 将布尔值转换为 HorizontalAlignment 的转换器
+    /// </summary>
+    public class BoolToHorizontalAlignmentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is bool boolValue && boolValue)
+            {
+                return HorizontalAlignment.Center;
+            }
+            return HorizontalAlignment.Left;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 字数统计转换器
+    /// </summary>
+    public class WordLimitConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length >= 2 && values[0] is string text && values[1] is int maxLength)
+            {
+                int currentLength = text?.Length ?? 0;
+                return $"{currentLength} / {maxLength}";
+            }
+            return string.Empty;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 字符串到占位符可见性转换器（空字符串时显示占位符）
+    /// </summary>
+    public class StringToPlaceholderVisibilityConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string text && string.IsNullOrEmpty(text))
+            {
+                return System.Windows.Visibility.Visible;
+            }
+            return System.Windows.Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
+

@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VistaControls", "VistaControls\VistaControls.csproj", "{4534C20D-D2A1-48F2-B4A1-735CABB05510}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VistaControls.Demo", "VistaControls.Demo\VistaControls.Demo.csproj", "{AECAFDC7-973A-4E89-AF5E-F38D3DD3B358}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4534C20D-D2A1-48F2-B4A1-735CABB05510}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4534C20D-D2A1-48F2-B4A1-735CABB05510}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4534C20D-D2A1-48F2-B4A1-735CABB05510}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4534C20D-D2A1-48F2-B4A1-735CABB05510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AECAFDC7-973A-4E89-AF5E-F38D3DD3B358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AECAFDC7-973A-4E89-AF5E-F38D3DD3B358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AECAFDC7-973A-4E89-AF5E-F38D3DD3B358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AECAFDC7-973A-4E89-AF5E-F38D3DD3B358}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
