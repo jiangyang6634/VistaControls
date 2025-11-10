@@ -970,6 +970,154 @@
         </Style.Triggers>
     </Style>
     
+    <!-- VistaOption 样式 -->
+    <Style TargetType="{x:Type local:VistaOption}">
+        <Setter Property="Padding" Value="10,6"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaOption}">
+                    <Border x:Name="root" Background="Transparent" Padding="{TemplateBinding Padding}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="labelText" Text="{TemplateBinding Label}" Foreground="{StaticResource DefaultTextColor}" VerticalAlignment="Center"/>
+                            <Path x:Name="check" Grid.Column="1" Width="12" Height="12" Margin="8,0,0,0"
+                                  Data="M2 6 L5 9 L10 2" Stroke="{StaticResource PrimaryColor}" StrokeThickness="2" Visibility="Collapsed"/>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="root" Property="Background" Value="#F5F7FA"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.6"/>
+                        </Trigger>
+                        <!-- 自定义禁用状态（IsOptionDisabled） -->
+                        <Trigger Property="local:VistaOption.IsOptionDisabled" Value="True">
+                            <Setter TargetName="labelText" Property="Foreground" Value="{StaticResource DisabledTextColor}"/>
+                            <Setter TargetName="root" Property="Background" Value="#FAFAFA"/>
+                            <Setter Property="Opacity" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- VistaOptionGroup 样式 -->
+    <Style TargetType="{x:Type local:VistaOptionGroup}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaOptionGroup}">
+                    <StackPanel>
+                        <TextBlock Text="{TemplateBinding Label}" Foreground="#909399" Margin="10,6,10,4"/>
+                        <ItemsPresenter/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- VistaSelect 样式 -->
+    <Style TargetType="{x:Type local:VistaSelect}">
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaSelect}">
+                    <Grid>
+                        <Border x:Name="PART_Display"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <Grid x:Name="contentGrid" Margin="{TemplateBinding Padding}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- 占位符 / 已选内容 -->
+                                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                    <!-- 多选标签（不折叠） -->
+                                    <ItemsControl x:Name="tagList" Visibility="Collapsed">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#F0F2F5" BorderBrush="#E4E7ED" BorderThickness="1" CornerRadius="3" Padding="6,2" Margin="0,0,6,0">
+                                                    <TextBlock Text="{Binding}" Foreground="{StaticResource DefaultTextColor}"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <!-- 折叠文本 -->
+                                    <TextBlock x:Name="collapsedText" Visibility="Collapsed" Foreground="{StaticResource DefaultTextColor}" VerticalAlignment="Center"/>
+
+                                    <!-- 单选文本 -->
+                                    <TextBlock x:Name="singleText" Visibility="Collapsed" Foreground="{StaticResource DefaultTextColor}" VerticalAlignment="Center"/>
+
+                                    <!-- 占位符 -->
+                                    <TextBlock x:Name="placeholder" Text="{TemplateBinding Placeholder}" Foreground="#C0C4CC" VerticalAlignment="Center"/>
+                                </StackPanel>
+
+                                <!-- 清空按钮 -->
+                                <Button x:Name="PART_Clear" Grid.Column="1" Width="18" Height="18" Margin="6,0,0,0" Padding="0" BorderThickness="0"
+                                        Background="Transparent" Cursor="Hand" Visibility="Collapsed">
+                                    <Path Width="12" Height="12" Data="M2 2 L10 10 M10 2 L2 10" Stroke="#C0C4CC" StrokeThickness="2"/>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="Transparent">
+                                                <ContentPresenter/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <!-- 箭头 -->
+                                <Path Grid.Column="2" Width="10" Height="10" Margin="8,0,6,0" Stretch="Uniform"
+                                      Data="M0 0 L5 5 L10 0" Stroke="#909399" StrokeThickness="2" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- 下拉 Popup -->
+                        <Popup x:Name="PART_Popup" Placement="Bottom" StaysOpen="True" AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=PART_Display}">
+                            <Border Background="White" BorderBrush="{StaticResource DefaultBorderColor}" BorderThickness="1" CornerRadius="4" Padding="4" SnapsToDevicePixels="True">
+                                <ScrollViewer Height="240" VerticalScrollBarVisibility="Auto">
+                                    <!-- 直接呈现 Items -->
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Display" Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.6"/>
+                        </Trigger>
+                        <!-- 自定义禁用状态（IsSelectDisabled） -->
+                        <Trigger Property="local:VistaSelect.IsSelectDisabled" Value="True">
+                            <Setter TargetName="PART_Display" Property="BorderBrush" Value="{StaticResource DisabledBorderColor}"/>
+                            <Setter Property="Opacity" Value="0.6"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!-- VistaInputNumber 样式 -->
     <Style TargetType="{x:Type local:VistaInputNumber}">
         <Setter Property="Padding" Value="2,6"/>
