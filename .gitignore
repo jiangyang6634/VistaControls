@@ -1,0 +1,29 @@
+# Build artifacts
+**/bin/
+**/obj/
+**/.vs/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# Rider / ReSharper
+.idea/
+*.sln.iml
+
+# NuGet
+packages/
+*.nupkg
+
+# Logs
+*.log
+
+# Temporary build projects
+*_wpftmp.csproj
+*_wpftmp/
+
+# OS
+.DS_Store
+Thumbs.db
+

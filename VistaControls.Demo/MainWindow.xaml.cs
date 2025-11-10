@@ -20,6 +20,17 @@ namespace VistaControls.Demo
     /// </summary>
     public partial class MainWindow : Window
     {
+        private VistaControls.CascaderOption BuildNode(string label, object value, bool disabled = false, params VistaControls.CascaderOption[] children)
+        {
+            return new VistaControls.CascaderOption
+            {
+                Label = label,
+                Value = value,
+                Disabled = disabled,
+                Children = new System.Collections.ObjectModel.ObservableCollection<VistaControls.CascaderOption>(children ?? System.Array.Empty<VistaControls.CascaderOption>())
+            };
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,6 +41,46 @@ namespace VistaControls.Demo
         {
             // 初始化 MessageManager
             VistaControls.MessageManager.Initialize(messageContainer, 20);
+
+            // 初始化 Cascader 数据
+            var options = new System.Collections.ObjectModel.ObservableCollection<VistaControls.CascaderOption>
+            {
+                BuildNode("指南", "zhinan", false,
+                    BuildNode("设计原则", "shejiyuanze", false,
+                        BuildNode("一致", "yizhi"),
+                        BuildNode("反馈", "fankui"),
+                        BuildNode("效率", "xiaolv"),
+                        BuildNode("可控", "kekong")),
+                    BuildNode("导航", "daohang", false,
+                        BuildNode("侧向导航", "cexiangdaohang"),
+                        BuildNode("顶部导航", "dingbudaohang"))
+                ),
+                BuildNode("组件", "zujian", false,
+                    BuildNode("Basic", "basic", false,
+                        BuildNode("Layout 布局", "layout"),
+                        BuildNode("Color 色彩", "color"),
+                        BuildNode("Typography 字体", "typography"),
+                        BuildNode("Icon 图标", "icon"),
+                        BuildNode("Button 按钮", "button")),
+                    BuildNode("Form", "form", false,
+                        BuildNode("Radio 单选框", "radio"),
+                        BuildNode("Checkbox 多选框", "checkbox"),
+                        BuildNode("Input 输入框", "input"),
+                        BuildNode("InputNumber 计数器", "input-number"),
+                        BuildNode("Select 选择器", "select"),
+                        BuildNode("Cascader 级联选择器", "cascader"))),
+                BuildNode("资源", "ziyuan", false,
+                    BuildNode("Axure Components", "axure"),
+                    BuildNode("Sketch Templates", "sketch"),
+                    BuildNode("组件交互文档", "jiaohu"))
+            };
+
+            if (cascaderClick != null)     cascaderClick.Options = options;
+            if (cascaderHover != null)     cascaderHover.Options = options;
+            if (cascaderClearable != null) cascaderClearable.Options = options;
+            if (cascaderLast != null)      cascaderLast.Options = options;
+            if (cascaderMulti != null)     cascaderMulti.Options = options;
+            if (cascaderMultiCollapse != null) cascaderMultiCollapse.Options = options;
             
             // 初始化 checkboxGroup1 的选中值
             if (checkboxGroup1 != null)

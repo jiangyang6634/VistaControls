@@ -579,6 +579,39 @@
                     </vista:VistaOptionGroup>
                 </vista:VistaSelect>
 
+                 <!-- VistaCascader 演示 -->
+                 <TextBlock Text="VistaCascader 级联选择器"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Margin="0,40,0,30" />
+
+                 <!-- 基础用法（Click 展开） -->
+                 <TextBlock Text="基础用法 - Click 展开" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <vista:VistaCascader x:Name="cascaderClick" Width="360" Placeholder="请选择" Margin="0,0,0,20"/>
+
+                 <!-- Hover 展开 -->
+                 <TextBlock Text="Hover 展开" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <vista:VistaCascader x:Name="cascaderHover" Width="360" Placeholder="请选择"
+                                      ExpandTrigger="Hover" Margin="0,0,0,20"/>
+
+                 <!-- 清空 -->
+                 <TextBlock Text="可清空" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <vista:VistaCascader x:Name="cascaderClearable" Width="360" Placeholder="请选择"
+                                      Clearable="True" Margin="0,0,0,20"/>
+
+                 <!-- 仅显示最后一级 -->
+                 <TextBlock Text="仅显示最后一级" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <vista:VistaCascader x:Name="cascaderLast" Width="360" Placeholder="请选择"
+                                      ShowAllLevels="False" Margin="0,0,0,20"/>
+
+                 <!-- 多选与折叠 -->
+                 <TextBlock Text="多选/折叠" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaCascader x:Name="cascaderMulti" Width="360" Placeholder="请选择"
+                                          Multiple="True" Clearable="True"/>
+                     <vista:VistaCascader x:Name="cascaderMultiCollapse" Width="360" Placeholder="请选择"
+                                          Multiple="True" CollapseTags="True" Clearable="True" Margin="20,0,0,0"/>
+                 </StackPanel>
 
             </StackPanel>
         </ScrollViewer>
