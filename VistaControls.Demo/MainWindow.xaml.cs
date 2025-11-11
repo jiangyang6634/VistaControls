@@ -42,6 +42,19 @@ namespace VistaControls.Demo
             // 初始化 MessageManager
             VistaControls.MessageManager.Initialize(messageContainer, 20);
 
+            // 初始化 Switch 事件
+            if (switchValue != null)
+            {
+                switchValue.Change += SwitchValue_Change;
+                switchValue.Value = 0; // 初始值
+            }
+
+            // 初始化 Slider 格式化 tooltip
+            if (slider4 != null)
+            {
+                slider4.FormatTooltip = val => (val / 100).ToString("F2");
+            }
+
             // 初始化 Cascader 数据
             var options = new System.Collections.ObjectModel.ObservableCollection<VistaControls.CascaderOption>
             {
@@ -222,6 +235,23 @@ namespace VistaControls.Demo
                     checkAll.IsChecked = null; // Indeterminate
                     checkAll.IsIndeterminate = true;
                 }
+            }
+        }
+
+        private void SwitchValue_Change(object? sender, object newValue)
+        {
+            if (switchValueText != null)
+            {
+                switchValueText.Text = $"Switch value: {newValue}";
+            }
+        }
+
+        private void Slider4_FormatTooltip(double value)
+        {
+            // 格式化 tooltip：显示为百分比
+            if (slider4 != null)
+            {
+                slider4.FormatTooltip = val => (val / 100).ToString("F2");
             }
         }
     }

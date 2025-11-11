@@ -613,6 +613,86 @@
                                           Multiple="True" CollapseTags="True" Clearable="True" Margin="20,0,0,0"/>
                  </StackPanel>
 
+                 <!-- VistaSwitch 演示 -->
+                 <TextBlock Text="VistaSwitch 开关"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Margin="0,40,0,30" />
+
+                 <!-- 基础用法 -->
+                 <TextBlock Text="基础用法" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaSwitch x:Name="switchBasic" Width="40" Margin="0,0,20,0"/>
+                     <vista:VistaSwitch x:Name="switchColor1" Width="40" 
+                                        ActiveColor="#13ce66" InactiveColor="#ff4949" Margin="0,0,20,0"/>
+                 </StackPanel>
+
+                 <!-- 文字描述 -->
+                 <TextBlock Text="文字描述" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+                     <vista:VistaSwitch x:Name="switchText1" Width="60"
+                                       ActiveText="按月付费" InactiveText="按年付费" Margin="0,0,0,15"/>
+                     <vista:VistaSwitch x:Name="switchText2" Width="60"
+                                       ActiveColor="#13ce66" InactiveColor="#ff4949"
+                                       ActiveText="按月付费" InactiveText="按年付费"/>
+                 </StackPanel>
+
+                 <!-- 扩展的 value 类型 -->
+                 <TextBlock Text="扩展的 value 类型" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaSwitch x:Name="switchValue" Width="40"
+                                       ActiveValue="100" InactiveValue="0"
+                                       ActiveColor="#13ce66" InactiveColor="#ff4949"/>
+                     <TextBlock x:Name="switchValueText" Text="Switch value: 0" 
+                               Margin="20,0,0,0" VerticalAlignment="Center"/>
+                 </StackPanel>
+
+                 <!-- 禁用状态 -->
+                 <TextBlock Text="禁用状态" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaSwitch x:Name="switchDisabled1" Width="40" IsEnabled="False" IsChecked="True" Margin="0,0,20,0"/>
+                     <vista:VistaSwitch x:Name="switchDisabled2" Width="40" IsEnabled="False" IsChecked="False"/>
+                 </StackPanel>
+
+                 <!-- VistaSlider 演示 -->
+                 <TextBlock Text="VistaSlider 滑块"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Margin="0,40,0,30" />
+
+                 <!-- 基础用法 -->
+                 <TextBlock Text="基础用法" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+                     <TextBlock Text="默认" Margin="0,0,0,10"/>
+                     <vista:VistaSlider x:Name="slider1" Width="400" Margin="0,0,0,15"/>
+                     
+                     <TextBlock Text="自定义初始值" Margin="0,0,0,10"/>
+                     <vista:VistaSlider x:Name="slider2" Width="400" Value="50" Margin="0,0,0,15"/>
+                     
+                     <TextBlock Text="隐藏 Tooltip" Margin="0,0,0,10"/>
+                     <vista:VistaSlider x:Name="slider3" Width="400" Value="36" ShowTooltip="False" Margin="0,0,0,15"/>
+                     
+                     <TextBlock Text="格式化 Tooltip" Margin="0,0,0,10"/>
+                     <vista:VistaSlider x:Name="slider4" Width="400" Value="48" Margin="0,0,0,15"/>
+                     
+                     <TextBlock Text="禁用" Margin="0,0,0,10"/>
+                     <vista:VistaSlider x:Name="slider5" Width="400" Value="42" IsEnabled="False"/>
+                 </StackPanel>
+
+                 <!-- 离散值 -->
+                 <TextBlock Text="离散值" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+                     <TextBlock Text="不显示间断点" Margin="0,0,0,10"/>
+                     <vista:VistaSlider x:Name="slider6" Width="400" TickFrequency="10" Margin="0,0,0,15"/>
+                     
+                     <TextBlock Text="显示间断点" Margin="0,0,0,10"/>
+                     <vista:VistaSlider x:Name="slider7" Width="400" TickFrequency="10" ShowStops="True"/>
+                 </StackPanel>
+
+                 <!-- 带有输入框 -->
+                 <TextBlock Text="带有输入框" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <vista:VistaSlider x:Name="slider8" Width="400" Value="13" ShowInput="True" Margin="0,0,0,20"/>
+
             </StackPanel>
         </ScrollViewer>
 

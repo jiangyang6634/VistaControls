@@ -171,6 +171,51 @@ dotnet run
   - `Controls` 控制按钮与 `ControlsPosition="right"` 右侧按钮布局
   - 文本水平居中显示
 - **详细说明**: 参见 [使用文档](USAGE.md)
+
+### VistaSelect / VistaOption / VistaOptionGroup
+- **状态**: ✅ 已完成
+- **描述**: 下拉选择器，支持单选、多选、清空、禁用选项、分组与折叠标签
+- **功能特性**:
+  - 单选（`SelectedValue`）与多选（`SelectedValues`）
+  - `Clearable` 清空、`IsSelectDisabled` 禁用、`IsOptionDisabled` 选项禁用
+  - `Multiple` 多选、`CollapseTags` 折叠显示已选项
+  - `OptionGroup` 分组显示
+- **详细说明**: 参见 [使用文档](USAGE.md)
+
+### VistaCascader
+- **状态**: ✅ 已完成
+- **描述**: 级联选择器，支持 click/hover 展开、单选/多选、清空与仅显示末级
+- **功能特性**:
+  - `Options` 多级树状数据
+  - `ExpandTrigger`: Click 或 Hover
+  - `Multiple` 多选、`CollapseTags` 折叠显示
+  - `Clearable` 清空、`ShowAllLevels` 控制显示路径或仅末级
+- **详细说明**: 参见 [使用文档](USAGE.md)
+
+### VistaSwitch
+- **状态**: ✅ 已完成
+- **描述**: 开关控件，表示两种相互对立的状态间的切换
+- **功能特性**:
+  - 支持 `Value` 绑定（boolean / string / number）
+  - `ActiveValue`/`InactiveValue` 自定义值
+  - `ActiveColor`/`InactiveColor` 自定义颜色
+  - `ActiveText`/`InactiveText` 文字描述（显示在开关左右两侧）
+  - 文字颜色根据开关状态切换（开启蓝色，关闭灰色）
+  - 支持禁用状态
+- **详细说明**: 参见 [使用文档](USAGE.md)
+
+### VistaSlider
+- **状态**: ✅ 已完成
+- **描述**: 滑块控件，通过拖动滑块在一个固定区间内进行选择
+- **功能特性**:
+  - 进度条效果（灰色背景，蓝色进度）
+  - `ShowTooltip` 显示/隐藏提示框，`FormatTooltip` 自定义格式化
+  - `ShowStops` 显示间断点（白色圆点）
+  - `ShowInput` 显示输入框，`ShowInputControls` 控制按钮显示
+  - `TickFrequency` 步长控制
+  - 支持禁用状态
+- **详细说明**: 参见 [使用文档](USAGE.md)
+
 ### CustomControl1
 - **状态**: 示例控件（待完善）
 - **描述**: 基础自定义控件模板
@@ -212,6 +257,17 @@ dotnet run
 - ✅ 实现 VistaCheckbox 控件及 CheckboxGroup 组容器
 - ✅ 支持单项、多选组、禁用、带边框、尺寸、`Min/Max` 限制与 `indeterminate` 样式
 - ✅ 实现 VistaInput 控件，支持占位符、可清空、密码显示切换、字数统计、尺寸
+- ✅ 在 Demo 中添加完整示例
+
+### 2025-01 - VistaInputNumber / VistaSelect / VistaCascader
+- ✅ 实现 VistaInputNumber（数值计数器），支持范围、步长、精度、严格步长、尺寸、按钮位置
+- ✅ 实现 VistaSelect/Option/OptionGroup，支持单/多选、清空、禁用、分组、折叠标签
+- ✅ 实现 VistaCascader（级联选择器），支持 Click/Hover 展开、单/多选、清空、仅显示末级
+- ✅ 在 Demo 中添加完整用例
+
+### 2025-01 - VistaSwitch / VistaSlider
+- ✅ 实现 VistaSwitch（开关控件），支持自定义值/颜色/文字、禁用状态
+- ✅ 实现 VistaSlider（滑块控件），支持进度条效果、Tooltip、间断点、输入框
 - ✅ 在 Demo 中添加完整示例
 
 ### 2024-12 - VistaButton 控件

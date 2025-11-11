@@ -14,6 +14,8 @@
     <converters:BoolToHorizontalAlignmentConverter x:Key="BoolToHorizontalAlignmentConverter"/>
     <converters:WordLimitConverter x:Key="WordLimitConverter"/>
     <converters:StringToPlaceholderVisibilityConverter x:Key="StringToPlaceholderVisibilityConverter"/>
+    <converters:SliderProgressConverter x:Key="SliderProgressConverter"/>
+    <converters:SliderStopPositionConverter x:Key="SliderStopPositionConverter"/>
     
     <!-- 阴影效果 -->
     <DropShadowEffect x:Key="MessageShadow" 
@@ -1368,6 +1370,344 @@
                 <Setter Property="FontSize" Value="12"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!-- VistaSwitch 样式 -->
+    <Style TargetType="{x:Type local:VistaSwitch}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaSwitch}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <!-- 关闭状态文字（左侧） -->
+                        <TextBlock x:Name="inactiveText"
+                                   Grid.Column="0"
+                                   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveText}"
+                                   Foreground="#909399"
+                                   FontSize="14"
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,10,0"
+                                   Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveText, Converter={StaticResource StringToVisibilityConverter}}"/>
+                        
+                        <!-- Switch 主体 -->
+                        <Border x:Name="switchTrack"
+                                Grid.Column="1"
+                                Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Width}"
+                                Height="20"
+                                CornerRadius="10"
+                                Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveColor}"
+                                VerticalAlignment="Center">
+                            <Grid>
+                                <!-- 滑块 -->
+                                <Border x:Name="switchThumb"
+                                        Width="16"
+                                        Height="16"
+                                        CornerRadius="8"
+                                        Background="White"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        Margin="2,0">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="#000000" BlurRadius="4" ShadowDepth="0" Opacity="0.2"/>
+                                    </Border.Effect>
+                                    <Border.RenderTransform>
+                                        <TranslateTransform x:Name="thumbTransform"/>
+                                    </Border.RenderTransform>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        
+                        <!-- 打开状态文字（右侧） -->
+                        <TextBlock x:Name="activeText"
+                                   Grid.Column="2"
+                                   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActiveText}"
+                                   Foreground="#909399"
+                                   FontSize="14"
+                                   VerticalAlignment="Center"
+                                   Margin="10,0,0,0"
+                                   Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActiveText, Converter={StaticResource StringToVisibilityConverter}}"/>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- 打开状态 -->
+                        <Trigger Property="IsChecked" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="thumbTransform"
+                                                        Storyboard.TargetProperty="X"
+                                                        To="20"
+                                                        Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="thumbTransform"
+                                                        Storyboard.TargetProperty="X"
+                                                        To="0"
+                                                        Duration="0:0:0.2">
+                                            <DoubleAnimation.EasingFunction>
+                                                <CubicEase EasingMode="EaseOut"/>
+                                            </DoubleAnimation.EasingFunction>
+                                        </DoubleAnimation>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                            <Setter TargetName="switchTrack" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ActiveColor}"/>
+                            <Setter TargetName="inactiveText" Property="Foreground" Value="#909399"/>
+                            <Setter TargetName="activeText" Property="Foreground" Value="#409EFF"/>
+                        </Trigger>
+                        
+                        <!-- 关闭状态 -->
+                        <Trigger Property="IsChecked" Value="False">
+                            <Setter TargetName="switchTrack" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InactiveColor}"/>
+                            <Setter TargetName="inactiveText" Property="Foreground" Value="#409EFF"/>
+                            <Setter TargetName="activeText" Property="Foreground" Value="#909399"/>
+                        </Trigger>
+                        
+                        <!-- 禁用状态 -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.6"/>
+                            <Setter Property="Cursor" Value="Arrow"/>
+                        </Trigger>
+                        
+                        <!-- 悬停效果 -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="switchThumb"
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                        To="1.1"
+                                                        Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="switchThumb"
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        To="1.1"
+                                                        Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="switchThumb"
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                        To="1.0"
+                                                        Duration="0:0:0.1"/>
+                                        <DoubleAnimation Storyboard.TargetName="switchThumb"
+                                                        Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                        To="1.0"
+                                                        Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Slider 按钮样式 -->
+    <Style x:Key="SliderButtonStyle" TargetType="RepeatButton">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RepeatButton">
+                    <Border Background="Transparent" 
+                            Height="{TemplateBinding Height}" 
+                            Width="{TemplateBinding Width}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Slider 滑块样式 -->
+    <Style x:Key="SliderThumbStyle" TargetType="Thumb">
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="OverridesDefaultStyle" Value="True"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Thumb">
+                    <Border Background="#409EFF" 
+                            BorderBrush="#409EFF" 
+                            BorderThickness="0"
+                            CornerRadius="10"
+                            Width="20" Height="20">
+                        <Border.Effect>
+                            <DropShadowEffect Color="#000000" BlurRadius="4" ShadowDepth="0" Opacity="0.2"/>
+                        </Border.Effect>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- VistaSlider 样式 -->
+    <Style TargetType="{x:Type local:VistaSlider}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaSlider}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        
+                        <!-- 主滑块区域 -->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- Slider 轨道和滑块 -->
+                            <Grid Grid.Column="0" Margin="0,0,10,0" Height="24" VerticalAlignment="Center">
+                                <!-- 轨道背景（灰色） -->
+                                <Border x:Name="trackBackground"
+                                        Background="#E4E7ED"
+                                        Height="6"
+                                        CornerRadius="3"
+                                        VerticalAlignment="Center"/>
+                                
+                                <!-- 进度条（蓝色，已拖过的部分） -->
+                                <Border x:Name="progressBar"
+                                        Background="#409EFF"
+                                        Height="6"
+                                        CornerRadius="3"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left">
+                                    <Border.Width>
+                                        <MultiBinding Converter="{StaticResource SliderProgressConverter}">
+                                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Value"/>
+                                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Minimum"/>
+                                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Maximum"/>
+                                            <Binding ElementName="trackBackground" Path="ActualWidth"/>
+                                        </MultiBinding>
+                                    </Border.Width>
+                                </Border>
+                                
+                                <!-- Track 控件（用于交互） -->
+                                <Track x:Name="PART_Track" 
+                                       Focusable="False"
+                                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Style="{StaticResource SliderButtonStyle}" 
+                                                     Command="Slider.DecreaseLarge" />
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb Style="{StaticResource SliderThumbStyle}"/>
+                                    </Track.Thumb>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Style="{StaticResource SliderButtonStyle}" 
+                                                     Command="Slider.IncreaseLarge" />
+                                    </Track.IncreaseRepeatButton>
+                                </Track>
+                                
+                                <!-- 间断点（白色） -->
+                                <ItemsControl x:Name="PART_Stops" 
+                                              Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowStops, Converter={StaticResource BoolToVisibilityConverter}}"
+                                              IsHitTestVisible="False">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Canvas/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemContainerStyle>
+                                        <Style TargetType="ContentPresenter">
+                                            <Setter Property="Canvas.Left">
+                                                <Setter.Value>
+                                                    <MultiBinding Converter="{StaticResource SliderStopPositionConverter}">
+                                                        <Binding Path="Value"/>
+                                                        <Binding RelativeSource="{RelativeSource AncestorType=local:VistaSlider}" Path="Minimum"/>
+                                                        <Binding RelativeSource="{RelativeSource AncestorType=local:VistaSlider}" Path="Maximum"/>
+                                                        <Binding ElementName="trackBackground" Path="ActualWidth"/>
+                                                    </MultiBinding>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter Property="Canvas.Top" Value="0"/>
+                                        </Style>
+                                    </ItemsControl.ItemContainerStyle>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Ellipse Width="6" Height="6" Fill="White" VerticalAlignment="Center" Margin="-3,0"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                
+                                <!-- Tooltip -->
+                                <Popup x:Name="PART_TooltipPopup" 
+                                       Placement="Top" 
+                                       AllowsTransparency="True"
+                                       IsOpen="False"
+                                       Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowTooltip, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Border Background="#303133" 
+                                            CornerRadius="4" 
+                                            Padding="8,4"
+                                            Margin="0,0,0,8">
+                                        <TextBlock x:Name="PART_TooltipText" 
+                                                   Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Value, StringFormat='{}{0:F0}'}"
+                                                   Foreground="White"
+                                                   FontSize="12"/>
+                                    </Border>
+                                </Popup>
+                                
+                                <!-- 标记 -->
+                                <ItemsControl x:Name="PART_Marks" 
+                                              Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Marks, Converter={StaticResource NullToVisibilityConverter}}"
+                                              IsHitTestVisible="False">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Canvas/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                            </Grid>
+                            
+                            <!-- 输入框 -->
+                            <local:VistaInputNumber x:Name="PART_InputNumber"
+                                                    Grid.Column="1"
+                                                    Width="130"
+                                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowInput, Converter={StaticResource BoolToVisibilityConverter}}"
+                                                    Controls="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowInputControls}"
+                                                    NumberSize="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=InputSize}"/>
+                        </Grid>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.6"/>
+                        </Trigger>
+                        
+                        <Trigger Property="Orientation" Value="Vertical">
+                            <Setter Property="LayoutTransform">
+                                <Setter.Value>
+                                    <RotateTransform Angle="90"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

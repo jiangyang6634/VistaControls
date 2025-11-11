@@ -241,5 +241,59 @@ namespace VistaControls.Converters
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// Slider 进度条宽度转换器
+    /// </summary>
+    public class SliderProgressConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length >= 4 && 
+                values[0] is double value && 
+                values[1] is double min && 
+                values[2] is double max && 
+                values[3] is double trackWidth)
+            {
+                if (max == min) return 0.0;
+                
+                double percentage = (value - min) / (max - min);
+                return Math.Max(0, Math.Min(trackWidth, trackWidth * percentage));
+            }
+            return 0.0;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// Slider 间断点位置转换器
+    /// </summary>
+    public class SliderStopPositionConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length >= 4 && 
+                values[0] is double stopValue && 
+                values[1] is double min && 
+                values[2] is double max && 
+                values[3] is double trackWidth)
+            {
+                if (max == min) return 0.0;
+                
+                double percentage = (stopValue - min) / (max - min);
+                return Math.Max(0, Math.Min(trackWidth, trackWidth * percentage));
+            }
+            return 0.0;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 

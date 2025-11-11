@@ -748,6 +748,299 @@ var selected = myRadioGroup.SelectedValue;
 | Blur() | 使输入框失去焦点（通过清除键盘焦点实现） |
 | SelectAll() | 选中输入框中全部文字 |
 
+### VistaSelect / VistaOption / VistaOptionGroup
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaSelect` (继承自 `ItemsControl`)，子项使用 `VistaOption` 或分组 `VistaOptionGroup`
+
+**状态**: ✅ 已完成
+
+#### 基本用法（单选）
+
+```xml
+<vista:VistaSelect Placeholder="请选择">
+  <vista:VistaOption Label="黄金糕" Value="选项1"/>
+  <vista:VistaOption Label="双皮奶" Value="选项2"/>
+</vista:VistaSelect>
+```
+
+#### 禁用选项与禁用状态
+```xml
+<vista:VistaSelect Placeholder="请选择" IsSelectDisabled="True">
+  <vista:VistaOption Label="黄金糕" Value="选项1"/>
+</vista:VistaSelect>
+
+<vista:VistaSelect Placeholder="请选择">
+  <vista:VistaOption Label="双皮奶" Value="选项2" IsOptionDisabled="True"/>
+</vista:VistaSelect>
+```
+
+#### 可清空单选
+```xml
+<vista:VistaSelect Placeholder="请选择" Clearable="True">
+  <vista:VistaOption Label="黄金糕" Value="选项1"/>
+  <vista:VistaOption Label="双皮奶" Value="选项2"/>
+</vista:VistaSelect>
+```
+
+#### 多选与折叠标签
+```xml
+<vista:VistaSelect Placeholder="请选择" Multiple="True">
+  <vista:VistaOption Label="黄金糕" Value="选项1"/>
+  <vista:VistaOption Label="双皮奶" Value="选项2"/>
+</vista:VistaSelect>
+
+<vista:VistaSelect Placeholder="请选择" Multiple="True" CollapseTags="True"/>
+```
+
+#### 分组
+```xml
+<vista:VistaSelect Placeholder="请选择">
+  <vista:VistaOptionGroup Label="热门城市">
+    <vista:VistaOption Label="上海" Value="Shanghai"/>
+    <vista:VistaOption Label="北京" Value="Beijing"/>
+  </vista:VistaOptionGroup>
+</vista:VistaSelect>
+```
+
+#### 属性说明（VistaSelect）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Placeholder | string | "请选择" | 占位文本 |
+| IsSelectDisabled | bool | false | 禁用选择器 |
+| Clearable | bool | false | 是否可清空 |
+| Multiple | bool | false | 是否多选 |
+| CollapseTags | bool | false | 多选是否折叠为计数 |
+| SelectedValue | object | null | 单选值（双向绑定） |
+| SelectedValues | IList | null | 多选值集合（双向绑定） |
+
+#### 属性说明（VistaOption）
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Label | string | "" | 显示文本 |
+| Value | object | null | 选项值 |
+| IsOptionDisabled | bool | false | 是否禁用该选项 |
+
+#### 事件说明（VistaSelect）
+| 事件 | 说明 | 参数 |
+|------|------|------|
+| Change | 值变化 | 单选：object?；多选：IList |
+
+### VistaCascader
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaCascader` (继承自 `Control`)，数据模型 `CascaderOption`
+
+**状态**: ✅ 已完成
+
+#### 基本用法（click 展开）
+```xml
+<vista:VistaCascader Width="360" Placeholder="请选择"
+                     Options="{Binding CascaderOptions}" />
+```
+
+#### hover 展开
+```xml
+<vista:VistaCascader Width="360" Placeholder="请选择"
+                     Options="{Binding CascaderOptions}"
+                     ExpandTrigger="Hover"/>
+```
+
+#### 可清空、仅显示最后一级
+```xml
+<vista:VistaCascader Options="{Binding CascaderOptions}" Clearable="True"/>
+<vista:VistaCascader Options="{Binding CascaderOptions}" ShowAllLevels="False"/>
+```
+
+#### 多选与折叠标签
+```xml
+<vista:VistaCascader Options="{Binding CascaderOptions}" Multiple="True" Clearable="True"/>
+<vista:VistaCascader Options="{Binding CascaderOptions}" Multiple="True" CollapseTags="True" Clearable="True"/>
+```
+
+#### CascaderOption 模型
+```csharp
+public class CascaderOption
+{
+    public string Label { get; set; }
+    public object? Value { get; set; }
+    public bool Disabled { get; set; }
+    public ObservableCollection<CascaderOption> Children { get; set; }
+}
+```
+
+#### 属性说明（VistaCascader）
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Options | ObservableCollection<CascaderOption> | [] | 级联数据源 |
+| ExpandTrigger | ExpandTrigger | Click | 展开触发方式：Click / Hover |
+| Clearable | bool | false | 是否可清空 |
+| ShowAllLevels | bool | true | 单选显示完整路径；false 显示末级 |
+| Multiple | bool | false | 是否多选 |
+| CollapseTags | bool | false | 多选折叠为计数 |
+| SelectedPath | ObservableCollection<object> | [] | 单选路径（双向绑定） |
+| SelectedPaths | ObservableCollection<IList> | [] | 多选路径集合（双向绑定） |
+
+#### 事件说明（VistaCascader）
+| 事件 | 说明 | 参数 |
+|------|------|------|
+| Change | 选择变化 | 单选：IList（当前路径）；多选：IEnumerable<IList>（全部路径） |
+
+### VistaSwitch
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaSwitch` (继承自 `ToggleButton`)
+
+**状态**: ✅ 已完成
+
+#### 基本用法
+```xml
+<vista:VistaSwitch Width="40"/>
+```
+
+#### 自定义颜色
+```xml
+<vista:VistaSwitch Width="40" 
+                   ActiveColor="#13ce66" 
+                   InactiveColor="#ff4949"/>
+```
+
+#### 文字描述
+```xml
+<vista:VistaSwitch Width="60"
+                   ActiveText="按月付费" 
+                   InactiveText="按年付费"/>
+```
+
+文字描述会显示在开关的左右两侧，根据开关状态改变颜色：
+- 关闭状态：左侧文字（InactiveText）蓝色，右侧文字（ActiveText）灰色
+- 打开状态：左侧文字（InactiveText）灰色，右侧文字（ActiveText）蓝色
+
+#### 扩展的 value 类型
+```xml
+<vista:VistaSwitch Width="40"
+                   ActiveValue="100" 
+                   InactiveValue="0"
+                   ActiveColor="#13ce66" 
+                   InactiveColor="#ff4949"/>
+```
+
+#### 禁用状态
+```xml
+<vista:VistaSwitch Width="40" IsEnabled="False" IsChecked="True"/>
+<vista:VistaSwitch Width="40" IsEnabled="False" IsChecked="False"/>
+```
+
+#### 属性说明（VistaSwitch）
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Value | object | false | 绑定值（boolean / string / number） |
+| Width | double | 40 | Switch 的宽度（像素） |
+| ActiveIconClass | string | "" | Switch 打开时所显示图标的类名 |
+| InactiveIconClass | string | "" | Switch 关闭时所显示图标的类名 |
+| ActiveText | string | "" | Switch 打开时的文字描述 |
+| InactiveText | string | "" | Switch 关闭时的文字描述 |
+| ActiveValue | object | true | Switch 打开时的值 |
+| InactiveValue | object | false | Switch 关闭时的值 |
+| ActiveColor | Brush | #409EFF | Switch 打开时的背景色 |
+| InactiveColor | Brush | #C0CCDA | Switch 关闭时的背景色 |
+| SwitchName | string | "" | Switch 对应的 name 属性 |
+| ValidateEvent | bool | true | 改变 switch 状态时是否触发表单的校验 |
+| IsEnabled | bool | true | 是否禁用（继承自 ToggleButton） |
+
+#### 事件说明（VistaSwitch）
+| 事件 | 说明 | 参数 |
+|------|------|------|
+| Change | Switch 状态发生变化时的回调函数 | 新状态的值（object） |
+
+#### 方法说明（VistaSwitch）
+| 方法 | 说明 | 参数 |
+|------|------|------|
+| Focus | 使 Switch 获取焦点 | - |
+
+### VistaSlider
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaSlider` (继承自 `Slider`)
+
+**状态**: ✅ 已完成
+
+#### 基本用法
+```xml
+<vista:VistaSlider Width="400"/>
+```
+
+#### 自定义初始值
+```xml
+<vista:VistaSlider Width="400" Value="50"/>
+```
+
+#### 隐藏 Tooltip
+```xml
+<vista:VistaSlider Width="400" Value="36" ShowTooltip="False"/>
+```
+
+#### 格式化 Tooltip
+```xml
+<vista:VistaSlider x:Name="slider" Width="400" Value="48"/>
+```
+
+```csharp
+slider.FormatTooltip = val => (val / 100).ToString("F2");
+```
+
+#### 禁用状态
+```xml
+<vista:VistaSlider Width="400" Value="42" IsEnabled="False"/>
+```
+
+#### 离散值
+```xml
+<!-- 不显示间断点 -->
+<vista:VistaSlider Width="400" TickFrequency="10"/>
+
+<!-- 显示间断点 -->
+<vista:VistaSlider Width="400" TickFrequency="10" ShowStops="True"/>
+```
+
+#### 带有输入框
+```xml
+<vista:VistaSlider Width="400" Value="13" ShowInput="True"/>
+```
+
+#### 属性说明（VistaSlider）
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Value | double | 0 | 绑定值（双向绑定） |
+| Minimum | double | 0 | 最小值 |
+| Maximum | double | 100 | 最大值 |
+| Step | double | 1 | 步长（通过 TickFrequency 设置） |
+| ShowInput | bool | false | 是否显示输入框 |
+| ShowInputControls | bool | true | 在显示输入框的情况下，是否显示输入框的控制按钮 |
+| InputSize | InputSize | Small | 输入框的尺寸：Default, Medium, Small, Mini |
+| ShowStops | bool | false | 是否显示间断点 |
+| ShowTooltip | bool | true | 是否显示 tooltip |
+| FormatTooltip | Func<double, string> | null | 格式化 tooltip message 的委托 |
+| Range | bool | false | 是否为范围选择（待完善） |
+| RangeValue | double[] | [0, 100] | 范围选择的值（待完善） |
+| Vertical | bool | false | 是否竖向模式（待完善） |
+| SliderHeight | double | 200 | Slider 高度，竖向模式时必填（待完善） |
+| Marks | Dictionary<double, object> | null | 标记字典（待完善） |
+| Debounce | int | 300 | 输入时的去抖延迟，毫秒 |
+| TooltipClass | string | "" | tooltip 的自定义类名 |
+| IsEnabled | bool | true | 是否禁用（继承自 Slider） |
+
+#### 事件说明（VistaSlider）
+| 事件 | 说明 | 参数 |
+|------|------|------|
+| Change | 值改变时触发（使用鼠标拖曳时，只在松开鼠标后触发） | RoutedPropertyChangedEventArgs<double> |
+| Input | 数据改变时触发（使用鼠标拖曳时，活动过程实时触发） | RoutedPropertyChangedEventArgs<double> |
+
 ## 详细使用说明
 
 ### 样式自定义
