@@ -1041,6 +1041,180 @@ slider.FormatTooltip = val => (val / 100).ToString("F2");
 | Change | 值改变时触发（使用鼠标拖曳时，只在松开鼠标后触发） | RoutedPropertyChangedEventArgs<double> |
 | Input | 数据改变时触发（使用鼠标拖曳时，活动过程实时触发） | RoutedPropertyChangedEventArgs<double> |
 
+### VistaTimeSelect
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaTimeSelect` (继承自 `Control`)
+
+**状态**: ✅ 已完成
+
+#### 基本用法（固定时间点）
+
+```xml
+<vista:VistaTimeSelect Width="200" Placeholder="选择时间">
+    <vista:VistaTimeSelect.PickerOptions>
+        <vista:TimeSelectOptions Start="08:30" Step="00:15" End="18:30"/>
+    </vista:VistaTimeSelect.PickerOptions>
+</vista:VistaTimeSelect>
+```
+
+#### 固定时间范围
+
+```xml
+<vista:VistaTimeSelect x:Name="startTime" Width="200" Placeholder="起始时间">
+    <vista:VistaTimeSelect.PickerOptions>
+        <vista:TimeSelectOptions Start="08:30" Step="00:15" End="18:30"/>
+    </vista:VistaTimeSelect.PickerOptions>
+</vista:VistaTimeSelect>
+<vista:VistaTimeSelect x:Name="endTime" Width="200" Placeholder="结束时间">
+    <vista:VistaTimeSelect.PickerOptions>
+        <vista:TimeSelectOptions Start="08:30" Step="00:15" End="18:30"/>
+    </vista:VistaTimeSelect.PickerOptions>
+</vista:VistaTimeSelect>
+```
+
+在代码中设置 `MinTime`：
+
+```csharp
+startTime.Change += (s, e) =>
+{
+    if (endTime != null && e != null)
+    {
+        endTime.PickerOptions.MinTime = e;
+    }
+};
+```
+
+#### 属性说明（VistaTimeSelect）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Value | string | null | 绑定值（双向绑定），格式：HH:mm |
+| Placeholder | string | "选择时间" | 占位文本 |
+| Readonly | bool | false | 完全只读 |
+| IsDisabled | bool | false | 禁用 |
+| Editable | bool | true | 文本框可输入 |
+| Clearable | bool | true | 是否显示清除按钮 |
+| InputSize | InputSize | Default | 输入框尺寸：Default, Medium, Small, Mini |
+| PickerOptions | TimeSelectOptions | new TimeSelectOptions() | 时间选择器配置选项 |
+| DefaultValue | string | null | 选择器打开时默认显示的时间 |
+
+#### TimeSelectOptions 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Start | string | "09:00" | 开始时间，格式：HH:mm |
+| End | string | "18:00" | 结束时间，格式：HH:mm |
+| Step | string | "00:30" | 间隔时间，格式：HH:mm |
+| MinTime | string? | null | 最小时间，小于该时间的时间段将被禁用 |
+| MaxTime | string? | null | 最大时间，大于该时间的时间段将被禁用 |
+
+#### 事件说明（VistaTimeSelect）
+
+| 事件 | 说明 | 参数 |
+|------|------|------|
+| Change | 用户确认选定的值时触发 | string?（选中的时间） |
+| Blur | 当 input 失去焦点时触发 | EventArgs |
+| OnFocus | 当 input 获得焦点时触发 | EventArgs |
+
+#### 方法（VistaTimeSelect）
+
+| 方法 | 说明 |
+|------|------|
+| Focus() | 使 input 获取焦点 |
+
+### VistaTimePicker
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaTimePicker` (继承自 `Control`)
+
+**状态**: ✅ 已完成
+
+#### 基本用法（任意时间点）
+
+```xml
+<vista:VistaTimePicker Width="200" Placeholder="任意时间点">
+    <vista:VistaTimePicker.PickerOptions>
+        <vista:TimePickerOptions SelectableRange="18:30:00 - 20:30:00"/>
+    </vista:VistaTimePicker.PickerOptions>
+</vista:VistaTimePicker>
+```
+
+#### 箭头控制模式
+
+```xml
+<vista:VistaTimePicker Width="200" Placeholder="任意时间点" ArrowControl="True">
+    <vista:VistaTimePicker.PickerOptions>
+        <vista:TimePickerOptions SelectableRange="18:30:00 - 20:30:00"/>
+    </vista:VistaTimePicker.PickerOptions>
+</vista:VistaTimePicker>
+```
+
+#### 任意时间范围
+
+```xml
+<vista:VistaTimePicker Width="300"
+                       IsRange="True"
+                       StartPlaceholder="开始时间"
+                       EndPlaceholder="结束时间"
+                       Placeholder="选择时间范围">
+</vista:VistaTimePicker>
+```
+
+#### 可清空
+
+```xml
+<vista:VistaTimePicker Width="200" Placeholder="任意时间点" Clearable="True">
+    <vista:VistaTimePicker.PickerOptions>
+        <vista:TimePickerOptions SelectableRange="18:30:00 - 20:30:00"/>
+    </vista:VistaTimePicker.PickerOptions>
+</vista:VistaTimePicker>
+```
+
+#### 属性说明（VistaTimePicker）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Value | DateTime? | null | 绑定值（双向绑定），非范围模式 |
+| ValueRange | DateTime[] | null | 绑定值（双向绑定），范围模式，长度为 2 的数组 |
+| Placeholder | string | "选择时间" | 非范围选择时的占位内容 |
+| StartPlaceholder | string | "开始时间" | 范围选择时开始日期的占位内容 |
+| EndPlaceholder | string | "结束时间" | 范围选择时结束日期的占位内容 |
+| Readonly | bool | false | 完全只读 |
+| IsDisabled | bool | false | 禁用 |
+| Editable | bool | true | 文本框可输入 |
+| Clearable | bool | true | 是否显示清除按钮 |
+| InputSize | InputSize | Default | 输入框尺寸：Default, Medium, Small, Mini |
+| IsRange | bool | false | 是否为时间范围选择 |
+| ArrowControl | bool | false | 是否使用箭头进行时间选择 |
+| RangeSeparator | string | "至" | 选择范围时的分隔符 |
+| PickerOptions | TimePickerOptions | new TimePickerOptions() | 时间选择器配置选项 |
+| DefaultValue | DateTime? | null | 选择器打开时默认显示的时间 |
+| ValueFormat | string? | null | 绑定值的格式，不指定则使用 PickerOptions.Format |
+
+#### TimePickerOptions 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| SelectableRange | object? | null | 可选时间段，例如'18:30:00 - 20:30:00'或者传入数组['09:30:00 - 12:00:00', '14:30:00 - 18:30:00'] |
+| Format | string | "HH:mm:ss" | 时间格式化，小时：HH，分：mm，秒：ss，AM/PM A |
+
+#### 事件说明（VistaTimePicker）
+
+| 事件 | 说明 | 参数 |
+|------|------|------|
+| Change | 用户确认选定的值时触发 | object?（DateTime? 或 DateTime[]?） |
+| Blur | 当 input 失去焦点时触发 | EventArgs |
+| OnFocus | 当 input 获得焦点时触发 | EventArgs |
+
+#### 方法（VistaTimePicker）
+
+| 方法 | 说明 |
+|------|------|
+| Focus() | 使 input 获取焦点 |
+
 ## 详细使用说明
 
 ### 样式自定义

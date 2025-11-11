@@ -1710,4 +1710,283 @@
         </Setter>
     </Style>
 
+    <!-- VistaTimeSelect 样式 -->
+    <Style TargetType="{x:Type local:VistaTimeSelect}">
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="MinHeight" Value="32"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaTimeSelect}">
+                    <Grid>
+                        <Border x:Name="PART_Display"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Cursor="Hand">
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- 显示文本 -->
+                                <TextBlock x:Name="displayText"
+                                           Grid.Column="0"
+                                           Text="{TemplateBinding Value}"
+                                           Foreground="{StaticResource DefaultTextColor}"
+                                           VerticalAlignment="Center"
+                                           Visibility="Collapsed"/>
+
+                                <!-- 占位符 -->
+                                <TextBlock x:Name="placeholder"
+                                           Grid.Column="0"
+                                           Text="{TemplateBinding Placeholder}"
+                                           Foreground="#C0C4CC"
+                                           VerticalAlignment="Center"
+                                           Visibility="Visible"/>
+
+                                <!-- 清空按钮 -->
+                                <Button x:Name="PART_Clear" Grid.Column="1" Width="18" Height="18" Margin="6,0,0,0" Padding="0" BorderThickness="0"
+                                        Background="Transparent" Cursor="Hand" Visibility="Collapsed">
+                                    <Path Width="12" Height="12" Data="M2 2 L10 10 M10 2 L2 10" Stroke="#C0C4CC" StrokeThickness="2"/>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="Transparent">
+                                                <ContentPresenter/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <!-- 箭头 -->
+                                <Path Grid.Column="2" Width="10" Height="10" Margin="8,0,6,0" Stretch="Uniform"
+                                      Data="M0 0 L5 5 L10 0" Stroke="#909399" StrokeThickness="2" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- 下拉 Popup -->
+                        <Popup x:Name="PART_Popup" Placement="Bottom" StaysOpen="True" AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=PART_Display}">
+                            <Border Background="White" BorderThickness="0" CornerRadius="4" Padding="4" SnapsToDevicePixels="True">
+                                <ScrollViewer x:Name="timeListScrollViewer" Height="240" VerticalScrollBarVisibility="Auto">
+                                    <StackPanel x:Name="timeListPanel" Orientation="Vertical"/>
+                                </ScrollViewer>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Display" Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsDisabled" Value="True">
+                            <Setter Property="Opacity" Value="0.6"/>
+                            <Setter TargetName="PART_Display" Property="Cursor" Value="Arrow"/>
+                        </Trigger>
+                        <Trigger Property="Readonly" Value="True">
+                            <Setter TargetName="PART_Display" Property="Cursor" Value="Arrow"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!-- 尺寸样式 -->
+            <Trigger Property="InputSize" Value="Medium">
+                <Setter Property="Padding" Value="8,8"/>
+                <Setter Property="MinHeight" Value="36"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Trigger>
+            <Trigger Property="InputSize" Value="Small">
+                <Setter Property="Padding" Value="8,6"/>
+                <Setter Property="MinHeight" Value="32"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Trigger>
+            <Trigger Property="InputSize" Value="Mini">
+                <Setter Property="Padding" Value="8,4"/>
+                <Setter Property="MinHeight" Value="28"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- VistaTimePicker 样式 -->
+    <Style TargetType="{x:Type local:VistaTimePicker}">
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="MinHeight" Value="32"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaTimePicker}">
+                    <Grid>
+                        <Border x:Name="PART_Display"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Cursor="Hand">
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- 单时间显示 -->
+                                <TextBlock x:Name="displayText"
+                                           Grid.Column="0"
+                                           Foreground="{StaticResource DefaultTextColor}"
+                                           VerticalAlignment="Center"
+                                           Visibility="Collapsed"/>
+
+                                <!-- 单时间占位符 -->
+                                <TextBlock x:Name="placeholder"
+                                           Grid.Column="0"
+                                           Text="{TemplateBinding Placeholder}"
+                                           Foreground="#C0C4CC"
+                                           VerticalAlignment="Center"
+                                           Visibility="Visible"/>
+
+                                <!-- 范围模式显示 -->
+                                <StackPanel x:Name="rangePanel" Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Visibility="Collapsed">
+                                    <TextBlock x:Name="startDisplayText"
+                                               Foreground="{StaticResource DefaultTextColor}"
+                                               VerticalAlignment="Center"
+                                               Visibility="Collapsed"/>
+                                    <TextBlock x:Name="startPlaceholder"
+                                               Text="{TemplateBinding StartPlaceholder}"
+                                               Foreground="#C0C4CC"
+                                               VerticalAlignment="Center"
+                                               Visibility="Visible"/>
+                                    <TextBlock x:Name="rangeSeparator"
+                                               Text="至"
+                                               Foreground="#C0C4CC"
+                                               VerticalAlignment="Center"
+                                               Margin="8,0"
+                                               Visibility="Collapsed"/>
+                                    <TextBlock x:Name="endDisplayText"
+                                               Foreground="{StaticResource DefaultTextColor}"
+                                               VerticalAlignment="Center"
+                                               Visibility="Collapsed"/>
+                                    <TextBlock x:Name="endPlaceholder"
+                                               Text="{TemplateBinding EndPlaceholder}"
+                                               Foreground="#C0C4CC"
+                                               VerticalAlignment="Center"
+                                               Visibility="Visible"/>
+                                </StackPanel>
+
+                                <!-- 清空按钮 -->
+                                <Button x:Name="PART_Clear" Grid.Column="1" Width="18" Height="18" Margin="6,0,0,0" Padding="0" BorderThickness="0"
+                                        Background="Transparent" Cursor="Hand" Visibility="Collapsed">
+                                    <Path Width="12" Height="12" Data="M2 2 L10 10 M10 2 L2 10" Stroke="#C0C4CC" StrokeThickness="2"/>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="Transparent">
+                                                <ContentPresenter/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <!-- 箭头 -->
+                                <Path Grid.Column="2" Width="10" Height="10" Margin="8,0,6,0" Stretch="Uniform"
+                                      Data="M0 0 L5 5 L10 0" Stroke="#909399" StrokeThickness="2" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- 下拉 Popup -->
+                        <Popup x:Name="PART_Popup" Placement="Bottom" StaysOpen="True" AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=PART_Display}">
+                            <Border Background="White" BorderThickness="0" CornerRadius="4" Padding="8" SnapsToDevicePixels="True">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- 小时列 -->
+                                    <ScrollViewer x:Name="hourScrollViewer" Grid.Column="0" Height="240" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                                        <StackPanel x:Name="hourPanel" Orientation="Vertical"/>
+                                    </ScrollViewer>
+
+                                    <!-- 分钟列 -->
+                                    <ScrollViewer x:Name="minuteScrollViewer" Grid.Column="1" Height="240" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                                        <StackPanel x:Name="minutePanel" Orientation="Vertical"/>
+                                    </ScrollViewer>
+
+                                    <!-- 秒列 -->
+                                    <ScrollViewer x:Name="secondScrollViewer" Grid.Column="2" Height="240" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                                        <StackPanel x:Name="secondPanel" Orientation="Vertical"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Display" Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsDisabled" Value="True">
+                            <Setter Property="Opacity" Value="0.6"/>
+                            <Setter TargetName="PART_Display" Property="Cursor" Value="Arrow"/>
+                        </Trigger>
+                        <Trigger Property="Readonly" Value="True">
+                            <Setter TargetName="PART_Display" Property="Cursor" Value="Arrow"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!-- 尺寸样式 -->
+            <Trigger Property="InputSize" Value="Medium">
+                <Setter Property="Padding" Value="8,8"/>
+                <Setter Property="MinHeight" Value="36"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Trigger>
+            <Trigger Property="InputSize" Value="Small">
+                <Setter Property="Padding" Value="8,6"/>
+                <Setter Property="MinHeight" Value="32"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Trigger>
+            <Trigger Property="InputSize" Value="Mini">
+                <Setter Property="Padding" Value="8,4"/>
+                <Setter Property="MinHeight" Value="28"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- TimeOptionButtonStyle - 时间选项按钮样式 -->
+    <Style x:Key="TimeOptionButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Foreground" Value="{StaticResource DefaultTextColor}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F5F7FA"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

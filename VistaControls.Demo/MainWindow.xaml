@@ -693,6 +693,135 @@
                  <TextBlock Text="带有输入框" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                  <vista:VistaSlider x:Name="slider8" Width="400" Value="13" ShowInput="True" Margin="0,0,0,20"/>
 
+                 <!-- VistaTimeSelect 演示 -->
+                 <TextBlock Text="VistaTimeSelect 固定时间点选择器"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Margin="0,40,0,30" />
+
+                 <!-- 基础用法 -->
+                 <TextBlock Text="基础用法" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaTimeSelect x:Name="timeSelect1"
+                                            Width="200"
+                                            Placeholder="选择时间"
+                                            Margin="0,0,20,0">
+                         <vista:VistaTimeSelect.PickerOptions>
+                             <vista:TimeSelectOptions Start="08:30" Step="00:15" End="18:30"/>
+                         </vista:VistaTimeSelect.PickerOptions>
+                     </vista:VistaTimeSelect>
+                 </StackPanel>
+
+                 <!-- VistaTimePicker 演示 -->
+                 <TextBlock Text="VistaTimePicker 任意时间点选择器"
+                            FontSize="24"
+                            FontWeight="Bold"
+                            Margin="0,40,0,30" />
+
+                 <!-- 基础用法 -->
+                 <TextBlock Text="基础用法" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaTimePicker x:Name="timePicker1"
+                                            Width="200"
+                                            Placeholder="任意时间点"
+                                            Margin="0,0,20,0">
+                         <!-- <vista:VistaTimePicker.PickerOptions> -->
+                         <!--     <vista:TimePickerOptions SelectableRange="18:30:00 - 20:30:00"/> -->
+                         <!-- </vista:VistaTimePicker.PickerOptions> -->
+                     </vista:VistaTimePicker>
+                     <vista:VistaTimePicker x:Name="timePicker2"
+                                            Width="200"
+                                            Placeholder="任意时间点"
+                                            ArrowControl="True">
+                         <vista:VistaTimePicker.PickerOptions>
+                             <vista:TimePickerOptions SelectableRange="18:30:00 - 20:30:00"/>
+                         </vista:VistaTimePicker.PickerOptions>
+                     </vista:VistaTimePicker>
+                 </StackPanel>
+
+                 <!-- 固定时间范围 -->
+                 <TextBlock Text="固定时间范围" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaTimeSelect x:Name="timeSelectStart"
+                                            Width="200"
+                                            Placeholder="起始时间"
+                                            Margin="0,0,20,0">
+                         <vista:VistaTimeSelect.PickerOptions>
+                             <vista:TimeSelectOptions Start="08:30" Step="00:15" End="18:30"/>
+                         </vista:VistaTimeSelect.PickerOptions>
+                     </vista:VistaTimeSelect>
+                     <vista:VistaTimeSelect x:Name="timeSelectEnd"
+                                            Width="200"
+                                            Placeholder="结束时间">
+                         <vista:VistaTimeSelect.PickerOptions>
+                             <vista:TimeSelectOptions Start="08:30" Step="00:15" End="18:30"/>
+                         </vista:VistaTimeSelect.PickerOptions>
+                     </vista:VistaTimeSelect>
+                 </StackPanel>
+
+                 <!-- 任意时间范围 -->
+                 <TextBlock Text="任意时间范围" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaTimePicker x:Name="timePickerRange1"
+                                            Width="300"
+                                            IsRange="True"
+                                            StartPlaceholder="开始时间"
+                                            EndPlaceholder="结束时间"
+                                            Placeholder="选择时间范围"
+                                            Margin="0,0,20,0"/>
+                     <vista:VistaTimePicker x:Name="timePickerRange2"
+                                            Width="300"
+                                            IsRange="True"
+                                            ArrowControl="True"
+                                            StartPlaceholder="开始时间"
+                                            EndPlaceholder="结束时间"
+                                            Placeholder="选择时间范围"/>
+                 </StackPanel>
+
+                 <!-- 可清空 -->
+                 <TextBlock Text="可清空" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaTimeSelect x:Name="timeSelectClearable"
+                                            Width="200"
+                                            Placeholder="选择时间"
+                                            Clearable="True"
+                                            Margin="0,0,20,0">
+                         <vista:VistaTimeSelect.PickerOptions>
+                             <vista:TimeSelectOptions Start="08:30" Step="00:15" End="18:30"/>
+                         </vista:VistaTimeSelect.PickerOptions>
+                     </vista:VistaTimeSelect>
+                     <vista:VistaTimePicker x:Name="timePickerClearable"
+                                            Width="200"
+                                            Placeholder="任意时间点"
+                                            Clearable="True">
+                         <vista:VistaTimePicker.PickerOptions>
+                             <vista:TimePickerOptions SelectableRange="18:30:00 - 20:30:00"/>
+                         </vista:VistaTimePicker.PickerOptions>
+                     </vista:VistaTimePicker>
+                 </StackPanel>
+
+                 <!-- 禁用状态 -->
+                 <TextBlock Text="禁用状态" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                     <vista:VistaTimeSelect Width="200"
+                                            Placeholder="选择时间"
+                                            IsDisabled="True"
+                                            Value="10:30"
+                                            Margin="0,0,20,0">
+                         <vista:VistaTimeSelect.PickerOptions>
+                             <vista:TimeSelectOptions Start="08:30" Step="00:15" End="18:30"/>
+                         </vista:VistaTimeSelect.PickerOptions>
+                     </vista:VistaTimeSelect>
+                     <vista:VistaTimePicker Width="200"
+                                            Placeholder="任意时间点"
+                                            IsDisabled="True"
+                                            Value="2024-01-01 18:40:00">
+                         <vista:VistaTimePicker.PickerOptions>
+                             <vista:TimePickerOptions SelectableRange="18:30:00 - 20:30:00"/>
+                         </vista:VistaTimePicker.PickerOptions>
+                     </vista:VistaTimePicker>
+                 </StackPanel>
+
             </StackPanel>
         </ScrollViewer>
 

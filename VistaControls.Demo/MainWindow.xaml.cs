@@ -124,6 +124,41 @@ namespace VistaControls.Demo
                     "北京" 
                 };
             }
+
+            // 初始化 TimePicker 事件
+            if (timeSelectStart != null)
+            {
+                timeSelectStart.Change += (s, e) =>
+                {
+                    if (timeSelectEnd != null && e != null)
+                    {
+                        // 更新结束时间的最小时间限制
+                        timeSelectEnd.PickerOptions.MinTime = e;
+                    }
+                };
+            }
+
+            if (timePicker1 != null)
+            {
+                timePicker1.Change += (s, e) =>
+                {
+                    if (e is DateTime time)
+                    {
+                        VistaControls.MessageManager.Info($"选择了时间: {time:HH:mm:ss}");
+                    }
+                };
+            }
+
+            if (timePickerRange1 != null)
+            {
+                timePickerRange1.Change += (s, e) =>
+                {
+                    if (e is DateTime[] range && range.Length == 2)
+                    {
+                        VistaControls.MessageManager.Info($"选择了时间范围: {range[0]:HH:mm:ss} 至 {range[1]:HH:mm:ss}");
+                    }
+                };
+            }
         }
 
         private void ShowBasicMessage_Click(object sender, RoutedEventArgs e)
