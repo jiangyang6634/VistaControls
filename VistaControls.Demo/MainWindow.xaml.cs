@@ -49,6 +49,9 @@ namespace VistaControls.Demo
                 switchValue.Value = 0; // 初始值
             }
 
+            // 初始化日期选择器
+            InitializeDatePickers();
+
             // 初始化 Slider 格式化 tooltip
             if (slider4 != null)
             {
@@ -287,6 +290,58 @@ namespace VistaControls.Demo
             if (slider4 != null)
             {
                 slider4.FormatTooltip = val => (val / 100).ToString("F2");
+            }
+        }
+
+        private void InitializeDatePickers()
+        {
+            // 带快捷选项的日期选择器
+            if (datePicker2 != null)
+            {
+                var options = new VistaControls.DatePickerOptions
+                {
+                    Shortcuts = new List<VistaControls.DatePickerShortcut>
+                    {
+                        new VistaControls.DatePickerShortcut
+                        {
+                            Text = "今天",
+                            OnClick = () => DateTime.Now
+                        },
+                        new VistaControls.DatePickerShortcut
+                        {
+                            Text = "昨天",
+                            OnClick = () => DateTime.Now.AddDays(-1)
+                        },
+                        new VistaControls.DatePickerShortcut
+                        {
+                            Text = "一周前",
+                            OnClick = () => DateTime.Now.AddDays(-7)
+                        }
+                    }
+                };
+                datePicker2.PickerOptions = options;
+            }
+
+            // 禁用日期（禁用未来日期）
+            if (datePickerDisabled != null)
+            {
+                var options = new VistaControls.DatePickerOptions
+                {
+                    DisabledDate = (date) => date > DateTime.Now
+                };
+                datePickerDisabled.PickerOptions = options;
+            }
+
+            // 日期选择器事件
+            if (datePicker1 != null)
+            {
+                datePicker1.Change += (s, e) =>
+                {
+                    if (e is DateTime date)
+                    {
+                        VistaControls.MessageManager.Info($"选择了日期: {date:yyyy-MM-dd}");
+                    }
+                };
             }
         }
     }

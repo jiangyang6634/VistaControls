@@ -1989,4 +1989,158 @@
         </Style.Triggers>
     </Style>
 
+    <!-- VistaDatePicker 样式 -->
+    <Style TargetType="{x:Type local:VistaDatePicker}">
+        <Setter Property="Padding" Value="8,6"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="MinHeight" Value="32"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaDatePicker}">
+                    <Grid>
+                        <Border x:Name="PART_Display"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4"
+                                Cursor="Hand">
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- 显示文本 -->
+                                <TextBlock x:Name="displayText"
+                                           Grid.Column="0"
+                                           Foreground="{StaticResource DefaultTextColor}"
+                                           VerticalAlignment="Center"
+                                           Visibility="Collapsed"/>
+
+                                <!-- 占位符 -->
+                                <TextBlock x:Name="placeholder"
+                                           Grid.Column="0"
+                                           Text="{TemplateBinding Placeholder}"
+                                           Foreground="#C0C4CC"
+                                           VerticalAlignment="Center"
+                                           Visibility="Visible"/>
+
+                                <!-- 清空按钮 -->
+                                <Button x:Name="PART_Clear" Grid.Column="1" Width="18" Height="18" Margin="6,0,0,0" Padding="0" BorderThickness="0"
+                                        Background="Transparent" Cursor="Hand" Visibility="Collapsed">
+                                    <Path Width="12" Height="12" Data="M2 2 L10 10 M10 2 L2 10" Stroke="#C0C4CC" StrokeThickness="2"/>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="Transparent">
+                                                <ContentPresenter/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+
+                                <!-- 箭头 -->
+                                <Path Grid.Column="2" Width="10" Height="10" Margin="8,0,6,0" Stretch="Uniform"
+                                      Data="M0 0 L5 5 L10 0" Stroke="#909399" StrokeThickness="2" VerticalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- 下拉 Popup -->
+                        <Popup x:Name="PART_Popup" Placement="Bottom" StaysOpen="True" AllowsTransparency="True"
+                               PlacementTarget="{Binding ElementName=PART_Display}">
+                            <Border Background="White" BorderThickness="0" CornerRadius="4" Padding="8" SnapsToDevicePixels="True">
+                                <Grid x:Name="calendarPanel">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- 快捷选项面板 -->
+                                    <StackPanel x:Name="shortcutsPanel" Grid.Row="0" Orientation="Vertical" Margin="0,0,0,8" Visibility="Collapsed"/>
+
+                                    <!-- 月份导航 -->
+                                    <Grid Grid.Row="1" Margin="0,0,0,8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Button x:Name="prevMonthButton" Grid.Column="0" Width="24" Height="24" Padding="0" BorderThickness="0"
+                                                Background="Transparent" Cursor="Hand">
+                                            <Path Width="8" Height="8" Data="M5 0 L0 5 L5 10" Stroke="#606266" StrokeThickness="2"/>
+                                        </Button>
+
+                                        <TextBlock x:Name="monthYearText" Grid.Column="1" Text="2025年11月"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                   Foreground="{StaticResource DefaultTextColor}" FontSize="14"/>
+
+                                        <Button x:Name="nextMonthButton" Grid.Column="2" Width="24" Height="24" Padding="0" BorderThickness="0"
+                                                Background="Transparent" Cursor="Hand">
+                                            <Path Width="8" Height="8" Data="M0 0 L5 5 L0 10" Stroke="#606266" StrokeThickness="2"/>
+                                        </Button>
+                                    </Grid>
+
+                                    <!-- 星期标题 -->
+                                    <UniformGrid x:Name="weekdayHeader" Grid.Row="2" Rows="1" Columns="7" Margin="0,0,0,4">
+                                        <TextBlock Text="一" HorizontalAlignment="Center" Foreground="#909399" FontSize="12"/>
+                                        <TextBlock Text="二" HorizontalAlignment="Center" Foreground="#909399" FontSize="12"/>
+                                        <TextBlock Text="三" HorizontalAlignment="Center" Foreground="#909399" FontSize="12"/>
+                                        <TextBlock Text="四" HorizontalAlignment="Center" Foreground="#909399" FontSize="12"/>
+                                        <TextBlock Text="五" HorizontalAlignment="Center" Foreground="#909399" FontSize="12"/>
+                                        <TextBlock Text="六" HorizontalAlignment="Center" Foreground="#909399" FontSize="12"/>
+                                        <TextBlock Text="日" HorizontalAlignment="Center" Foreground="#909399" FontSize="12"/>
+                                    </UniformGrid>
+
+                                    <!-- 日期网格 -->
+                                    <UniformGrid x:Name="dayGrid" Grid.Row="3" Rows="6" Columns="7" Margin="0,4,0,0"/>
+
+                                    <!-- 月份网格 -->
+                                    <StackPanel x:Name="monthGrid" Grid.Row="3" Orientation="Vertical" Margin="0,4,0,0" Visibility="Collapsed"/>
+
+                                    <!-- 年份网格 -->
+                                    <StackPanel x:Name="yearGrid" Grid.Row="3" Orientation="Vertical" Margin="0,4,0,0" Visibility="Collapsed"/>
+                                </Grid>
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Display" Property="BorderBrush" Value="{StaticResource PrimaryColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsDisabled" Value="True">
+                            <Setter Property="Opacity" Value="0.6"/>
+                            <Setter TargetName="PART_Display" Property="Cursor" Value="Arrow"/>
+                        </Trigger>
+                        <Trigger Property="Readonly" Value="True">
+                            <Setter TargetName="PART_Display" Property="Cursor" Value="Arrow"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <!-- 尺寸样式 -->
+            <Trigger Property="InputSize" Value="Medium">
+                <Setter Property="Padding" Value="8,8"/>
+                <Setter Property="MinHeight" Value="36"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Trigger>
+            <Trigger Property="InputSize" Value="Small">
+                <Setter Property="Padding" Value="8,6"/>
+                <Setter Property="MinHeight" Value="32"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Trigger>
+            <Trigger Property="InputSize" Value="Mini">
+                <Setter Property="Padding" Value="8,4"/>
+                <Setter Property="MinHeight" Value="28"/>
+                <Setter Property="FontSize" Value="12"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

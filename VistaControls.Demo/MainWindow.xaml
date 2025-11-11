@@ -822,6 +822,89 @@
                      </vista:VistaTimePicker>
                  </StackPanel>
 
+                <!-- VistaDatePicker 演示 -->
+                <TextBlock Text="VistaDatePicker 日期选择器"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Margin="0,40,0,30" />
+
+                <!-- 选择日 -->
+                <TextBlock Text="选择日" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaDatePicker x:Name="datePicker1"
+                                           Width="200"
+                                           Placeholder="选择日期"
+                                           Margin="0,0,20,0" />
+                    <vista:VistaDatePicker x:Name="datePicker2"
+                                           Width="200"
+                                           Placeholder="选择日期" />
+                </StackPanel>
+
+                <!-- 其他日期单位 -->
+                <TextBlock Text="其他日期单位" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaDatePicker x:Name="weekPicker"
+                                           Width="200"
+                                           Type="Week"
+                                           Format="yyyy 第 WW 周"
+                                           Placeholder="选择周"
+                                           Margin="0,0,20,0" />
+                    <vista:VistaDatePicker x:Name="monthPicker"
+                                           Width="200"
+                                           Type="Month"
+                                           Placeholder="选择月"
+                                           Margin="0,0,20,0" />
+                    <vista:VistaDatePicker x:Name="yearPicker"
+                                           Width="200"
+                                           Type="Year"
+                                           Placeholder="选择年" />
+                </StackPanel>
+
+                <!-- 多个日期 -->
+                <TextBlock Text="多个日期" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaDatePicker x:Name="datesPicker"
+                                           Width="300"
+                                           Type="Dates"
+                                           Placeholder="选择一个或多个日期"
+                                           Margin="0,0,20,0" />
+                    <vista:VistaDatePicker x:Name="monthsPicker"
+                                           Width="200"
+                                           Type="Months"
+                                           Placeholder="选择一个或多个月"
+                                           Margin="0,0,20,0" />
+                    <vista:VistaDatePicker x:Name="yearsPicker"
+                                           Width="200"
+                                           Type="Years"
+                                           Placeholder="选择一个或多个年" />
+                </StackPanel>
+
+                <!-- 禁用日期 -->
+                <TextBlock Text="禁用日期" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaDatePicker x:Name="datePickerDisabled"
+                                           Width="200"
+                                           Placeholder="选择日期" />
+                </StackPanel>
+
+                <!-- 可清空 -->
+                <TextBlock Text="可清空" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaDatePicker x:Name="datePickerClearable"
+                                           Width="200"
+                                           Placeholder="选择日期"
+                                           Clearable="True" />
+                </StackPanel>
+
+                <!-- 禁用状态 -->
+                <TextBlock Text="禁用状态" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaDatePicker Width="200"
+                                           Placeholder="选择日期"
+                                           IsDisabled="True"
+                                           Value="2025-11-29" />
+                </StackPanel>
+
             </StackPanel>
         </ScrollViewer>
 
