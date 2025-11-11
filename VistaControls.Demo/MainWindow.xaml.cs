@@ -162,6 +162,9 @@ namespace VistaControls.Demo
                     }
                 };
             }
+
+            // 初始化表格
+            InitializeTable();
         }
 
         private void ShowBasicMessage_Click(object sender, RoutedEventArgs e)
@@ -342,6 +345,54 @@ namespace VistaControls.Demo
                         VistaControls.MessageManager.Info($"选择了日期: {date:yyyy-MM-dd}");
                     }
                 };
+            }
+        }
+
+        private sealed class DemoRow
+        {
+            public string Date { get; set; } = "";
+            public string Name { get; set; } = "";
+            public string Address { get; set; } = "";
+        }
+
+        private void InitializeTable()
+        {
+            var list1 = new List<DemoRow>
+            {
+                new DemoRow { Date = "2016-05-02", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                new DemoRow { Date = "2016-05-04", Name = "王小虎", Address = "上海市普陀区金沙江路 1517 弄" },
+                new DemoRow { Date = "2016-05-01", Name = "王小虎", Address = "上海市普陀区金沙江路 1519 弄" },
+                new DemoRow { Date = "2016-05-03", Name = "王小虎", Address = "上海市普陀区金沙江路 1516 弄" },
+            };
+
+            if (tableBasic != null) tableBasic.ItemsSource = list1;
+            var tblBordered = FindName("tableBordered") as VistaControls.VistaTable;
+            if (tblBordered != null) tblBordered.ItemsSource = list1;
+
+            if (tableStateful != null)
+            {
+                tableStateful.ItemsSource = list1;
+                tableStateful.RowClassNameSelector = (row, index) =>
+                {
+                    if (index == 1) return "warning-row";
+                    if (index == 3) return "success-row";
+                    return string.Empty;
+                };
+            }
+
+            if (tableFixedHeader != null)
+            {
+                var longList = new List<DemoRow>
+                {
+                    new DemoRow { Date = "2016-05-03", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-02", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-04", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-01", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-08", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-06", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                };
+                tableFixedHeader.ItemsSource = longList;
             }
         }
     }

@@ -905,6 +905,49 @@
                                            Value="2025-11-29" />
                 </StackPanel>
 
+                <!-- VistaTable 演示 -->
+                <TextBlock Text="VistaTable 表格" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+
+                <!-- 基础表格 -->
+                <TextBlock Text="基础表格" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaTable x:Name="tableBasic" Margin="0,0,0,40">
+                    <vista:VistaTable.Columns>
+                        <vista:VistaTableColumn Prop="Date" Label="日期" Width="180" />
+                        <vista:VistaTableColumn Prop="Name" Label="姓名" Width="180" />
+                        <vista:VistaTableColumn Prop="Address" Label="地址" />
+                    </vista:VistaTable.Columns>
+                </vista:VistaTable>
+
+                <!-- 带边框表格 -->
+                <!-- <TextBlock Text="带边框表格" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaTable x:Name="tableBordered" Bordered="True" Margin="0,0,0,20">
+                    <vista:VistaTable.Columns>
+                        <vista:VistaTableColumn Prop="Date" Label="日期" Width="180" />
+                        <vista:VistaTableColumn Prop="Name" Label="姓名" Width="180" />
+                        <vista:VistaTableColumn Prop="Address" Label="地址" />
+                    </vista:VistaTable.Columns>
+                </vista:VistaTable> -->
+
+                <!-- 带状态表格 -->
+                <TextBlock Text="带状态表格" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaTable x:Name="tableStateful" Margin="0,0,0,20">
+                    <vista:VistaTable.Columns>
+                        <vista:VistaTableColumn Prop="Date" Label="日期" Width="180" />
+                        <vista:VistaTableColumn Prop="Name" Label="姓名" Width="180" />
+                        <vista:VistaTableColumn Prop="Address" Label="地址" />
+                    </vista:VistaTable.Columns>
+                </vista:VistaTable>
+
+                <!-- 固定表头 -->
+                <TextBlock Text="固定表头（高度 250）" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaTable x:Name="tableFixedHeader" Bordered="True" TableHeight="250" Margin="0,0,0,20">
+                    <vista:VistaTable.Columns>
+                        <vista:VistaTableColumn Prop="Date" Label="日期" Width="180" />
+                        <vista:VistaTableColumn Prop="Name" Label="姓名" Width="180" />
+                        <vista:VistaTableColumn Prop="Address" Label="地址" />
+                    </vista:VistaTable.Columns>
+                </vista:VistaTable>
+
             </StackPanel>
         </ScrollViewer>
 

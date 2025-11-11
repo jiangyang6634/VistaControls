@@ -16,6 +16,7 @@
     <converters:StringToPlaceholderVisibilityConverter x:Key="StringToPlaceholderVisibilityConverter"/>
     <converters:SliderProgressConverter x:Key="SliderProgressConverter"/>
     <converters:SliderStopPositionConverter x:Key="SliderStopPositionConverter"/>
+    <converters:RowClassToBackgroundConverter x:Key="RowClassToBackgroundConverter"/>
     
     <!-- 阴影效果 -->
     <DropShadowEffect x:Key="MessageShadow" 
@@ -309,6 +310,61 @@
                 <Setter Property="MinHeight" Value="28"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!-- VistaTable 样式 -->
+    <Style TargetType="{x:Type local:VistaTable}">
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaTable}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4">
+                        <Grid>
+                            <ListView x:Name="PART_ListView"
+                                      BorderThickness="0"
+                                      AlternationCount="2147483647"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Background" Value="#F5F7FA"/>
+                                        <Setter Property="Foreground" Value="{StaticResource DefaultTextColor}"/>
+                                        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}"/>
+                                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                        <Setter Property="Padding" Value="14,18"/>
+                                        <Setter Property="FontSize" Value="15"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                    </Style>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="Padding" Value="14,18"/>
+                                        <Setter Property="FontSize" Value="15"/>
+                                        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}"/>
+                                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                        <Setter Property="SnapsToDevicePixels" Value="True"/>
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <MultiBinding Converter="{StaticResource RowClassToBackgroundConverter}">
+                                                    <Binding RelativeSource="{RelativeSource Self}" Path="(ItemsControl.AlternationIndex)"/>
+                                                    <Binding RelativeSource="{RelativeSource Self}" Path="Content"/>
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=local:VistaTable}"/>
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListView.Resources>
+                            </ListView>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- ButtonGroup 样式 -->
