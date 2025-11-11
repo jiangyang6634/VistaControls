@@ -98,12 +98,12 @@ dotnet run
   - 支持朴素按钮（Plain）、圆角按钮（Round）、圆形按钮（Circle）
   - 支持图标显示、加载状态、禁用状态
   - 支持 4 种尺寸：Default、Medium、Small、Mini
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### ButtonGroup
 - **状态**: ✅ 已完成
 - **描述**: 按钮组控件，用于将多个按钮组合在一起
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### VistaMessage
 - **状态**: ✅ 已完成
@@ -114,7 +114,7 @@ dotnet run
   - 支持手动关闭（显示关闭按钮）
   - 支持文字居中
   - 支持淡入淡出动画效果
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### VistaRadio
 - **状态**: ✅ 已完成
@@ -125,12 +125,12 @@ dotnet run
   - 支持带边框样式
   - 支持 4 种尺寸：Default、Medium、Small、Mini
   - 支持数据绑定和事件处理
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### RadioGroup
 - **状态**: ✅ 已完成
 - **描述**: 单选框组控件，用于管理一组互斥的单选框
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### VistaCheckbox
 - **状态**: ✅ 已完成
@@ -140,7 +140,7 @@ dotnet run
   - 复选框组与数组绑定
   - 支持禁用、带边框样式与多尺寸
   - 支持 `indeterminate`（样式控制）与“全选”示例
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### CheckboxGroup
 - **状态**: ✅ 已完成
@@ -149,7 +149,7 @@ dotnet run
   - 绑定选中项集合
   - `Min`/`Max` 限制可勾选数量
   - 组禁用与尺寸联动
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### VistaInput
 - **状态**: ✅ 已完成
@@ -159,7 +159,7 @@ dotnet run
   - 可清空按钮（`Clearable`）
   - 密码模式（默认显示为点，支持切换明文查看）
   - 字数统计（`ShowWordLimit`）和多尺寸
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### VistaInputNumber
 - **状态**: ✅ 已完成
@@ -170,7 +170,7 @@ dotnet run
   - `Precision` 精度（自动不小于步长小数位，四舍五入且不补零）
   - `Controls` 控制按钮与 `ControlsPosition="right"` 右侧按钮布局
   - 文本水平居中显示
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### VistaSelect / VistaOption / VistaOptionGroup
 - **状态**: ✅ 已完成
@@ -180,7 +180,7 @@ dotnet run
   - `Clearable` 清空、`IsSelectDisabled` 禁用、`IsOptionDisabled` 选项禁用
   - `Multiple` 多选、`CollapseTags` 折叠显示已选项
   - `OptionGroup` 分组显示
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### VistaCascader
 - **状态**: ✅ 已完成
@@ -190,7 +190,7 @@ dotnet run
   - `ExpandTrigger`: Click 或 Hover
   - `Multiple` 多选、`CollapseTags` 折叠显示
   - `Clearable` 清空、`ShowAllLevels` 控制显示路径或仅末级
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### VistaSwitch
 - **状态**: ✅ 已完成
@@ -202,7 +202,7 @@ dotnet run
   - `ActiveText`/`InactiveText` 文字描述（显示在开关左右两侧）
   - 文字颜色根据开关状态切换（开启蓝色，关闭灰色）
   - 支持禁用状态
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ### VistaSlider
 - **状态**: ✅ 已完成
@@ -229,10 +229,21 @@ dotnet run
   - 支持 `MinTime`/`MaxTime` 限制可选时间范围
 - **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
+### VistaDatePicker
+- **状态**: ✅ 已完成
+- **描述**: 日期选择器，用于选择或输入日期
+- **功能特性**:
+  - 基本日期选择（按“日”）
+  - 快捷选项（Today/Yesterday/一周前等，自定义回调）
+  - 禁用日期（传入函数）
+  - 其他日期单位：周、月、年、多个日期、多个月、多个年
+  - 简洁美观的弹出面板，支持清空、只读、禁用
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
 ### CustomControl1
 - **状态**: 示例控件（待完善）
 - **描述**: 基础自定义控件模板
-- **详细说明**: 参见 [使用文档](USAGE.md)
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
 ## 开发计划
 
@@ -248,7 +259,12 @@ dotnet run
 
 ## 许可证
 
-[待定]
+本项目采用 MIT 协议开源。详见 [LICENSE](LICENSE)。
+
+简述：
+- 允许使用、复制、修改、合并、发布、分发、再许可及/或销售本软件的副本
+- 需在软件及重要部分中保留版权与许可声明
+- 本软件按“现状”提供，不提供任何明示或暗示的担保
 
 ## 更新日志
 
@@ -295,6 +311,15 @@ dotnet run
 - ✅ 实现 VistaTimePicker（任意时间点选择器），支持 selectableRange、范围选择
 - ✅ 支持时间范围选择、箭头控制模式、清空、只读、禁用等属性
 - ✅ 在 Demo 中添加完整示例
+
+### 2025-11 - VistaDatePicker
+- ✅ 实现 VistaDatePicker（日期选择器）：日、周、月、年、多个日期/月份/年份
+- ✅ 支持快捷选项与禁用日期，清空、只读、禁用
+- ✅ 修复 OnValueChanged 触发与 Popup 交互问题，优化交互体验
+- ✅ 在 Demo 中添加完整用例
+
+### 计划中
+- ⏳ DateTimePicker（日期时间选择器）：暂不实现，后续版本加入
 
 
 ### 2024 - 项目初始化

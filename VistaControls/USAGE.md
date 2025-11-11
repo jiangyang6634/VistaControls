@@ -1215,6 +1215,94 @@ startTime.Change += (s, e) =>
 |------|------|
 | Focus() | 使 input 获取焦点 |
 
+### VistaDatePicker
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaDatePicker` (继承自 `Control`)
+
+**状态**: ✅ 已完成
+
+#### 基本用法（按“日”选择）
+```xml
+<vista:VistaDatePicker Width="200" Placeholder="选择日期"/>
+```
+
+#### 带快捷选项与禁用日期
+在代码中配置 `PickerOptions`（推荐在 Demo 的 Loaded 中设置）：
+```csharp
+myDatePicker.PickerOptions.Shortcuts = new List<VistaControls.DatePickerShortcut>
+{
+    new VistaControls.DatePickerShortcut { Text = "今天", OnClick = () => DateTime.Today },
+    new VistaControls.DatePickerShortcut { Text = "昨天", OnClick = () => DateTime.Today.AddDays(-1) },
+    new VistaControls.DatePickerShortcut { Text = "一周前", OnClick = () => DateTime.Today.AddDays(-7) }
+};
+myDatePicker.PickerOptions.DisabledDate = d => d > DateTime.Today; // 禁用未来日期
+```
+
+#### 其他日期单位
+- 周
+```xml
+<vista:VistaDatePicker Width="220"
+                      Type="Week"
+                      Format="yyyy 第 WW 周"
+                      Placeholder="选择周"/>
+```
+
+- 月
+```xml
+<vista:VistaDatePicker Width="200" Type="Month" Placeholder="选择月"/>
+```
+
+- 年
+```xml
+<vista:VistaDatePicker Width="180" Type="Year" Placeholder="选择年"/>
+```
+
+- 多个日期
+```xml
+<vista:VistaDatePicker Width="280" Type="Dates" Placeholder="选择一个或多个日期"/>
+```
+
+- 多个月
+```xml
+<vista:VistaDatePicker Width="280" Type="Months" Placeholder="选择一个或多个月"/>
+```
+
+- 多个年
+```xml
+<vista:VistaDatePicker Width="260" Type="Years" Placeholder="选择一个或多个年"/>
+```
+
+#### 属性说明（VistaDatePicker）
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Value | DateTime? | null | 当前值（双向绑定，日/周/月/年模式） |
+| ValueDates | List<DateTime> | null | 多个日期模式的选中集合 |
+| ValueMonths | List<DateTime> | null | 多个月模式的选中集合（每项为该月第一天） |
+| ValueYears | List<DateTime> | null | 多个年模式的选中集合（每项为当年第一天） |
+| Placeholder | string | "选择日期" | 占位文本 |
+| Readonly | bool | false | 是否只读 |
+| IsDisabled | bool | false | 是否禁用 |
+| Clearable | bool | true | 是否显示清空按钮 |
+| InputSize | InputSize | Default | 尺寸：Default, Medium, Small, Mini |
+| Type | DatePickerType | Date | Date/Week/Month/Year/Dates/Months/Years |
+| PickerOptions | DatePickerOptions | new() | 运行期初始化，包含 Shortcuts/DisabledDate |
+| DefaultValue | DateTime? | null | 打开时默认显示的值 |
+| Format | string | "yyyy-MM-dd" | 显示格式（周模式支持 "yyyy 第 WW 周"） |
+
+#### 事件说明（VistaDatePicker）
+| 事件 | 说明 | 参数 |
+|------|------|------|
+| Change | 用户确认选定的值时触发 | 单值：DateTime?；多值：List<DateTime> |
+| Blur | 弹出层关闭时触发 | EventArgs |
+| OnFocus | 弹出层打开时触发 | EventArgs |
+
+> 说明：内部已优化点击行为，点击面板内不会误关闭弹出层；选择即更新显示并关闭。
+
+#### DateTimePicker（日期时间选择器）
+- 当前状态：⏳ 规划中，暂不实现。本库将在后续版本提供与 Element UI 近似体验的 `DateTimePicker`。
+
 ## 详细使用说明
 
 ### 样式自定义
