@@ -49,6 +49,9 @@ namespace VistaControls.Demo
                 switchValue.Value = 0; // 初始值
             }
 
+            // 初始化 Tag
+            InitializeTags();
+
             // 初始化日期选择器
             InitializeDatePickers();
 
@@ -348,6 +351,102 @@ namespace VistaControls.Demo
             }
         }
 
+        // Tag 相关事件处理
+        private List<string> _dynamicTags = new List<string> { "标签一", "标签二", "标签三" };
+
+        private void InitializeTags()
+        {
+            // 初始化动态标签
+            UpdateDynamicTags();
+        }
+
+        private void UpdateDynamicTags()
+        {
+            if (dynamicTagsContainer != null)
+            {
+                dynamicTagsContainer.Items.Clear();
+                foreach (var tag in _dynamicTags)
+                {
+                    var tagControl = new VistaControls.VistaTag
+                    {
+                        Content = tag,
+                        Closable = true,
+                        Margin = new Thickness(0, 0, 10, 0)
+                    };
+                    tagControl.Close += DynamicTag_Close;
+                    dynamicTagsContainer.Items.Add(tagControl);
+                }
+            }
+        }
+
+        private void Tag_Close(object sender, RoutedEventArgs e)
+        {
+            if (sender is VistaControls.VistaTag tag)
+            {
+                VistaControls.MessageManager.Show($"标签 '{tag.Content}' 已关闭", VistaControls.MessageType.Success);
+            }
+        }
+
+        private void DynamicTag_Close(object sender, RoutedEventArgs e)
+        {
+            if (sender is VistaControls.VistaTag tag && tag.Content is string tagText)
+            {
+                _dynamicTags.Remove(tagText);
+                UpdateDynamicTags();
+                VistaControls.MessageManager.Show($"标签 '{tagText}' 已移除", VistaControls.MessageType.Info);
+            }
+        }
+
+        private void Tag_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is VistaControls.VistaTag tag)
+            {
+                VistaControls.MessageManager.Show($"点击了标签: {tag.Content}", VistaControls.MessageType.Info);
+            }
+        }
+
+        private void AddTagButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (tagInput != null && addTagButton != null)
+            {
+                tagInput.Visibility = Visibility.Visible;
+                addTagButton.Visibility = Visibility.Collapsed;
+                tagInput.Focus();
+            }
+        }
+
+        private void TagInput_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter && tagInput != null)
+            {
+                HandleTagInput();
+            }
+        }
+
+        private void TagInput_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (tagInput != null)
+            {
+                HandleTagInput();
+            }
+        }
+
+        private void HandleTagInput()
+        {
+            if (tagInput != null && addTagButton != null)
+            {
+                var inputValue = tagInput.Text?.Trim();
+                if (!string.IsNullOrEmpty(inputValue) && !_dynamicTags.Contains(inputValue))
+                {
+                    _dynamicTags.Add(inputValue);
+                    UpdateDynamicTags();
+                }
+                tagInput.Text = string.Empty;
+                tagInput.Visibility = Visibility.Collapsed;
+                addTagButton.Visibility = Visibility.Visible;
+            }
+        }
+
         private sealed class DemoRow
         {
             public string Date { get; set; } = "";
@@ -391,6 +490,20 @@ namespace VistaControls.Demo
                     new DemoRow { Date = "2016-05-08", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
                     new DemoRow { Date = "2016-05-06", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
                     new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    new DemoRow { Date = "2016-05-07", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+                    
                 };
                 tableFixedHeader.ItemsSource = longList;
             }

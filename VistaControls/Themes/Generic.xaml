@@ -17,6 +17,12 @@
     <converters:SliderProgressConverter x:Key="SliderProgressConverter"/>
     <converters:SliderStopPositionConverter x:Key="SliderStopPositionConverter"/>
     <converters:RowClassToBackgroundConverter x:Key="RowClassToBackgroundConverter"/>
+    <converters:TagTypeToBackgroundConverter x:Key="TagTypeToBackgroundConverter"/>
+    <converters:TagTypeToTextColorConverter x:Key="TagTypeToTextColorConverter"/>
+    <converters:TagTypeToBorderColorConverter x:Key="TagTypeToBorderColorConverter"/>
+    <converters:TagBackgroundConverter x:Key="TagBackgroundConverter"/>
+    <converters:TagBorderColorConverter x:Key="TagBorderColorConverter"/>
+    <converters:TagTextColorConverter x:Key="TagTextColorConverter"/>
     
     <!-- 阴影效果 -->
     <DropShadowEffect x:Key="MessageShadow" 
@@ -2197,6 +2203,99 @@
                 <Setter Property="FontSize" Value="12"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!-- VistaTag 样式 -->
+    <Style TargetType="{x:Type local:VistaTag}">
+        <Setter Property="Padding" Value="10,0"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaTag}">
+                    <Border x:Name="border"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="4"
+                            Padding="{TemplateBinding Padding}">
+                        <Border.Background>
+                            <MultiBinding Converter="{StaticResource TagBackgroundConverter}">
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Color"/>
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="TagType"/>
+                            </MultiBinding>
+                        </Border.Background>
+                        <Border.BorderBrush>
+                            <MultiBinding Converter="{StaticResource TagBorderColorConverter}">
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Hit"/>
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="TagType"/>
+                            </MultiBinding>
+                        </Border.BorderBrush>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- 内容 -->
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Grid.Column="0"
+                                              Content="{TemplateBinding Content}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <ContentPresenter.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" 
+                                                   Foreground="{Binding RelativeSource={RelativeSource AncestorType=local:VistaTag}, Path=TagType, Converter={StaticResource TagTypeToTextColorConverter}}"/>
+                                    </DataTemplate>
+                                </ContentPresenter.ContentTemplate>
+                            </ContentPresenter>
+                            
+                            <!-- 关闭按钮 -->
+                            <Button x:Name="PART_CloseButton"
+                                    Grid.Column="1"
+                                    Width="14" Height="14"
+                                    Padding="0"
+                                    BorderThickness="0"
+                                    Background="Transparent"
+                                    Cursor="Hand"
+                                    Margin="4,0,0,0"
+                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Closable, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <Path Data="M7 0L4 3L1 0L0 1L3 4L0 7L1 8L4 5L7 8L8 7L5 4L8 1Z"
+                                      Stretch="Uniform"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      Fill="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TagType, Converter={StaticResource TagTypeToTextColorConverter}}">
+                                    <Path.Style>
+                                        <Style TargetType="Path">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TextColor}" Value="{x:Null}">
+                                                    <Setter Property="Fill" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TagType, Converter={StaticResource TagTypeToTextColorConverter}}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
+                                <Button.Template>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border Background="Transparent">
+                                            <ContentPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <!-- 鼠标悬停效果 -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="border" Property="Opacity" Value="0.8"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

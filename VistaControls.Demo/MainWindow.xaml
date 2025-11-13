@@ -905,6 +905,84 @@
                                            Value="2025-11-29" />
                 </StackPanel>
 
+                <!-- VistaTag 演示 -->
+                <TextBlock Text="VistaTag 标签" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+                
+                <!-- 基础用法 -->
+                <TextBlock Text="基础用法" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaTag Content="标签一" Margin="0,0,10,0" />
+                    <vista:VistaTag Content="标签二" TagType="Success" Margin="0,0,10,0" />
+                    <vista:VistaTag Content="标签三" TagType="Info" Margin="0,0,10,0" />
+                    <vista:VistaTag Content="标签四" TagType="Warning" Margin="0,0,10,0" />
+                    <vista:VistaTag Content="标签五" TagType="Danger" Margin="0,0,10,0" />
+                </StackPanel>
+                
+                <!-- 可移除标签 -->
+                <TextBlock Text="可移除标签" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaTag x:Name="tagClosable1" Content="标签一" Closable="True" Margin="0,0,10,0" Close="Tag_Close" />
+                    <vista:VistaTag x:Name="tagClosable2" Content="标签二" TagType="Success" Closable="True" Margin="0,0,10,0" Close="Tag_Close" />
+                    <vista:VistaTag x:Name="tagClosable3" Content="标签三" TagType="Info" Closable="True" Margin="0,0,10,0" Close="Tag_Close" />
+                    <vista:VistaTag x:Name="tagClosable4" Content="标签四" TagType="Warning" Closable="True" Margin="0,0,10,0" Close="Tag_Close" />
+                    <vista:VistaTag x:Name="tagClosable5" Content="标签五" TagType="Danger" Closable="True" Margin="0,0,10,0" Close="Tag_Close" />
+                </StackPanel>
+                
+                <!-- 动态编辑标签 -->
+                <TextBlock Text="动态编辑标签" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <ItemsControl x:Name="dynamicTagsContainer">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    <vista:VistaInput x:Name="tagInput" Width="90" Margin="10,0,0,0" 
+                                      KeyDown="TagInput_KeyDown" LostFocus="TagInput_LostFocus" 
+                                      Visibility="Collapsed"/>
+                    <vista:VistaButton x:Name="addTagButton" Content="+ New Tag" Margin="10,0,0,0" 
+                                        Click="AddTagButton_Click"/>
+                </StackPanel>
+                
+                <!-- 自定义颜色 -->
+                <TextBlock Text="自定义颜色" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaTag Content="自定义标签" Margin="0,0,10,0">
+                        <vista:VistaTag.Color>
+                            <SolidColorBrush Color="#FF6B9E"/>
+                        </vista:VistaTag.Color>
+                        <vista:VistaTag.TextColor>
+                            <SolidColorBrush Color="White"/>
+                        </vista:VistaTag.TextColor>
+                    </vista:VistaTag>
+                    <vista:VistaTag Content="自定义标签2" Margin="0,0,10,0">
+                        <vista:VistaTag.Color>
+                            <SolidColorBrush Color="#9C27B0"/>
+                        </vista:VistaTag.Color>
+                        <vista:VistaTag.TextColor>
+                            <SolidColorBrush Color="White"/>
+                        </vista:VistaTag.TextColor>
+                    </vista:VistaTag>
+                </StackPanel>
+                
+                <!-- 边框描边 -->
+                <TextBlock Text="边框描边" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaTag Content="标签一" Hit="True" Margin="0,0,10,0" />
+                    <vista:VistaTag Content="标签二" TagType="Success" Hit="True" Margin="0,0,10,0" />
+                    <vista:VistaTag Content="标签三" TagType="Info" Hit="True" Margin="0,0,10,0" />
+                    <vista:VistaTag Content="标签四" TagType="Warning" Hit="True" Margin="0,0,10,0" />
+                    <vista:VistaTag Content="标签五" TagType="Danger" Hit="True" Margin="0,0,10,0" />
+                </StackPanel>
+                
+                <!-- 点击事件 -->
+                <TextBlock Text="点击事件" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,40">
+                    <vista:VistaTag Content="点击我试试" TagType="Default" Margin="0,0,10,0" Click="Tag_Click" />
+                    <vista:VistaTag Content="我也能点击" TagType="Success" Margin="0,0,10,0" Click="Tag_Click" />
+                </StackPanel>
+
                 <!-- VistaTable 演示 -->
                 <TextBlock Text="VistaTable 表格" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
 

@@ -295,5 +295,211 @@ namespace VistaControls.Converters
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// 将标签类型转换为背景色的转换器
+    /// </summary>
+    public class TagTypeToBackgroundConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is VistaControls.TagType tagType)
+            {
+                return tagType switch
+                {
+                    VistaControls.TagType.Success => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F0F9EB")),
+                    VistaControls.TagType.Info => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F4F5")),
+                    VistaControls.TagType.Warning => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FDF6EC")),
+                    VistaControls.TagType.Danger => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FEF0F0")),
+                    _ => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ECF5FF"))
+                };
+            }
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ECF5FF"));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 将标签类型转换为文字颜色的转换器
+    /// </summary>
+    public class TagTypeToTextColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is VistaControls.TagType tagType)
+            {
+                return tagType switch
+                {
+                    VistaControls.TagType.Success => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#67C23A")),
+                    VistaControls.TagType.Info => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#909399")),
+                    VistaControls.TagType.Warning => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E6A23C")),
+                    VistaControls.TagType.Danger => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F56C6C")),
+                    _ => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#409EFF"))
+                };
+            }
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#409EFF"));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 将标签类型转换为边框颜色的转换器
+    /// </summary>
+    public class TagTypeToBorderColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is VistaControls.TagType tagType)
+            {
+                return tagType switch
+                {
+                    VistaControls.TagType.Success => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B3E19D")),
+                    VistaControls.TagType.Info => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C8C9CC")),
+                    VistaControls.TagType.Warning => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EEBE77")),
+                    VistaControls.TagType.Danger => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FAB6B6")),
+                    _ => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B3D8FF"))
+                };
+            }
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B3D8FF"));
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 标签背景色转换器（优先使用 Color，否则使用 TagType）
+    /// </summary>
+    public class TagBackgroundConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length >= 2)
+            {
+                // 如果 Color 不为 null，使用 Color
+                if (values[0] is Brush color && color != null)
+                {
+                    return color;
+                }
+                // 否则使用 TagType 转换
+                if (values[1] is VistaControls.TagType tagType)
+                {
+                    return tagType switch
+                    {
+                        VistaControls.TagType.Success => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F0F9EB")),
+                        VistaControls.TagType.Info => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F4F4F5")),
+                        VistaControls.TagType.Warning => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FDF6EC")),
+                        VistaControls.TagType.Danger => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FEF0F0")),
+                        _ => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ECF5FF"))
+                    };
+                }
+            }
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ECF5FF"));
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 标签边框颜色转换器（Hit 为 true 时使用 TagType 颜色，否则透明）
+    /// </summary>
+    public class TagBorderColorConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length >= 2)
+            {
+                bool hit = values[0] is bool h && h;
+                if (!hit)
+                {
+                    return Brushes.Transparent;
+                }
+                if (values[1] is VistaControls.TagType tagType)
+                {
+                    return tagType switch
+                    {
+                        VistaControls.TagType.Success => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B3E19D")),
+                        VistaControls.TagType.Info => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#C8C9CC")),
+                        VistaControls.TagType.Warning => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#EEBE77")),
+                        VistaControls.TagType.Danger => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FAB6B6")),
+                        _ => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B3D8FF"))
+                    };
+                }
+            }
+            return Brushes.Transparent;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 标签文字颜色转换器（优先使用 TextColor，否则使用 TagType）
+    /// </summary>
+    public class TagTextColorConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values == null || values.Length < 2)
+            {
+                return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#409EFF"));
+            }
+
+            try
+            {
+                // 如果 TextColor 不为 null，使用 TextColor
+                if (values[0] is Brush textColor && textColor != null)
+                {
+                    return textColor;
+                }
+            }
+            catch
+            {
+                // 忽略错误，继续使用 TagType
+            }
+
+            try
+            {
+                // 否则使用 TagType 转换
+                if (values[1] is VistaControls.TagType tagType)
+                {
+                    return tagType switch
+                    {
+                        VistaControls.TagType.Success => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#67C23A")),
+                        VistaControls.TagType.Info => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#909399")),
+                        VistaControls.TagType.Warning => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E6A23C")),
+                        VistaControls.TagType.Danger => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F56C6C")),
+                        _ => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#409EFF"))
+                    };
+                }
+            }
+            catch
+            {
+                // 忽略错误
+            }
+
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString("#409EFF"));
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }
 
