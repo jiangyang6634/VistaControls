@@ -449,6 +449,54 @@ namespace VistaControls.Converters
     }
 
     /// <summary>
+    /// 进度条圆角半径转换器（圆角半径为高度的一半）
+    /// </summary>
+    public class ProgressCornerRadiusConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is double height && height > 0)
+            {
+                // 圆角半径为高度的一半，但最小为 2
+                return Math.Max(2, height / 2.0);
+            }
+            return 3.0; // 默认值
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// 进度条宽度转换器
+    /// </summary>
+    public class ProgressWidthConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values.Length >= 2 && values[0] is double percentage && values[1] is double totalWidth)
+            {
+                // 如果 totalWidth 为 0 或 NaN，使用默认值 350
+                var width = double.IsNaN(totalWidth) || totalWidth <= 0 ? 350 : totalWidth;
+                return Math.Max(0, width * percentage / 100.0);
+            }
+            // 如果绑定失败，至少显示一个最小宽度
+            if (values.Length >= 1 && values[0] is double pct)
+            {
+                return Math.Max(0, 350 * pct / 100.0);
+            }
+            return 0.0;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
     /// 标签文字颜色转换器（优先使用 TextColor，否则使用 TagType）
     /// </summary>
     public class TagTextColorConverter : IMultiValueConverter

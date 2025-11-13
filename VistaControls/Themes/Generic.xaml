@@ -23,6 +23,8 @@
     <converters:TagBackgroundConverter x:Key="TagBackgroundConverter"/>
     <converters:TagBorderColorConverter x:Key="TagBorderColorConverter"/>
     <converters:TagTextColorConverter x:Key="TagTextColorConverter"/>
+    <converters:ProgressWidthConverter x:Key="ProgressWidthConverter"/>
+    <converters:ProgressCornerRadiusConverter x:Key="ProgressCornerRadiusConverter"/>
     
     <!-- 阴影效果 -->
     <DropShadowEffect x:Key="MessageShadow" 
@@ -2292,6 +2294,174 @@
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="border" Property="Opacity" Value="0.8"/>
                         </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- VistaProgress 样式 -->
+    <Style TargetType="{x:Type local:VistaProgress}">
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaProgress}">
+                    <Grid>
+                        <!-- 线形进度条 -->
+                        <Grid x:Name="lineProgress" Visibility="Visible">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            
+                            <!-- 进度条背景 -->
+                            <Border x:Name="lineBackground"
+                                    Grid.Row="0"
+                                    MinHeight="6"
+                                    Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeWidth, FallbackValue=6}"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DefineBackColor, FallbackValue={StaticResource DefaultBorderColor}}"
+                                    CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeWidth, Converter={StaticResource ProgressCornerRadiusConverter}, FallbackValue=3}"
+                                    Margin="0,0,0,10">
+                                <!-- 进度条前景 -->
+                                <Border x:Name="lineForeground"
+                                        HorizontalAlignment="Left"
+                                        MinHeight="6"
+                                        Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeWidth, FallbackValue=6}"
+                                        Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ComputedColor, FallbackValue={StaticResource PrimaryColor}}"
+                                        CornerRadius="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeWidth, Converter={StaticResource ProgressCornerRadiusConverter}, FallbackValue=3}">
+                                    <Border.Width>
+                                        <MultiBinding>
+                                            <MultiBinding.Converter>
+                                                <converters:ProgressWidthConverter/>
+                                            </MultiBinding.Converter>
+                                            <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Percentage"/>
+                                            <Binding RelativeSource="{RelativeSource AncestorType=Border}" Path="ActualWidth" FallbackValue="350"/>
+                                        </MultiBinding>
+                                    </Border.Width>
+                                    
+                                    <!-- 内部文字 -->
+                                    <TextBlock x:Name="lineTextInside"
+                                               Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FormattedText}"
+                                               HorizontalAlignment="Right"
+                                               VerticalAlignment="Center"
+                                               Margin="10,0"
+                                               FontSize="12"
+                                               Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TextColor, FallbackValue=White}"
+                                               Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TextInside, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                </Border>
+                            </Border>
+                            
+                            <!-- 外部文字 -->
+                            <TextBlock x:Name="lineTextOutside"
+                                       Grid.Row="1"
+                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FormattedText}"
+                                       FontSize="14"
+                                       Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TextColor, FallbackValue={StaticResource DefaultTextColor}}"
+                                       Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowText, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TextInside}" Value="False">
+                                                <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowText, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                        
+                        <!-- 环形/仪表盘进度条 -->
+                        <Grid x:Name="circleProgress" Visibility="Collapsed">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- 进度条画布 -->
+                            <Canvas x:Name="progressCanvas"
+                                    Grid.Column="0"
+                                    Width="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Width}"
+                                    Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Width}">
+                                <!-- 背景圆环 -->
+                                <Path x:Name="progressBackground"
+                                      Stroke="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=DefineBackColor, FallbackValue={StaticResource DefaultBorderColor}}"
+                                      StrokeThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeWidth}"
+                                      StrokeStartLineCap="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeLinecap}"
+                                      StrokeEndLineCap="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeLinecap}">
+                                    <Path.Data>
+                                        <PathGeometry>
+                                            <PathFigure x:Name="backgroundFigure" StartPoint="0,0">
+                                                <ArcSegment x:Name="backgroundArc" 
+                                                           SweepDirection="Clockwise" 
+                                                           IsLargeArc="False"/>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                    </Path.Data>
+                                </Path>
+                                
+                                <!-- 前景圆环 -->
+                                <Path x:Name="progressForeground"
+                                      Stroke="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ComputedColor}"
+                                      StrokeThickness="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeWidth}"
+                                      StrokeStartLineCap="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeLinecap}"
+                                      StrokeEndLineCap="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=StrokeLinecap}">
+                                    <Path.Data>
+                                        <PathGeometry>
+                                            <PathFigure x:Name="foregroundFigure" StartPoint="0,0">
+                                                <ArcSegment x:Name="foregroundArc" 
+                                                           SweepDirection="Clockwise" 
+                                                           IsLargeArc="False"/>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                    </Path.Data>
+                                </Path>
+                                
+                                <!-- 文字（显示在圆环内部） -->
+                                <TextBlock x:Name="circleText"
+                                           Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FormattedText}"
+                                           FontSize="14"
+                                           Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TextColor, FallbackValue={StaticResource DefaultTextColor}}"
+                                           Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowText, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                            </Canvas>
+                            
+                            <!-- 文字（显示在圆环右侧） -->
+                            <TextBlock x:Name="circleTextRight"
+                                       Grid.Column="1"
+                                       Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=FormattedText}"
+                                       FontSize="14"
+                                       Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TextColor, FallbackValue={StaticResource DefaultTextColor}}"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0"
+                                       Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowText, Converter={StaticResource BoolToVisibilityConverter}}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ProgressType}" Value="Circle">
+                                                <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowText, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ProgressType}" Value="Dashboard">
+                                                <Setter Property="Visibility" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowText, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Grid>
+                    
+                    <ControlTemplate.Triggers>
+                        <!-- 根据类型显示不同的进度条 -->
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ProgressType}" Value="Circle">
+                            <Setter TargetName="lineProgress" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="circleProgress" Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ProgressType}" Value="Dashboard">
+                            <Setter TargetName="lineProgress" Property="Visibility" Value="Collapsed"/>
+                            <Setter TargetName="circleProgress" Property="Visibility" Value="Visible"/>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

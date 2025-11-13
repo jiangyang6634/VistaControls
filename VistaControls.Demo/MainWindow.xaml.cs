@@ -52,6 +52,9 @@ namespace VistaControls.Demo
             // 初始化 Tag
             InitializeTags();
 
+            // 初始化 Progress
+            InitializeProgress();
+
             // 初始化日期选择器
             InitializeDatePickers();
 
@@ -444,6 +447,107 @@ namespace VistaControls.Demo
                 tagInput.Text = string.Empty;
                 tagInput.Visibility = Visibility.Collapsed;
                 addTagButton.Visibility = Visibility.Visible;
+            }
+        }
+
+        // Progress 相关事件处理
+        private double _progressPercentage = 20;
+        private double _dashboardPercentage = 10;
+
+        private void InitializeProgress()
+        {
+            // 设置格式化函数
+            if (progressFormat != null)
+            {
+                progressFormat.Format = (percentage) => percentage == 100 ? "满" : $"{percentage:F0}%";
+            }
+
+            // 设置自定义颜色
+            if (progressCustomColor1 != null)
+            {
+                progressCustomColor1.Color = "#409eff";
+            }
+
+            if (progressCustomColor2 != null)
+            {
+                progressCustomColor2.Color = new Func<double, string>((percentage) =>
+                {
+                    if (percentage < 30) return "#909399";
+                    if (percentage < 70) return "#e6a23c";
+                    return "#67c23a";
+                });
+            }
+
+            if (progressCustomColor3 != null)
+            {
+                var colorStops = new List<VistaControls.ProgressColorStop>
+                {
+                    new VistaControls.ProgressColorStop { Color = "#f56c6c", Percentage = 20 },
+                    new VistaControls.ProgressColorStop { Color = "#e6a23c", Percentage = 40 },
+                    new VistaControls.ProgressColorStop { Color = "#5cb87a", Percentage = 60 },
+                    new VistaControls.ProgressColorStop { Color = "#1989fa", Percentage = 80 },
+                    new VistaControls.ProgressColorStop { Color = "#6f7ad3", Percentage = 100 }
+                };
+                progressCustomColor3.Color = colorStops;
+            }
+
+            // 更新进度条百分比
+            UpdateProgressBars();
+        }
+
+        private void UpdateProgressBars()
+        {
+            if (progressCustomColor1 != null) progressCustomColor1.Percentage = _progressPercentage;
+            if (progressCustomColor2 != null) progressCustomColor2.Percentage = _progressPercentage;
+            if (progressCustomColor3 != null) progressCustomColor3.Percentage = _progressPercentage;
+            // if (progressDashboard != null) progressDashboard.Percentage = _dashboardPercentage;
+        }
+
+        private void ProgressIncrease_Click(object sender, RoutedEventArgs e)
+        {
+            _progressPercentage += 10;
+            if (_progressPercentage > 100) _progressPercentage = 100;
+            UpdateProgressBars();
+        }
+
+        private void ProgressDecrease_Click(object sender, RoutedEventArgs e)
+        {
+            _progressPercentage -= 10;
+            if (_progressPercentage < 0) _progressPercentage = 0;
+            UpdateProgressBars();
+        }
+
+        private void DashboardIncrease_Click(object sender, RoutedEventArgs e)
+        {
+            _dashboardPercentage += 10;
+            if (_dashboardPercentage > 100) _dashboardPercentage = 100;
+            UpdateProgressBars();
+        }
+
+        private void DashboardDecrease_Click(object sender, RoutedEventArgs e)
+        {
+            _dashboardPercentage -= 10;
+            if (_dashboardPercentage < 0) _dashboardPercentage = 0;
+            UpdateProgressBars();
+        }
+
+        private void ControlledProgressIncrease_Click(object sender, RoutedEventArgs e)
+        {
+            if (progressControlled != null)
+            {
+                var newValue = progressControlled.Percentage + 10;
+                if (newValue > 100) newValue = 100;
+                progressControlled.Percentage = newValue;
+            }
+        }
+
+        private void ControlledProgressDecrease_Click(object sender, RoutedEventArgs e)
+        {
+            if (progressControlled != null)
+            {
+                var newValue = progressControlled.Percentage - 10;
+                if (newValue < 0) newValue = 0;
+                progressControlled.Percentage = newValue;
             }
         }
 

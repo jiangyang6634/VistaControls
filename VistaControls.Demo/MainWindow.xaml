@@ -983,6 +983,70 @@
                     <vista:VistaTag Content="我也能点击" TagType="Success" Margin="0,0,10,0" Click="Tag_Click" />
                 </StackPanel>
 
+                <!-- VistaProgress 演示 -->
+                <TextBlock Text="VistaProgress 进度条" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+                
+                <!-- 线形进度条 -->
+                <TextBlock Text="线形进度条" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Margin="0,0,0,20">
+                    <vista:VistaProgress Percentage="50" Margin="0,0,0,10"/>
+                    <vista:VistaProgress x:Name="progressFormat" Percentage="100" Margin="0,0,0,10"/>
+                    <vista:VistaProgress Percentage="100" Status="Success" Margin="0,0,0,10"/>
+                    <vista:VistaProgress Percentage="100" Status="Warning" Margin="0,0,0,10"/>
+                    <vista:VistaProgress Percentage="50" Status="Exception" Margin="0,0,0,10"/>
+                </StackPanel>
+                
+                <!-- 百分比内显 -->
+                <TextBlock Text="百分比内显" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Margin="0,0,0,20">
+                    <vista:VistaProgress TextInside="True" StrokeWidth="26" Percentage="70" Margin="0,0,0,10"/>
+                    <vista:VistaProgress TextInside="True" StrokeWidth="24" Percentage="100" Status="Success" Margin="0,0,0,10"/>
+                    <vista:VistaProgress TextInside="True" StrokeWidth="22" Percentage="80" Status="Warning" Margin="0,0,0,10"/>
+                    <vista:VistaProgress TextInside="True" StrokeWidth="20" Percentage="50" Status="Exception" Margin="0,0,0,10"/>
+                </StackPanel>
+                
+                <!-- 自定义颜色 -->
+                <TextBlock Text="自定义颜色" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Margin="0,0,0,20">
+                    <vista:VistaProgress x:Name="progressCustomColor1" Percentage="20" Margin="0,0,0,10"/>
+                    <vista:VistaProgress x:Name="progressCustomColor2" Percentage="20" Margin="0,0,0,10"/>
+                    <vista:VistaProgress x:Name="progressCustomColor3" Percentage="20" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <vista:VistaButton Content="-" Click="ProgressDecrease_Click" Margin="0,0,10,0"/>
+                        <vista:VistaButton Content="+" Click="ProgressIncrease_Click"/>
+                    </StackPanel>
+                </StackPanel>
+                
+                <!-- 环形进度条 -->
+                <!-- <TextBlock Text="环形进度条" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" /> -->
+                <!-- <StackPanel Orientation="Horizontal" Margin="0,0,0,20"> -->
+                <!--     <vista:VistaProgress ProgressType="Circle" Percentage="0" Width="126" Margin="0,0,20,0"/> -->
+                <!--     <vista:VistaProgress ProgressType="Circle" Percentage="25" Width="126" Margin="0,0,20,0"/> -->
+                <!--     <vista:VistaProgress ProgressType="Circle" Percentage="100" Status="Success" Width="126" Margin="0,0,20,0"/> -->
+                <!--     <vista:VistaProgress ProgressType="Circle" Percentage="70" Status="Warning" Width="126" Margin="0,0,20,0"/> -->
+                <!--     <vista:VistaProgress ProgressType="Circle" Percentage="50" Status="Exception" Width="126"/> -->
+                <!-- </StackPanel> -->
+                
+                <!-- 仪表盘形进度条 -->
+                <!-- <TextBlock Text="仪表盘形进度条" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" /> -->
+                <!-- <StackPanel Margin="0,0,0,20"> -->
+                <!--     <vista:VistaProgress x:Name="progressDashboard" ProgressType="Dashboard" Percentage="10" Width="126" Margin="0,0,0,10"/> -->
+                <!--     <StackPanel Orientation="Horizontal" Margin="0,10,0,0"> -->
+                <!--         <vista:VistaButton Content="-" Click="DashboardDecrease_Click" Margin="0,0,10,0"/> -->
+                <!--         <vista:VistaButton Content="+" Click="DashboardIncrease_Click"/> -->
+                <!--     </StackPanel> -->
+                <!-- </StackPanel> -->
+                
+                <!-- 进度控制示例 -->
+                <TextBlock Text="进度控制示例" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Margin="0,0,0,40">
+                    <vista:VistaProgress x:Name="progressControlled" Percentage="0" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal">
+                        <vista:VistaButton Content="减少 10%" Click="ControlledProgressDecrease_Click" Margin="0,0,10,0"/>
+                        <vista:VistaButton Content="增加 10%" Click="ControlledProgressIncrease_Click"/>
+                    </StackPanel>
+                </StackPanel>
+
                 <!-- VistaTable 演示 -->
                 <TextBlock Text="VistaTable 表格" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
 
