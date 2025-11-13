@@ -1090,6 +1090,124 @@
                     </vista:VistaTable.Columns>
                 </vista:VistaTable>
 
+                <!-- VistaPagination 演示 -->
+                <TextBlock Text="VistaPagination 分页" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+
+                <!-- 基础用法 -->
+                <TextBlock Text="基础用法（页数较少）" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaPagination x:Name="paginationBasic"
+                                       Layout="prev, pager, next"
+                                       Total="50"
+                                       CurrentPage="1"
+                                       Margin="0,0,0,20"/>
+
+                <TextBlock Text="基础用法（大于 7 页）" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaPagination x:Name="paginationLarge"
+                                       Layout="prev, pager, next"
+                                       Total="1000"
+                                       CurrentPage="1"
+                                       Margin="0,0,0,20"/>
+
+                <!-- 设置最大页码按钮数 -->
+                <TextBlock Text="设置最大页码按钮数（11）" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaPagination x:Name="paginationPagerCount"
+                                       Layout="prev, pager, next"
+                                       Total="1000"
+                                       PageSize="20"
+                                       PagerCount="11"
+                                       CurrentPage="1"
+                                       Margin="0,0,0,20"/>
+
+                <!-- 带有背景色 -->
+                <TextBlock Text="带有背景色的分页" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaPagination x:Name="paginationBackground"
+                                       Layout="prev, pager, next"
+                                       Total="1000"
+                                       HasBackground="True"
+                                       CurrentPage="1"
+                                       Margin="0,0,0,20"/>
+
+                <!-- 小型分页 -->
+                <TextBlock Text="小型分页" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaPagination x:Name="paginationSmall"
+                                       Layout="prev, pager, next"
+                                       Total="50"
+                                       Small="True"
+                                       CurrentPage="1"
+                                       Margin="0,0,0,20"/>
+
+                <!-- 完整功能 -->
+                <TextBlock Text="完整功能（包含跳转、每页条数、总数）" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaPagination x:Name="paginationFull"
+                                       Layout="prev, pager, next, jumper, ->, total, sizes"
+                                       Total="1000"
+                                       PageSize="10"
+                                       CurrentPage="1"
+                                       Margin="0,0,0,20"/>
+
+                <!-- VistaBadge 演示 -->
+                <TextBlock Text="VistaBadge 标记" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+
+                <!-- 基础用法 -->
+                <TextBlock Text="基础用法" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <vista:VistaBadge Value="12" Margin="0,0,20,0">
+                        <vista:VistaButton Content="评论" ButtonSize="Small"/>
+                    </vista:VistaBadge>
+                    <vista:VistaBadge Value="3" Margin="0,0,20,0">
+                        <vista:VistaButton Content="回复" ButtonSize="Small"/>
+                    </vista:VistaBadge>
+                    <vista:VistaBadge Value="1" Type="Primary" Margin="0,0,20,0">
+                        <vista:VistaButton Content="评论" ButtonSize="Small"/>
+                    </vista:VistaBadge>
+                    <vista:VistaBadge Value="2" Type="Warning">
+                        <vista:VistaButton Content="回复" ButtonSize="Small"/>
+                    </vista:VistaBadge>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <TextBlock Text="点我查看" VerticalAlignment="Center" Margin="0,0,16,0" Foreground="#409EFF" />
+                    <vista:VistaBadge Value="12" Type="Danger" Margin="0,0,20,0">
+                        <TextBlock Text="评论" VerticalAlignment="Center" />
+                    </vista:VistaBadge>
+                    <vista:VistaBadge Value="3" Type="Primary">
+                        <TextBlock Text="回复" VerticalAlignment="Center" />
+                    </vista:VistaBadge>
+                </StackPanel>
+
+                <!-- 最大值 -->
+                <TextBlock Text="最大值" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaBadge Value="200" Max="99" Margin="0,0,20,0">
+                        <vista:VistaButton Content="评论" ButtonSize="Small"/>
+                    </vista:VistaBadge>
+                    <vista:VistaBadge Value="100" Max="10" Margin="0,0,20,0">
+                        <vista:VistaButton Content="回复" ButtonSize="Small"/>
+                    </vista:VistaBadge>
+                </StackPanel>
+
+                <!-- 自定义内容 -->
+                <TextBlock Text="自定义内容" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaBadge Value="new" Type="Success" Margin="0,0,20,0">
+                        <vista:VistaButton Content="评论" ButtonSize="Small"/>
+                    </vista:VistaBadge>
+                    <vista:VistaBadge Value="hot" Type="Danger">
+                        <vista:VistaButton Content="回复" ButtonSize="Small"/>
+                    </vista:VistaBadge>
+                </StackPanel>
+
+                <!-- 小红点 -->
+                <TextBlock Text="小红点" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,40">
+                    <vista:VistaBadge IsDot="True" Margin="0,0,20,0">
+                        <TextBlock Text="数据查询" VerticalAlignment="Center" />
+                    </vista:VistaBadge>
+                    <vista:VistaBadge IsDot="True">
+                        <vista:VistaButton ButtonType="Primary" Circle="True" Content="分享"/>
+                    </vista:VistaBadge>
+                </StackPanel>
+
             </StackPanel>
         </ScrollViewer>
 

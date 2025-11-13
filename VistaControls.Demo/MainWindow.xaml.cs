@@ -54,6 +54,9 @@ namespace VistaControls.Demo
 
             // 初始化 Progress
             InitializeProgress();
+            
+            // 初始化 Pagination
+            InitializePagination();
 
             // 初始化日期选择器
             InitializeDatePickers();
@@ -610,6 +613,53 @@ namespace VistaControls.Demo
                     
                 };
                 tableFixedHeader.ItemsSource = longList;
+            }
+        }
+
+        private void InitializePagination()
+        {
+            // 为完整功能的分页设置 PageSizes
+            if (paginationFull != null)
+            {
+                paginationFull.PageSizes = new System.Collections.ObjectModel.ObservableCollection<int> { 10, 20, 30, 40, 50, 100 };
+                
+                // 绑定事件
+                paginationFull.CurrentChange += Pagination_CurrentChange;
+                paginationFull.SizeChange += Pagination_SizeChange;
+                paginationFull.PrevClick += Pagination_PrevClick;
+                paginationFull.NextClick += Pagination_NextClick;
+            }
+        }
+
+        private void Pagination_CurrentChange(object sender, RoutedEventArgs e)
+        {
+            if (sender is VistaControls.VistaPagination pagination && e is VistaControls.PaginationEventArgs args)
+            {
+                VistaControls.MessageManager.Show($"当前页改变: {args.CurrentPage}", VistaControls.MessageType.Info);
+            }
+        }
+
+        private void Pagination_SizeChange(object sender, RoutedEventArgs e)
+        {
+            if (sender is VistaControls.VistaPagination pagination && e is VistaControls.PaginationEventArgs args)
+            {
+                VistaControls.MessageManager.Show($"每页条数改变: {args.PageSize}", VistaControls.MessageType.Info);
+            }
+        }
+
+        private void Pagination_PrevClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is VistaControls.VistaPagination pagination && e is VistaControls.PaginationEventArgs args)
+            {
+                VistaControls.MessageManager.Show($"点击上一页: 当前页 {args.CurrentPage}", VistaControls.MessageType.Info);
+            }
+        }
+
+        private void Pagination_NextClick(object sender, RoutedEventArgs e)
+        {
+            if (sender is VistaControls.VistaPagination pagination && e is VistaControls.PaginationEventArgs args)
+            {
+                VistaControls.MessageManager.Show($"点击下一页: 当前页 {args.CurrentPage}", VistaControls.MessageType.Info);
             }
         }
     }

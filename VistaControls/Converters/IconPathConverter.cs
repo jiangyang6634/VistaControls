@@ -497,6 +497,37 @@ namespace VistaControls.Converters
     }
 
     /// <summary>
+    /// Layout 字符串包含检查转换器（用于分页组件的布局控制）
+    /// </summary>
+    public class LayoutContainsConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string layout && parameter is string searchText)
+            {
+                // 检查 layout 字符串是否包含 searchText（忽略大小写和空格）
+                var parts = layout?.Split(',');
+                if (parts != null)
+                {
+                    foreach (var part in parts)
+                    {
+                        if (string.Equals(part.Trim(), searchText, StringComparison.OrdinalIgnoreCase))
+                        {
+                            return System.Windows.Visibility.Visible;
+                        }
+                    }
+                }
+            }
+            return System.Windows.Visibility.Collapsed;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
     /// 标签文字颜色转换器（优先使用 TextColor，否则使用 TagType）
     /// </summary>
     public class TagTextColorConverter : IMultiValueConverter
@@ -547,6 +578,45 @@ namespace VistaControls.Converters
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// Badge 类型到背景笔刷的转换器
+    /// </summary>
+    public class BadgeTypeToBackgroundConverter : IValueConverter
+    {
+        private static readonly Brush DefaultBrush = CreateFrozenBrush("#F56C6C");
+        private static readonly Brush PrimaryBrush = CreateFrozenBrush("#409EFF");
+        private static readonly Brush SuccessBrush = CreateFrozenBrush("#67C23A");
+        private static readonly Brush WarningBrush = CreateFrozenBrush("#E6A23C");
+        private static readonly Brush DangerBrush = CreateFrozenBrush("#F56C6C");
+        private static readonly Brush InfoBrush = CreateFrozenBrush("#909399");
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var type = value is VistaControls.BadgeType badgeType ? badgeType : VistaControls.BadgeType.Danger;
+            return type switch
+            {
+                VistaControls.BadgeType.Primary => PrimaryBrush,
+                VistaControls.BadgeType.Success => SuccessBrush,
+                VistaControls.BadgeType.Warning => WarningBrush,
+                VistaControls.BadgeType.Danger => DangerBrush,
+                VistaControls.BadgeType.Info => InfoBrush,
+                _ => DefaultBrush
+            };
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static Brush CreateFrozenBrush(string color)
+        {
+            var brush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color)!);
+            brush.Freeze();
+            return brush;
         }
     }
 }
