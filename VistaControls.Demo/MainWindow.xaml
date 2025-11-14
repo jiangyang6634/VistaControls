@@ -1168,10 +1168,10 @@
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                     <TextBlock Text="点我查看" VerticalAlignment="Center" Margin="0,0,16,0" Foreground="#409EFF" />
                     <vista:VistaBadge Value="12" Type="Danger" Margin="0,0,20,0">
-                        <TextBlock Text="评论" VerticalAlignment="Center" />
+                        <TextBlock FontSize="25"  Text="评论" Width="60" VerticalAlignment="Center" />
                     </vista:VistaBadge>
                     <vista:VistaBadge Value="3" Type="Primary">
-                        <TextBlock Text="回复" VerticalAlignment="Center" />
+                        <TextBlock FontSize="25" Text="回复" Width="60" VerticalAlignment="Center" />
                     </vista:VistaBadge>
                 </StackPanel>
 
@@ -1204,9 +1204,147 @@
                         <TextBlock Text="数据查询" VerticalAlignment="Center" />
                     </vista:VistaBadge>
                     <vista:VistaBadge IsDot="True">
-                        <vista:VistaButton ButtonType="Primary" Circle="True" Content="分享"/>
+                        <vista:VistaButton Content="分享" ButtonSize="Small"/>
                     </vista:VistaBadge>
                 </StackPanel>
+
+                <!-- VistaLoading 演示 -->
+                <TextBlock Text="VistaLoading 加载" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+
+                <!-- 区域加载 -->
+                <TextBlock Text="区域加载" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaLoading x:Name="tableLoading" IsLoading="True" Width="600" Height="200" Margin="0,0,0,20">
+                    <Border BorderBrush="#DCDFE6" BorderThickness="1" Background="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Background="#F5F7FA" BorderBrush="#DCDFE6" BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="日期" Padding="10" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Column="1" Text="姓名" Padding="10" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Column="2" Text="地址" Padding="10" FontWeight="SemiBold"/>
+                                </Grid>
+                            </Border>
+                            <StackPanel Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="2016-05-03" Padding="10"/>
+                                    <TextBlock Grid.Column="1" Text="王小虎" Padding="10"/>
+                                    <TextBlock Grid.Column="2" Text="上海市普陀区金沙江路 1518 弄" Padding="10"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="2016-05-02" Padding="10"/>
+                                    <TextBlock Grid.Column="1" Text="王小虎" Padding="10"/>
+                                    <TextBlock Grid.Column="2" Text="上海市普陀区金沙江路 1518 弄" Padding="10"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="2016-05-04" Padding="10"/>
+                                    <TextBlock Grid.Column="1" Text="王小虎" Padding="10"/>
+                                    <TextBlock Grid.Column="2" Text="上海市普陀区金沙江路 1518 弄" Padding="10"/>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </vista:VistaLoading>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaButton x:Name="toggleTableLoadingBtn" Content="切换加载状态" Click="ToggleTableLoading_Click" Margin="0,0,10,0"/>
+                </StackPanel>
+
+                <!-- 自定义加载 -->
+                <TextBlock Text="自定义加载" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaLoading x:Name="customLoading" IsLoading="True" LoadingText="拼命加载中" 
+                                    BackgroundColor="#CC000000" Width="600" Height="200" Margin="0,0,0,20">
+                    <Border BorderBrush="#DCDFE6" BorderThickness="1" Background="White">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Background="#F5F7FA" BorderBrush="#DCDFE6" BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="日期" Padding="10" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Column="1" Text="姓名" Padding="10" FontWeight="SemiBold"/>
+                                    <TextBlock Grid.Column="2" Text="地址" Padding="10" FontWeight="SemiBold"/>
+                                </Grid>
+                            </Border>
+                            <StackPanel Grid.Row="1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="2016-05-03" Padding="10"/>
+                                    <TextBlock Grid.Column="1" Text="王小虎" Padding="10"/>
+                                    <TextBlock Grid.Column="2" Text="上海市普陀区金沙江路 1518 弄" Padding="10"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="2016-05-02" Padding="10"/>
+                                    <TextBlock Grid.Column="1" Text="王小虎" Padding="10"/>
+                                    <TextBlock Grid.Column="2" Text="上海市普陀区金沙江路 1518 弄" Padding="10"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="2016-05-04" Padding="10"/>
+                                    <TextBlock Grid.Column="1" Text="王小虎" Padding="10"/>
+                                    <TextBlock Grid.Column="2" Text="上海市普陀区金沙江路 1518 弄" Padding="10"/>
+                                </Grid>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </vista:VistaLoading>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaButton x:Name="toggleCustomLoadingBtn" Content="切换加载状态" Click="ToggleCustomLoading_Click" Margin="0,0,10,0"/>
+                </StackPanel>
+
+                <!-- 服务方式调用 -->
+                <TextBlock Text="服务方式调用" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaButton x:Name="showFullscreenLoadingBtn" Content="显示全屏加载" Click="ShowFullscreenLoading_Click" Margin="0,0,10,0"/>
+                    <vista:VistaButton x:Name="showTargetLoadingBtn" Content="显示目标加载" Click="ShowTargetLoading_Click" Margin="0,0,10,0"/>
+                    <vista:VistaButton x:Name="closeLoadingBtn" Content="关闭加载" Click="CloseLoading_Click" IsEnabled="False"/>
+                </StackPanel>
+                <Border x:Name="targetElement" BorderBrush="#DCDFE6" BorderThickness="1" Background="White" 
+                        Width="400" Height="150" Margin="0,0,0,40">
+                    <TextBlock Text="这是目标元素，点击上方按钮可以在此元素上显示加载遮罩" 
+                               VerticalAlignment="Center" HorizontalAlignment="Center" 
+                               TextWrapping="Wrap" Margin="20"/>
+                </Border>
 
             </StackPanel>
         </ScrollViewer>

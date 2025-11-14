@@ -2783,4 +2783,81 @@
         </Setter>
     </Style>
 
+    <!-- VistaLoading 样式 -->
+    <Style TargetType="{x:Type local:VistaLoading}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaLoading}">
+                    <Grid>
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"/>
+
+                        <Border x:Name="PART_LoadingOverlay"
+                                Background="{TemplateBinding BackgroundColor}"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Visibility="Collapsed"
+                                IsHitTestVisible="{TemplateBinding Lock}">
+                            <Border x:Name="PART_LoadingContent"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent">
+                                <StackPanel Orientation="Vertical"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <Path x:Name="PART_Spinner"
+                                          Data="M 50,50 A 40,40 0 1,1 50,10"
+                                          Stroke="{StaticResource PrimaryColor}"
+                                          StrokeThickness="4"
+                                          StrokeStartLineCap="Round"
+                                          StrokeEndLineCap="Round"
+                                          Width="50"
+                                          Height="50"
+                                          HorizontalAlignment="Center"
+                                          Margin="0,0,0,10">
+                                        <Path.RenderTransform>
+                                            <RotateTransform CenterX="25" CenterY="25"/>
+                                        </Path.RenderTransform>
+                                    </Path>
+                                    <TextBlock x:Name="PART_LoadingText"
+                                               Text="{TemplateBinding LoadingText}"
+                                               FontSize="14"
+                                               Foreground="{StaticResource PrimaryColor}"
+                                               HorizontalAlignment="Center">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LoadingText}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=LoadingText}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </Border>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsLoading" Value="True">
+                            <Setter TargetName="PART_LoadingOverlay" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsLoading" Value="False">
+                            <Setter TargetName="PART_LoadingOverlay" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

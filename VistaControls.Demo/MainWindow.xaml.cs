@@ -662,5 +662,101 @@ namespace VistaControls.Demo
                 VistaControls.MessageManager.Show($"点击下一页: 当前页 {args.CurrentPage}", VistaControls.MessageType.Info);
             }
         }
+
+        // Loading 相关事件处理
+        private VistaControls.LoadingInstance? _currentLoadingInstance;
+
+        private void ToggleTableLoading_Click(object sender, RoutedEventArgs e)
+        {
+            if (tableLoading != null)
+            {
+                tableLoading.IsLoading = !tableLoading.IsLoading;
+            }
+        }
+
+        private void ToggleCustomLoading_Click(object sender, RoutedEventArgs e)
+        {
+            if (customLoading != null)
+            {
+                customLoading.IsLoading = !customLoading.IsLoading;
+            }
+        }
+
+        private void ShowFullscreenLoading_Click(object sender, RoutedEventArgs e)
+        {
+            var options = new VistaControls.LoadingOptions
+            {
+                Fullscreen = true,
+                Text = "加载中...",
+                Lock = true,
+                Background = new SolidColorBrush(Color.FromArgb(200, 255, 255, 255))
+            };
+
+            _currentLoadingInstance = VistaControls.LoadingService.Service(options);
+            
+            if (closeLoadingBtn != null)
+            {
+                closeLoadingBtn.IsEnabled = true;
+            }
+
+            // 3秒后自动关闭（演示用）
+            var timer = new System.Windows.Threading.DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(3)
+            };
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                CloseLoading_Click(null!, null!);
+            };
+            timer.Start();
+        }
+
+        private void ShowTargetLoading_Click(object sender, RoutedEventArgs e)
+        {
+            if (targetElement != null)
+            {
+                var options = new VistaControls.LoadingOptions
+                {
+                    Target = targetElement,
+                    Text = "加载中...",
+                    Lock = false,
+                    Background = new SolidColorBrush(Color.FromArgb(180, 255, 255, 255))
+                };
+
+                _currentLoadingInstance = VistaControls.LoadingService.Service(options);
+                
+                if (closeLoadingBtn != null)
+                {
+                    closeLoadingBtn.IsEnabled = true;
+                }
+
+                // 3秒后自动关闭（演示用）
+                var timer = new System.Windows.Threading.DispatcherTimer
+                {
+                    Interval = TimeSpan.FromSeconds(3)
+                };
+                timer.Tick += (s, args) =>
+                {
+                    timer.Stop();
+                    CloseLoading_Click(null!, null!);
+                };
+                timer.Start();
+            }
+        }
+
+        private void CloseLoading_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentLoadingInstance != null)
+            {
+                _currentLoadingInstance.Close();
+                _currentLoadingInstance = null;
+            }
+
+            if (closeLoadingBtn != null)
+            {
+                closeLoadingBtn.IsEnabled = false;
+            }
+        }
     }
 }
