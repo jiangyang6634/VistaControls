@@ -1401,6 +1401,48 @@
                     </vista:VistaTabPane>
                 </vista:VistaTabs>
 
+                <!-- VistaCard 演示 -->
+                <TextBlock Text="VistaCard 卡片" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaCard Width="360" Margin="0,0,20,0">
+                        <vista:VistaCard.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="卡片名称" FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                <vista:VistaButton Grid.Column="1" Content="操作" ButtonType="Text" Margin="10,0,0,0"/>
+                            </Grid>
+                        </vista:VistaCard.Header>
+                        <StackPanel>
+                            <TextBlock Text="列表内容 1" FontSize="14" Margin="0,0,0,6"/>
+                            <TextBlock Text="列表内容 2" FontSize="14" Margin="0,0,0,6"/>
+                            <TextBlock Text="列表内容 3" FontSize="14" Margin="0,0,0,6"/>
+                            <TextBlock Text="列表内容 4" FontSize="14"/>
+                        </StackPanel>
+                    </vista:VistaCard>
+
+                    <vista:VistaCard Width="320" BodyPadding="10" Margin="0,0,20,0">
+                        <StackPanel>
+                            <TextBlock Text="简单卡片" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                            <TextBlock Text="内容区域仅 body" FontSize="14"/>
+                        </StackPanel>
+                    </vista:VistaCard>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaCard Width="180" Height="100" Margin="0,0,15,0" Shadow="Always">
+                        <TextBlock Text="总是显示" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </vista:VistaCard>
+                    <vista:VistaCard Width="180" Height="100" Margin="0,0,15,0" Shadow="Hover">
+                        <TextBlock Text="悬停显示" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </vista:VistaCard>
+                    <vista:VistaCard Width="180" Height="100" Shadow="Never">
+                        <TextBlock Text="无阴影" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </vista:VistaCard>
+                </StackPanel>
+
                 <!-- VistaDialog 演示 -->
                 <TextBlock Text="VistaDialog 弹窗" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">

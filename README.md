@@ -316,6 +316,38 @@ dotnet run
   - 支持异步和回调两种方式
 - **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
+### VistaTabs
+- **状态**: ✅ 已完成
+- **描述**: 标签页控件，用于切换同级内容
+- **功能特性**:
+  - `Value`/`TabName` 精确控制当前页
+  - 支持 `Closable`、`HasBackground`、`Small` 等风格
+  - `TabPosition` 支持 top/right/bottom/left
+  - `BeforeLeave` 回调可阻止切换
+  - `TabClick`/`TabRemove`/`TabAdd`/`Edit` 事件
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
+### VistaDialog
+- **状态**: ✅ 已完成
+- **描述**: 模态弹窗，支持嵌套、全屏、遮罩
+- **功能特性**:
+  - `Visible` 控制弹窗显示，支持 `BeforeClose`、`DestroyOnClose`
+  - `DialogWidth`、`Top`、`Fullscreen`、`Center` 自定义布局
+  - 遮罩、多层弹窗、ESC/点击遮罩关闭、锁定滚动
+  - `TitleContent`/`Footer` 插槽
+  - `Open`/`Opened`/`Close`/`Closed` 事件
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
+### VistaCard
+- **状态**: ✅ 已完成
+- **描述**: 信息卡片容器，用于聚合展示内容
+- **功能特性**:
+  - Header/Body 布局，支持具名 slot、操作按钮
+  - `BodyPadding`、`BodyBackground` 自定义内容区域
+  - `Shadow` 属性控制阴影（always/hover/never）
+  - 支持嵌套任意内容（列表、表单等）
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
 ### CustomControl1
 - **状态**: 示例控件（待完善）
 - **描述**: 基础自定义控件模板
@@ -406,6 +438,15 @@ dotnet run
 - ✅ 实现 VistaLoading（加载控件），支持区域加载、服务方式调用、自定义文本和背景色
 - ✅ 实现 VistaMessageBox（弹框控件），支持 Alert/Confirm/Prompt、多种类型图标、输入验证
 - ✅ 在 Demo 中添加完整示例
+
+### 2025-01 - VistaTabs / VistaDialog
+- ✅ 实现 VistaTabs（标签页控件），支持可关闭、添加按钮、布局切换、before-leave 钩子
+- ✅ 实现 VistaDialog（模态弹窗），支持遮罩、嵌套、全屏、BeforeClose 回调
+- ✅ Demo 中示范可关闭分页、嵌套弹窗、表单与全屏场景
+
+### 2025-01 - VistaCard
+- ✅ 实现 VistaCard（卡片样式），支持 Header/Body Slot、BodyPadding、阴影配置
+- ✅ Demo 中展示基础卡片、简易卡片及不同阴影模式
 
 ### 计划中
 - ⏳ DateTimePicker（日期时间选择器）：暂不实现，后续版本加入

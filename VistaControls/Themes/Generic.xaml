@@ -34,6 +34,11 @@
                       BlurRadius="10" 
                       ShadowDepth="2" 
                       Opacity="0.1"/>
+    <DropShadowEffect x:Key="CardShadowEffect"
+                      Color="#000000"
+                      BlurRadius="12"
+                      ShadowDepth="0"
+                      Opacity="0.12"/>
     
     <!-- 颜色资源 -->
     <SolidColorBrush x:Key="PrimaryColor" Color="#409EFF"/>
@@ -3181,6 +3186,61 @@
                             <Setter TargetName="PART_FooterBorder" Property="HorizontalAlignment" Value="Center"/>
                             <Setter TargetName="PART_FooterBorder" Property="Background" Value="Transparent"/>
                         </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- VistaCard 样式 -->
+    <Style TargetType="{x:Type local:VistaCard}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="BorderBrush" Value="#EBEEF5"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BodyPadding" Value="20"/>
+        <Setter Property="BodyBackground" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaCard}">
+                    <Border x:Name="PART_Container"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="6"
+                            Effect="{StaticResource CardShadowEffect}">
+                        <DockPanel>
+                            <Border x:Name="PART_Header"
+                                    DockPanel.Dock="Top"
+                                    Background="Transparent"
+                                    Padding="20,20,20,10"
+                                    Visibility="{Binding Header, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}">
+                                <ContentPresenter Content="{TemplateBinding Header}"
+                                                  ContentTemplate="{TemplateBinding HeaderTemplate}"/>
+                            </Border>
+                            <Border Background="{TemplateBinding BodyBackground}"
+                                    Padding="{TemplateBinding BodyPadding}">
+                                <ContentPresenter Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+                            </Border>
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="Shadow" Value="{x:Static local:CardShadow.Always}">
+                            <Setter TargetName="PART_Container" Property="Effect" Value="{StaticResource CardShadowEffect}"/>
+                        </Trigger>
+                        <Trigger Property="Shadow" Value="{x:Static local:CardShadow.Never}">
+                            <Setter TargetName="PART_Container" Property="Effect" Value="{x:Null}"/>
+                        </Trigger>
+                        <Trigger Property="Shadow" Value="{x:Static local:CardShadow.Hover}">
+                            <Setter TargetName="PART_Container" Property="Effect" Value="{x:Null}"/>
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Shadow" Value="{x:Static local:CardShadow.Hover}"/>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="PART_Container" Property="Effect" Value="{StaticResource CardShadowEffect}"/>
+                        </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

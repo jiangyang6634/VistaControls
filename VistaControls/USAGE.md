@@ -1874,6 +1874,211 @@ VistaButton 完全支持 MVVM 模式：
                    CommandParameter="{Binding SelectedItem}" />
 ```
 
+### VistaTabs
+
+**命名空间**: `VistaControls`
+
+**类型**: `ItemsControl`
+
+**状态**: ✅ 已完成
+
+#### 基础用法
+
+```xml
+<vista:VistaTabs Width="600"
+                 Value="first"
+                 TabClick="TabsBasic_TabClick">
+    <vista:VistaTabPane Label="用户管理" TabName="first">
+        <TextBlock Text="用户管理内容" Padding="20"/>
+    </vista:VistaTabPane>
+    <vista:VistaTabPane Label="配置管理" TabName="second">
+        <TextBlock Text="配置管理内容" Padding="20"/>
+    </vista:VistaTabPane>
+</vista:VistaTabs>
+```
+
+#### 可关闭 + 新增按钮
+
+```xml
+<vista:VistaTabs Closable="True"
+                 TabAdd="TabsClosable_TabAdd"
+                 TabRemove="TabsClosable_TabRemove">
+    <vista:VistaTabPane Label="标签一" TabName="tab1" Closable="True">
+        <TextBlock Text="标签一内容" Padding="20"/>
+    </vista:VistaTabPane>
+</vista:VistaTabs>
+```
+
+```csharp
+private void TabsClosable_TabAdd(object sender, EventArgs e)
+{
+    if (sender is VistaTabs tabs)
+    {
+        var tab = new VistaTabPane { Label = $"标签 {tabs.Items.Count + 1}", TabName = Guid.NewGuid().ToString(), Closable = true };
+        tab.Content = new TextBlock { Text = $"{tab.Label} 内容", Padding = new Thickness(20) };
+        tabs.Items.Add(tab);
+        tabs.Value = tab.TabName;
+    }
+}
+```
+
+#### 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Value | string | 第一个标签的 `TabName` | 当前选中的标签名（双向绑定） |
+| Closable | bool | false | 是否显示关闭按钮（可被子项重写） |
+| TabPosition | TabPosition | Top | 标签头部位置：Top/Right/Bottom/Left |
+| Stretch | bool | false | 是否拉伸标签宽度 |
+| BeforeLeave | Func<string,string,bool> | null | 切换前回调，返回 false 阻止切换 |
+| Layout 属性 | string | — | Demo 中用字符串控制 slots（与 Element-UI 一致） |
+
+#### 事件
+
+| 事件 | 说明 |
+|------|------|
+| TabClick | 选中标签时触发，参数为 `TabClickEventArgs`（包含选中 Pane） |
+| TabRemove | 点击关闭按钮触发，参数为 `TabRemoveEventArgs(TabName)` |
+| TabAdd | 点击“+”按钮触发，可在事件中动态创建标签 |
+| Edit | 增删标签时触发，`TabEditEventArgs(TargetName, Action)` |
+
+### VistaDialog
+
+**命名空间**: `VistaControls`
+
+**类型**: `ContentControl`
+
+**状态**: ✅ 已完成
+
+#### 基础用法
+
+```xml
+<vista:VistaDialog x:Name="userDialog"
+                   Visible="{Binding IsDialogVisible}"
+                   Title="录入信息"
+                   DialogWidth="48%"
+                   CloseOnClickModal="False"
+                   BeforeClose="Dialog_BeforeClose">
+    <vista:VistaDialog.Footer>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <vista:VistaButton Content="取消" Margin="0,0,10,0"
+                               Click="DialogCancel_Click"/>
+            <vista:VistaButton Content="确定" ButtonType="Primary"
+                               Click="DialogConfirm_Click"/>
+        </StackPanel>
+    </vista:VistaDialog.Footer>
+    <!-- 弹窗主体内容 -->
+</vista:VistaDialog>
+```
+
+```csharp
+private async void Dialog_BeforeClose(object sender, DialogBeforeCloseEventArgs e)
+{
+    e.Cancel = true; // 暂停关闭
+    var result = await MessageBoxService.Confirm("确认关闭？", "提示");
+    if (result == MessageBoxResult.Confirm)
+    {
+        e.Cancel = false;
+        e.Close(); // 立即关闭，不再重复触发 BeforeClose
+    }
+}
+```
+
+#### 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Visible | bool | false | 控制弹窗显示（支持 MVVM 绑定） |
+| Title / TitleContent | string / object | "" | 文本标题或自定义标题模板 |
+| DialogWidth | string | 50% | 弹窗宽度（支持 px/%/vh） |
+| Top | string | 120 | 顶部偏移（支持 px/%/vh） |
+| Fullscreen | bool | false | 是否全屏显示 |
+| Modal | bool | true | 是否显示遮罩 |
+| CloseOnClickModal | bool | true | 点击遮罩是否关闭 |
+| CloseOnPressEscape | bool | true | ESC 是否关闭 |
+| ShowClose | bool | true | 是否显示右上角关闭按钮 |
+| DestroyOnClose | bool | false | 关闭时销毁内容（再次打开会重建） |
+| Center | bool | false | 头部/底部内容居中 |
+| Footer / FooterTemplate | object / DataTemplate | null | 自定义底部按钮区域 |
+
+#### 事件
+
+| 事件 | 说明 |
+|------|------|
+| Open / Opened | 弹窗开始显示 / 动画结束 |
+| Close / Closed | 弹窗开始关闭 / 完成关闭 |
+| BeforeClose | 关闭前触发，可通过 `DialogBeforeCloseEventArgs` 阻止关闭或强制关闭 |
+
+#### 多级弹窗与全屏
+
+- 可以直接在任意层级放置另一个 `VistaDialog`（例如嵌套权限设置窗）。控件内部通过 `Grid` + `Panel.ZIndex` 实现遮罩叠加，不会被父容器截断。
+- 将 `Fullscreen="True"` 时会自动充满窗口并忽略 `DialogWidth`、`Top`。
+
+### VistaCard
+
+**命名空间**: `VistaControls`
+
+**类型**: `ContentControl`
+
+**状态**: ✅ 已完成
+
+#### 基本用法
+
+```xml
+<vista:VistaCard Width="360">
+    <vista:VistaCard.Header>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="卡片名称" FontSize="16" FontWeight="SemiBold"/>
+            <vista:VistaButton Grid.Column="1" Content="操作" ButtonType="Text"/>
+        </Grid>
+    </vista:VistaCard.Header>
+    <StackPanel>
+        <TextBlock Text="列表内容 1" FontSize="14"/>
+        <TextBlock Text="列表内容 2" FontSize="14"/>
+    </StackPanel>
+ </vista:VistaCard>
+```
+
+#### 简易卡片
+
+```xml
+<vista:VistaCard Width="320" BodyPadding="10">
+    <TextBlock Text="只包含正文区域"/>
+</vista:VistaCard>
+```
+
+#### 阴影控制
+
+```xml
+<StackPanel Orientation="Horizontal">
+    <vista:VistaCard Width="180" Height="100" Shadow="Always" Margin="0,0,10,0">
+        <TextBlock Text="总是显示" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </vista:VistaCard>
+    <vista:VistaCard Width="180" Height="100" Shadow="Hover" Margin="0,0,10,0">
+        <TextBlock Text="hover 显示" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </vista:VistaCard>
+    <vista:VistaCard Width="180" Height="100" Shadow="Never">
+        <TextBlock Text="无阴影" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </vista:VistaCard>
+</StackPanel>
+```
+
+#### 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Header | object | null | 头部内容，支持任意 UI |
+| HeaderTemplate | DataTemplate | null | 自定义头部模板 |
+| BodyPadding | Thickness | 20 | 内容区域内边距（对应 `body-style` padding） |
+| BodyBackground | Brush | Transparent | 内容区域背景色 |
+| Shadow | CardShadow | Always | 阴影策略：Always/Hover/Never |
+
+> 说明：`CardShadow` 枚举映射 Element UI 的 `shadow` 属性，`Hover` 时只有鼠标悬停才显示阴影。
+
 ## 常见问题
 
 ### Q: 图标不显示？
