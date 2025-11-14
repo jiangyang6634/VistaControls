@@ -240,6 +240,82 @@ dotnet run
   - 简洁美观的弹出面板，支持清空、只读、禁用
 - **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
 
+### VistaTable
+- **状态**: ✅ 已完成
+- **描述**: 表格控件，用于展示结构化数据
+- **功能特性**:
+  - 支持列定义、数据绑定
+  - 支持固定表头、边框样式
+  - 支持自定义行高、字体大小
+  - 支持行样式选择器
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
+### VistaTag
+- **状态**: ✅ 已完成
+- **描述**: 标签控件，用于标记和选择
+- **功能特性**:
+  - 支持多种类型：Success、Info、Warning、Danger
+  - 支持可移除标签（closable）
+  - 支持自定义颜色
+  - 支持边框描边（hit）
+  - 支持点击和关闭事件
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
+### VistaProgress
+- **状态**: ✅ 已完成
+- **描述**: 进度条控件，用于展示操作进度
+- **功能特性**:
+  - 支持线形、环形、仪表盘形三种类型
+  - 支持百分比内显、自定义颜色
+  - 支持状态显示（success、warning、exception）
+  - 支持自定义格式化文本
+  - 支持鼠标悬停显示进度值
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
+### VistaPagination
+- **状态**: ✅ 已完成
+- **描述**: 分页控件，用于分页显示数据
+- **功能特性**:
+  - 支持基础分页、大页数分页
+  - 支持自定义每页条数、页码按钮数量
+  - 支持背景色、小尺寸样式
+  - 支持完整布局（sizes、prev、pager、next、jumper、total）
+  - 支持多种事件（size-change、current-change、prev-click、next-click）
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
+### VistaBadge
+- **状态**: ✅ 已完成
+- **描述**: 标记控件，出现在按钮、图标旁的数字或状态标记
+- **功能特性**:
+  - 支持数字和字符串显示
+  - 支持最大值限制（超过显示 max+）
+  - 支持自定义内容
+  - 支持小红点样式（is-dot）
+  - 支持多种类型（Primary、Success、Warning、Danger、Info）
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
+### VistaLoading
+- **状态**: ✅ 已完成
+- **描述**: 加载控件，加载数据时显示动效
+- **功能特性**:
+  - 支持区域加载（内嵌到控件中）
+  - 支持自定义加载文本、背景色
+  - 支持服务方式调用（全屏加载、目标元素加载）
+  - 支持锁定交互（lock）
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
+### VistaMessageBox
+- **状态**: ✅ 已完成
+- **描述**: 弹框控件，模拟系统的消息提示框
+- **功能特性**:
+  - 支持消息提示（Alert）
+  - 支持确认消息（Confirm）
+  - 支持提交内容（Prompt，带输入框）
+  - 支持多种类型图标（Success、Info、Warning、Error）
+  - 支持输入验证（正则表达式、验证函数）
+  - 支持异步和回调两种方式
+- **详细说明**: 参见 [使用文档](VistaControls/USAGE.md)
+
 ### CustomControl1
 - **状态**: 示例控件（待完善）
 - **描述**: 基础自定义控件模板
@@ -317,6 +393,19 @@ dotnet run
 - ✅ 支持快捷选项与禁用日期，清空、只读、禁用
 - ✅ 修复 OnValueChanged 触发与 Popup 交互问题，优化交互体验
 - ✅ 在 Demo 中添加完整用例
+
+### 2025-01 - VistaTable / VistaTag / VistaProgress / VistaPagination
+- ✅ 实现 VistaTable（表格控件），支持列定义、数据绑定、固定表头、边框样式、自定义行高
+- ✅ 实现 VistaTag（标签控件），支持多种类型、可移除、自定义颜色、边框描边、事件处理
+- ✅ 实现 VistaProgress（进度条控件），支持线形/环形/仪表盘形、百分比内显、自定义颜色、状态显示
+- ✅ 实现 VistaPagination（分页控件），支持基础分页、大页数、自定义每页条数、完整布局、多种事件
+- ✅ 在 Demo 中添加完整示例
+
+### 2025-01 - VistaBadge / VistaLoading / VistaMessageBox
+- ✅ 实现 VistaBadge（标记控件），支持数字/字符串显示、最大值限制、自定义内容、小红点样式
+- ✅ 实现 VistaLoading（加载控件），支持区域加载、服务方式调用、自定义文本和背景色
+- ✅ 实现 VistaMessageBox（弹框控件），支持 Alert/Confirm/Prompt、多种类型图标、输入验证
+- ✅ 在 Demo 中添加完整示例
 
 ### 计划中
 - ⏳ DateTimePicker（日期时间选择器）：暂不实现，后续版本加入

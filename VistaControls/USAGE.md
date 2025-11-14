@@ -1303,6 +1303,540 @@ myDatePicker.PickerOptions.DisabledDate = d => d > DateTime.Today; // 禁用未�
 #### DateTimePicker（日期时间选择器）
 - 当前状态：⏳ 规划中，暂不实现。本库将在后续版本提供与 Element UI 近似体验的 `DateTimePicker`。
 
+### VistaTable
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaTable` (继承自 `ListView`)
+
+**状态**: ✅ 已完成
+
+#### 基本用法
+
+```xml
+<vista:VistaTable x:Name="tableBasic" Width="600">
+    <vista:VistaTable.Columns>
+        <vista:VistaTableColumn Header="日期" Binding="{Binding Date}" Width="180"/>
+        <vista:VistaTableColumn Header="姓名" Binding="{Binding Name}" Width="180"/>
+        <vista:VistaTableColumn Header="地址" Binding="{Binding Address}"/>
+    </vista:VistaTable.Columns>
+</vista:VistaTable>
+```
+
+在代码中绑定数据：
+
+```csharp
+tableBasic.ItemsSource = new List<DemoRow>
+{
+    new DemoRow { Date = "2016-05-02", Name = "王小虎", Address = "上海市普陀区金沙江路 1518 弄" },
+    new DemoRow { Date = "2016-05-04", Name = "王小虎", Address = "上海市普陀区金沙江路 1517 弄" }
+};
+```
+
+#### 带边框表格
+
+```xml
+<vista:VistaTable x:Name="tableBordered" Width="600" Bordered="True">
+    <vista:VistaTable.Columns>
+        <vista:VistaTableColumn Header="日期" Binding="{Binding Date}" Width="180"/>
+        <vista:VistaTableColumn Header="姓名" Binding="{Binding Name}" Width="180"/>
+        <vista:VistaTableColumn Header="地址" Binding="{Binding Address}"/>
+    </vista:VistaTable.Columns>
+</vista:VistaTable>
+```
+
+#### 固定表头
+
+```xml
+<vista:VistaTable x:Name="tableFixedHeader" Width="600" Height="300" Bordered="True">
+    <vista:VistaTable.Columns>
+        <vista:VistaTableColumn Header="日期" Binding="{Binding Date}" Width="180"/>
+        <vista:VistaTableColumn Header="姓名" Binding="{Binding Name}" Width="180"/>
+        <vista:VistaTableColumn Header="地址" Binding="{Binding Address}"/>
+    </vista:VistaTable.Columns>
+</vista:VistaTable>
+```
+
+#### 自定义行高
+
+```xml
+<vista:VistaTable x:Name="tableCustom" Width="600" RowHeight="50">
+    <vista:VistaTable.Columns>
+        <vista:VistaTableColumn Header="日期" Binding="{Binding Date}" Width="180"/>
+        <vista:VistaTableColumn Header="姓名" Binding="{Binding Name}" Width="180"/>
+        <vista:VistaTableColumn Header="地址" Binding="{Binding Address}"/>
+    </vista:VistaTable.Columns>
+</vista:VistaTable>
+```
+
+#### 属性说明（VistaTable）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Bordered | bool | false | 是否显示边框 |
+| RowHeight | double | Auto | 行高（像素），Auto 表示自适应 |
+| Columns | Collection<VistaTableColumn> | [] | 列定义集合 |
+| ItemsSource | IEnumerable | null | 数据源（继承自 ListView） |
+
+#### 属性说明（VistaTableColumn）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Header | string | "" | 列标题 |
+| Binding | BindingBase | null | 数据绑定 |
+| Width | double | Auto | 列宽度 |
+
+### VistaTag
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaTag` (继承自 `ContentControl`)
+
+**状态**: ✅ 已完成
+
+#### 基本用法
+
+```xml
+<vista:VistaTag>标签一</vista:VistaTag>
+<vista:VistaTag Type="Success">标签二</vista:VistaTag>
+<vista:VistaTag Type="Info">标签三</vista:VistaTag>
+<vista:VistaTag Type="Warning">标签四</vista:VistaTag>
+<vista:VistaTag Type="Danger">标签五</vista:VistaTag>
+```
+
+#### 可移除标签
+
+```xml
+<vista:VistaTag Closable="True" Close="Tag_Close">标签一</vista:VistaTag>
+<vista:VistaTag Type="Success" Closable="True" Close="Tag_Close">标签二</vista:VistaTag>
+```
+
+#### 自定义颜色
+
+```xml
+<vista:VistaTag Color="#FF0000">自定义颜色</vista:VistaTag>
+```
+
+#### 边框描边
+
+```xml
+<vista:VistaTag Hit="True">边框描边</vista:VistaTag>
+```
+
+#### 属性说明（VistaTag）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Type | TagType | Default | 标签类型：Default, Success, Info, Warning, Danger |
+| Closable | bool | false | 是否可关闭 |
+| Color | string | "" | 自定义背景色（十六进制格式） |
+| Hit | bool | false | 是否有边框描边 |
+| TextColor | string | "" | 自定义文字颜色（优先级高于 Type） |
+| BorderColor | string | "" | 自定义边框颜色（优先级高于 Type） |
+
+#### 事件说明（VistaTag）
+
+| 事件 | 说明 | 参数 |
+|------|------|------|
+| Click | 点击 Tag 时触发 | RoutedEventArgs |
+| Close | 关闭 Tag 时触发 | RoutedEventArgs |
+
+### VistaProgress
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaProgress` (继承自 `Control`)
+
+**状态**: ✅ 已完成
+
+#### 线形进度条
+
+```xml
+<vista:VistaProgress Percentage="50"/>
+<vista:VistaProgress Percentage="100" Status="Success"/>
+<vista:VistaProgress Percentage="50" Status="Exception"/>
+```
+
+#### 百分比内显
+
+```xml
+<vista:VistaProgress Percentage="70" TextInside="True" StrokeWidth="26"/>
+<vista:VistaProgress Percentage="100" TextInside="True" StrokeWidth="24" Status="Success"/>
+```
+
+#### 自定义颜色
+
+```xml
+<!-- 颜色字符串 -->
+<vista:VistaProgress x:Name="progress1" Percentage="20" Color="#409eff"/>
+
+<!-- 颜色函数 -->
+<vista:VistaProgress x:Name="progress2" Percentage="20"/>
+
+<!-- 颜色数组 -->
+<vista:VistaProgress x:Name="progress3" Percentage="20"/>
+```
+
+在代码中设置颜色函数和数组：
+
+```csharp
+progress2.Color = new Func<double, string>((percentage) =>
+{
+    if (percentage < 30) return "#909399";
+    if (percentage < 70) return "#e6a23c";
+    return "#67c23a";
+});
+
+var colorStops = new List<ProgressColorStop>
+{
+    new ProgressColorStop { Color = "#f56c6c", Percentage = 20 },
+    new ProgressColorStop { Color = "#e6a23c", Percentage = 40 },
+    new ProgressColorStop { Color = "#5cb87a", Percentage = 60 }
+};
+progress3.Color = colorStops;
+```
+
+#### 环形进度条
+
+```xml
+<vista:VistaProgress Percentage="25" ProgressType="Circle"/>
+<vista:VistaProgress Percentage="100" ProgressType="Circle" Status="Success"/>
+```
+
+#### 仪表盘形进度条
+
+```xml
+<vista:VistaProgress Percentage="10" ProgressType="Dashboard"/>
+```
+
+#### 属性说明（VistaProgress）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Percentage | double | 0 | 百分比（0-100） |
+| ProgressType | ProgressType | Line | 进度条类型：Line, Circle, Dashboard |
+| StrokeWidth | double | 6 | 进度条的宽度（像素） |
+| TextInside | bool | false | 进度条显示文字内置在进度条内（只在 type=line 时可用） |
+| Status | ProgressStatus | Default | 进度条当前状态：Default, Success, Exception, Warning |
+| Color | object | null | 进度条背景色（会覆盖 status 状态颜色），支持 string/Func/List |
+| Width | double | 126 | 环形进度条画布宽度（只在 type 为 circle 或 dashboard 时可用） |
+| ShowText | bool | true | 是否显示进度条文字内容 |
+| Format | Func<double, string> | null | 指定进度条文字内容 |
+| DefineBackColor | string | "" | 指定进度条底色（支持 hex 格式） |
+| TextColor | string | "" | 指定进度条字体颜色（支持 hex 格式） |
+
+#### 事件说明（VistaProgress）
+
+鼠标悬停在进度条上会自动显示当前进度值（通过 ToolTip）。
+
+### VistaPagination
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaPagination` (继承自 `Control`)
+
+**状态**: ✅ 已完成
+
+#### 基本用法
+
+```xml
+<vista:VistaPagination x:Name="pagination"
+                       Total="50"
+                       PageSize="10"
+                       CurrentPage="1"
+                       CurrentChange="Pagination_CurrentChange"/>
+```
+
+#### 大页数分页
+
+```xml
+<vista:VistaPagination Total="1000"
+                       PageSize="10"
+                       CurrentPage="1"/>
+```
+
+#### 自定义每页条数
+
+```xml
+<vista:VistaPagination Total="50"
+                       PageSize="10"
+                       CurrentPage="1"
+                       PageSizes="10,20,30,40,50"
+                       SizeChange="Pagination_SizeChange"/>
+```
+
+#### 完整功能
+
+```xml
+<vista:VistaPagination x:Name="paginationFull"
+                       Total="400"
+                       PageSize="10"
+                       CurrentPage="1"
+                       Layout="sizes,prev,pager,next,jumper,total"
+                       PageSizes="10,20,30,40,50,100"
+                       CurrentChange="Pagination_CurrentChange"
+                       SizeChange="Pagination_SizeChange"
+                       PrevClick="Pagination_PrevClick"
+                       NextClick="Pagination_NextClick"/>
+```
+
+#### 属性说明（VistaPagination）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Small | bool | false | 是否使用小型分页样式 |
+| HasBackground | bool | false | 按钮是否有背景色 |
+| PageSize | int | 10 | 每页显示条目个数 |
+| Total | int | 0 | 总条目数 |
+| PageCount | int | 0 | 总页数（如果设置了 Total，会自动计算） |
+| PagerCount | int | 7 | 页码按钮的数量 |
+| CurrentPage | int | 1 | 当前页数（双向绑定） |
+| Layout | string | "prev,pager,next" | 组件布局，子组件名用逗号分隔 |
+| PageSizes | ObservableCollection<int> | null | 每页显示个数选择器的选项设置 |
+| PrevText | string | "" | 替代图标显示的上一页文字 |
+| NextText | string | "" | 替代图标显示的下一页文字 |
+| Disabled | bool | false | 是否禁用 |
+| HideOnSinglePage | bool | false | 只有一页时是否隐藏 |
+
+#### 事件说明（VistaPagination）
+
+| 事件 | 说明 | 参数 |
+|------|------|------|
+| SizeChange | pageSize 改变时会触发 | PaginationEventArgs |
+| CurrentChange | currentPage 改变时会触发 | PaginationEventArgs |
+| PrevClick | 用户点击上一页按钮改变当前页后触发 | PaginationEventArgs |
+| NextClick | 用户点击下一页按钮改变当前页后触发 | PaginationEventArgs |
+
+### VistaBadge
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaBadge` (继承自 `ContentControl`)
+
+**状态**: ✅ 已完成
+
+#### 基本用法
+
+```xml
+<vista:VistaBadge Value="12">
+    <vista:VistaButton Content="评论" ButtonSize="Small"/>
+</vista:VistaBadge>
+<vista:VistaBadge Value="3">
+    <vista:VistaButton Content="回复" ButtonSize="Small"/>
+</vista:VistaBadge>
+```
+
+#### 最大值
+
+```xml
+<vista:VistaBadge Value="200" Max="99">
+    <vista:VistaButton Content="评论" ButtonSize="Small"/>
+</vista:VistaBadge>
+```
+
+#### 自定义内容
+
+```xml
+<vista:VistaBadge Value="new" Type="Success">
+    <vista:VistaButton Content="评论" ButtonSize="Small"/>
+</vista:VistaBadge>
+<vista:VistaBadge Value="hot" Type="Danger">
+    <vista:VistaButton Content="回复" ButtonSize="Small"/>
+</vista:VistaBadge>
+```
+
+#### 小红点
+
+```xml
+<vista:VistaBadge IsDot="True">
+    <TextBlock Text="数据查询"/>
+</vista:VistaBadge>
+<vista:VistaBadge IsDot="True">
+    <vista:VistaButton Content="分享" ButtonSize="Small"/>
+</vista:VistaBadge>
+```
+
+#### 属性说明（VistaBadge）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Value | object | null | 显示值（string 或 number） |
+| Max | int | int.MaxValue | 最大值，超过最大值会显示 '{max}+'，要求 value 是 Number 类型 |
+| IsDot | bool | false | 小圆点 |
+| Hidden | bool | false | 隐藏 badge |
+| Type | BadgeType | Default | 类型：Default, Primary, Success, Warning, Danger, Info |
+
+### VistaLoading
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaLoading` (继承自 `ContentControl`)
+
+**状态**: ✅ 已完成
+
+#### 区域加载
+
+```xml
+<vista:VistaLoading IsLoading="True" Width="600" Height="200">
+    <!-- 你的内容，例如表格 -->
+    <Border BorderBrush="#DCDFE6" BorderThickness="1">
+        <!-- 表格内容 -->
+    </Border>
+</vista:VistaLoading>
+```
+
+#### 自定义加载
+
+```xml
+<vista:VistaLoading IsLoading="True"
+                    LoadingText="拼命加载中"
+                    BackgroundColor="#CC000000"
+                    Width="600" Height="200">
+    <!-- 你的内容 -->
+</vista:VistaLoading>
+```
+
+#### 服务方式调用
+
+```csharp
+// 全屏加载
+var loading = LoadingService.Service(new LoadingOptions
+{
+    Fullscreen = true,
+    Text = "加载中...",
+    Lock = true
+});
+
+// 关闭
+loading.Close();
+
+// 目标元素加载
+var loading = LoadingService.Service(new LoadingOptions
+{
+    Target = targetElement,
+    Text = "加载中...",
+    Lock = false
+});
+```
+
+#### 属性说明（VistaLoading）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| IsLoading | bool | false | 是否显示加载遮罩 |
+| LoadingText | string | "" | 加载文本 |
+| BackgroundColor | Brush | #80FFFFFF | 遮罩背景色 |
+| Lock | bool | true | 是否锁定（禁用交互） |
+| CustomClass | string | "" | 自定义类名 |
+
+#### LoadingOptions 属性
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Target | FrameworkElement | null | Loading 需要覆盖的元素 |
+| Fullscreen | bool | true | 全屏 Loading |
+| Lock | bool | true | 是否锁定（禁用交互） |
+| Text | string | "" | 显示在加载图标下方的加载文案 |
+| Background | Brush | null | 遮罩背景色 |
+
+### VistaMessageBox
+
+**命名空间**: `VistaControls`
+
+**类型**: `VistaMessageBox` (继承自 `Window`)
+
+**状态**: ✅ 已完成
+
+#### 消息提示（Alert）
+
+```csharp
+// 异步方式
+var result = await MessageBoxService.Alert("这是一段内容", "标题名称");
+
+// 回调方式
+MessageBoxService.Alert("这是一段内容", "标题名称", (action) =>
+{
+    MessageBox.Show($"action: {action}");
+});
+```
+
+#### 确认消息（Confirm）
+
+```csharp
+// 异步方式
+var result = await MessageBoxService.Confirm(
+    "此操作将永久删除该文件, 是否继续?",
+    "提示",
+    new MessageBoxOptions
+    {
+        Type = MessageBoxType.Warning
+    }
+);
+
+if (result == MessageBoxResult.Confirm)
+{
+    // 用户点击了确定
+    MessageBox.Show("删除成功!");
+}
+else
+{
+    // 用户点击了取消或关闭
+    MessageBox.Show("已取消删除");
+}
+```
+
+#### 提交内容（Prompt）
+
+```csharp
+// 异步方式
+var emailPattern = new Regex(@"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?");
+
+var value = await MessageBoxService.Prompt(
+    "请输入邮箱",
+    "提示",
+    new MessageBoxOptions
+    {
+        InputPattern = emailPattern,
+        InputErrorMessage = "邮箱格式不正确",
+        InputPlaceholder = "请输入邮箱地址"
+    }
+);
+
+if (value != null)
+{
+    MessageBox.Show($"你的邮箱是: {value}");
+}
+```
+
+#### 属性说明（MessageBoxOptions）
+
+| 属性 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| Title | string | null | MessageBox 标题 |
+| Message | string | null | MessageBox 消息正文内容 |
+| Type | MessageBoxType? | null | 消息类型：Success, Info, Warning, Error |
+| ShowClose | bool | true | MessageBox 是否显示右上角关闭按钮 |
+| ShowCancelButton | bool | false | 是否显示取消按钮 |
+| ShowConfirmButton | bool | true | 是否显示确定按钮 |
+| CancelButtonText | string | "取消" | 取消按钮的文本内容 |
+| ConfirmButtonText | string | "确定" | 确定按钮的文本内容 |
+| CloseOnClickModal | bool | true | 是否可通过点击遮罩关闭 MessageBox |
+| CloseOnPressEscape | bool | true | 是否可通过按下 ESC 键关闭 MessageBox |
+| ShowInput | bool | false | 是否显示输入框 |
+| InputPlaceholder | string | "" | 输入框的占位符 |
+| InputPattern | Regex | null | 输入框的校验表达式 |
+| InputValidator | Func<string, string?> | null | 输入框的校验函数 |
+| InputErrorMessage | string | "输入的数据不合法!" | 校验未通过时的提示文本 |
+| Callback | Action<MessageBoxResult, VistaMessageBox> | null | MessageBox 关闭后的回调 |
+
+#### MessageBoxService 方法
+
+| 方法 | 说明 | 返回值 |
+|------|------|--------|
+| Alert | 显示消息提示 | Task<MessageBoxResult> |
+| Confirm | 显示确认消息 | Task<MessageBoxResult> |
+| Prompt | 显示输入提示 | Task<string?> |
+
 ## 详细使用说明
 
 ### 样式自定义
@@ -1427,4 +1961,4 @@ myButton.Loading = false;
 
 ---
 
-**最后更新**: 2024年12月（VistaButton 控件完成）
+**最后更新**: 2025年1月（VistaTable、VistaTag、VistaProgress、VistaPagination、VistaBadge、VistaLoading、VistaMessageBox 控件完成）
