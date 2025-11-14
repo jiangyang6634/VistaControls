@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using VistaControls;
 
 namespace VistaControls.Demo
 {
@@ -20,6 +22,13 @@ namespace VistaControls.Demo
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ObservableCollection<DialogUser> DialogUsers { get; } = new ObservableCollection<DialogUser>
+        {
+            new DialogUser { Name = "王小虎", Role = "管理员", Department = "产品部" },
+            new DialogUser { Name = "张三", Role = "运营", Department = "市场部" },
+            new DialogUser { Name = "李四", Role = "审核", Department = "风控部" }
+        };
+
         private VistaControls.CascaderOption BuildNode(string label, object value, bool disabled = false, params VistaControls.CascaderOption[] children)
         {
             return new VistaControls.CascaderOption
@@ -892,5 +901,66 @@ namespace VistaControls.Demo
                 MessageManager.Show($"添加标签页: {newTab.Label}", MessageType.Success);
             }
         }
+
+        private void OpenFormDialog_Click(object sender, RoutedEventArgs e)
+        {
+            formDialog.Visible = true;
+        }
+
+        private void OpenFullscreenDialog_Click(object sender, RoutedEventArgs e)
+        {
+            fullscreenDialog.Visible = true;
+        }
+
+        private void DialogCancel_Click(object sender, RoutedEventArgs e)
+        {
+            formDialog.Visible = false;
+        }
+
+        private void DialogConfirm_Click(object sender, RoutedEventArgs e)
+        {
+            var name = string.IsNullOrWhiteSpace(dialogNameBox.Text) ? "未命名" : dialogNameBox.Text;
+            MessageManager.Success($"已保存：{name}", 2500);
+            formDialog.Visible = false;
+        }
+
+        private void OpenNestedDialog_Click(object sender, RoutedEventArgs e)
+        {
+            nestedDialog.Visible = true;
+        }
+
+        private void NestedDialogCancel_Click(object sender, RoutedEventArgs e)
+        {
+            nestedDialog.Visible = false;
+        }
+
+        private void NestedDialogConfirm_Click(object sender, RoutedEventArgs e)
+        {
+            MessageManager.Success("权限设置成功", 2500);
+            nestedDialog.Visible = false;
+        }
+
+        private void FullscreenDialogClose_Click(object sender, RoutedEventArgs e)
+        {
+            fullscreenDialog.Visible = false;
+        }
+
+        private async void FormDialog_BeforeClose(object sender, VistaControls.DialogBeforeCloseEventArgs e)
+        {
+            e.Cancel = true;
+            var result = await VistaControls.MessageBoxService.Confirm("确认关闭当前弹窗？", "提示");
+            if (result == VistaControls.MessageBoxResult.Confirm)
+            {
+                e.Cancel = false;
+                e.Close();
+            }
+        }
+    }
+
+    public class DialogUser
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+        public string Department { get; set; } = string.Empty;
     }
 }

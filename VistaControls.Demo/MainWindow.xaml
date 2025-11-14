@@ -1401,24 +1401,116 @@
                     </vista:VistaTabPane>
                 </vista:VistaTabs>
 
-                <!-- 禁用标签 -->
-                <TextBlock Text="禁用标签" FontSize="18" FontWeight="SemiBold" Margin="0,30,0,15" />
-                <vista:VistaTabs x:Name="tabsDisabled" Width="600">
-                    <vista:VistaTabPane Label="标签一" TabName="disabled1">
-                        <TextBlock Text="标签一内容" FontSize="14" Padding="20"/>
-                    </vista:VistaTabPane>
-                    <vista:VistaTabPane Label="标签二（禁用）" TabName="disabled2" IsTabDisabled="True">
-                        <TextBlock Text="标签二内容" FontSize="14" Padding="20"/>
-                    </vista:VistaTabPane>
-                    <vista:VistaTabPane Label="标签三" TabName="disabled3">
-                        <TextBlock Text="标签三内容" FontSize="14" Padding="20"/>
-                    </vista:VistaTabPane>
-                </vista:VistaTabs>
+                <!-- VistaDialog 演示 -->
+                <TextBlock Text="VistaDialog 弹窗" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaButton Content="打开表单弹窗" ButtonType="Primary" Margin="0,0,15,0" Click="OpenFormDialog_Click"/>
+                    <vista:VistaButton Content="打开全屏弹窗" ButtonType="Success" Click="OpenFullscreenDialog_Click"/>
+                </StackPanel>
 
             </StackPanel>
         </ScrollViewer>
 
         <!-- 消息容器（放在最上层） -->
         <Canvas x:Name="messageContainer" Grid.Row="0" Panel.ZIndex="1000" />
+
+        <vista:VistaDialog x:Name="formDialog"
+                           Grid.RowSpan="2"
+                           Panel.ZIndex="1500"
+                           Title="录入信息"
+                           DialogWidth="48%"
+                           CloseOnClickModal="False"
+                           BeforeClose="FormDialog_BeforeClose">
+            <vista:VistaDialog.Footer>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <vista:VistaButton Content="取 消" Margin="0,0,10,0" Click="DialogCancel_Click"/>
+                    <vista:VistaButton Content="确 定" ButtonType="Primary" Click="DialogConfirm_Click"/>
+                </StackPanel>
+            </vista:VistaDialog.Footer>
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="0,0,20,0">
+                    <TextBlock Text="基础信息" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <TextBlock Text="姓名" FontWeight="SemiBold"/>
+                    <TextBox x:Name="dialogNameBox" Margin="0,5,0,15" />
+                    <TextBlock Text="角色" FontWeight="SemiBold"/>
+                    <TextBox x:Name="dialogRoleBox" Margin="0,5,0,15" />
+                    <TextBlock Text="备注" FontWeight="SemiBold"/>
+                    <TextBox x:Name="dialogRemarkBox" Height="80" AcceptsReturn="True" TextWrapping="Wrap"
+                             Margin="0,5,0,15"/>
+                    <vista:VistaButton Content="打开嵌套弹窗" ButtonType="Primary" Plain="True" Click="OpenNestedDialog_Click"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="团队成员" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                    <ListView ItemsSource="{Binding DialogUsers, RelativeSource={RelativeSource AncestorType=Window}}"
+                              BorderThickness="1"
+                              BorderBrush="#EBEEF5"
+                              Height="240">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="姓名" Width="120" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="角色" Width="140" DisplayMemberBinding="{Binding Role}"/>
+                                <GridViewColumn Header="部门" Width="140" DisplayMemberBinding="{Binding Department}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Grid>
+        </vista:VistaDialog>
+
+        <vista:VistaDialog x:Name="nestedDialog"
+                           Grid.RowSpan="2"
+                           Panel.ZIndex="1600"
+                           Title="分配权限"
+                           DialogWidth="320"
+                           Top="200"
+                           Center="True"
+                           CloseOnClickModal="True"
+                           DestroyOnClose="True">
+            <vista:VistaDialog.Footer>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <vista:VistaButton Content="取 消" Margin="0,0,10,0" Click="NestedDialogCancel_Click"/>
+                    <vista:VistaButton Content="保 存" ButtonType="Primary" Click="NestedDialogConfirm_Click"/>
+                </StackPanel>
+            </vista:VistaDialog.Footer>
+            <StackPanel Margin="0,0,0,10">
+                <TextBlock Text="请选择要分配的权限：" Margin="0,0,0,10"/>
+                <CheckBox Content="查看报表" Margin="0,0,0,5" IsChecked="True"/>
+                <CheckBox Content="编辑数据" Margin="0,0,0,5"/>
+                <CheckBox Content="导出数据" Margin="0,0,0,5" IsChecked="True"/>
+            </StackPanel>
+        </vista:VistaDialog>
+
+        <vista:VistaDialog x:Name="fullscreenDialog"
+                           Grid.RowSpan="2"
+                           Panel.ZIndex="1500"
+                           Title="全屏数据面板"
+                           Fullscreen="True"
+                           Modal="True"
+                           CloseOnClickModal="False"
+                           Center="True">
+            <vista:VistaDialog.Footer>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <vista:VistaButton Content="关闭" Click="FullscreenDialogClose_Click"/>
+                </StackPanel>
+            </vista:VistaDialog.Footer>
+            <StackPanel Margin="0,20,0,0">
+                <TextBlock Text="全局统计（示例）" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,20"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
+                    <StackPanel Width="200" Margin="0,0,20,0">
+                        <TextBlock Text="用户总数" FontSize="14" Foreground="#909399"/>
+                        <TextBlock Text="1,280" FontSize="28" FontWeight="Bold"/>
+                    </StackPanel>
+                    <StackPanel Width="200">
+                        <TextBlock Text="活跃度" FontSize="14" Foreground="#909399"/>
+                        <TextBlock Text="82%" FontSize="28" FontWeight="Bold"/>
+                    </StackPanel>
+                </StackPanel>
+                <TextBlock Text="这里可以展示更复杂的图表或实时数据..." Foreground="#606266" TextAlignment="Center"/>
+            </StackPanel>
+        </vista:VistaDialog>
     </Grid>
 </Window>

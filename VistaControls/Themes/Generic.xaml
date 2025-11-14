@@ -3056,4 +3056,135 @@
         </Setter>
     </Style>
 
+    <!-- VistaDialog 样式 -->
+    <Style TargetType="{x:Type local:VistaDialog}">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="DialogWidth" Value="50%"/>
+        <Setter Property="Top" Value="120"/>
+        <Setter Property="Modal" Value="True"/>
+        <Setter Property="CloseOnClickModal" Value="True"/>
+        <Setter Property="CloseOnPressEscape" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:VistaDialog}">
+                    <Grid x:Name="PART_Root"
+                          Background="Transparent"
+                          Visibility="Collapsed">
+                        <Grid HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border x:Name="PART_Modal"
+                                    Grid.Row="0"
+                                    Background="#80000000"
+                                    Opacity="0.55"/>
+                        </Grid>
+
+                        <Grid HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch">
+                            <Border x:Name="PART_DialogContainer"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    CornerRadius="8"
+                                    Background="{TemplateBinding Background}">
+                                <Border.Effect>
+                                    <DropShadowEffect Color="#000000"
+                                                      BlurRadius="25"
+                                                      ShadowDepth="0"
+                                                      Opacity="0.2"/>
+                                </Border.Effect>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <!-- 标题 -->
+                                    <Grid Grid.Row="0"
+                                          x:Name="PART_TitleBar"
+                                          Margin="20,20,20,10">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Grid.Column="0">
+                                            <ContentPresenter x:Name="PART_TitleContentPresenter"
+                                                              Content="{TemplateBinding TitleContent}"
+                                                              ContentTemplate="{TemplateBinding TitleTemplate}"
+                                                              VerticalAlignment="Center"
+                                                              Visibility="Visible"/>
+                                            <TextBlock x:Name="PART_TitleText"
+                                                       Text="{TemplateBinding Title}"
+                                                       FontSize="18"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="#303133"
+                                                       VerticalAlignment="Center"
+                                                       Visibility="Visible"
+                                                       Margin="0,0,10,0"/>
+                                        </StackPanel>
+                                        <Button x:Name="PART_CloseButton"
+                                                Grid.Column="1"
+                                                Width="28"
+                                                Height="28"
+                                                Margin="10,0,0,0"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=ShowClose, Converter={StaticResource BoolToVisibilityConverter}}">
+                                            <Path Data="M 2 2 L 10 10 M 10 2 L 2 10"
+                                                  Stroke="#909399"
+                                                  StrokeThickness="2"
+                                                  StrokeStartLineCap="Round"
+                                                  StrokeEndLineCap="Round"/>
+                                        </Button>
+                                    </Grid>
+
+                                    <!-- 内容 -->
+                                    <ContentPresenter Grid.Row="1"
+                                                      Margin="20,0,20,20"
+                                                      Content="{TemplateBinding Content}"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"/>
+
+                                    <!-- 底部 -->
+                                    <Border Grid.Row="2"
+                                            x:Name="PART_FooterBorder"
+                                            Background="#F5F7FA"
+                                            CornerRadius="0,0,8,8"
+                                            Padding="20,15"
+                                            Visibility="{Binding Footer, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource NullToVisibilityConverter}}">
+                                        <ContentPresenter x:Name="PART_FooterPresenter"
+                                                          Content="{TemplateBinding Footer}"
+                                                          ContentTemplate="{TemplateBinding FooterTemplate}"/>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding TitleContent, RelativeSource={RelativeSource TemplatedParent}}" Value="{x:Null}">
+                            <Setter TargetName="PART_TitleContentPresenter" Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <Trigger Property="Title" Value="">
+                            <Setter TargetName="PART_TitleText" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="ShowClose" Value="False">
+                            <Setter TargetName="PART_CloseButton" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="Modal" Value="False">
+                            <Setter TargetName="PART_Modal" Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                        <Trigger Property="Center" Value="True">
+                            <Setter TargetName="PART_TitleBar" Property="HorizontalAlignment" Value="Center"/>
+                            <Setter TargetName="PART_TitleText" Property="HorizontalAlignment" Value="Center"/>
+                            <Setter TargetName="PART_FooterBorder" Property="HorizontalAlignment" Value="Center"/>
+                            <Setter TargetName="PART_FooterBorder" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>
