@@ -1367,6 +1367,54 @@
                     <vista:VistaButton x:Name="promptBtn" Content="点击打开 Message Box" Click="PromptButton_Click" Margin="0,0,10,0"/>
                 </StackPanel>
 
+                <!-- VistaTabs 演示 -->
+                <TextBlock Text="VistaTabs 标签页" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+                
+                <!-- 基础用法 -->
+                <TextBlock Text="基础用法" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <vista:VistaTabs x:Name="tabsBasic" Width="600" TabClick="TabsBasic_TabClick">
+                    <vista:VistaTabPane Label="用户管理" TabName="first">
+                        <TextBlock Text="用户管理内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                    <vista:VistaTabPane Label="配置管理" TabName="second">
+                        <TextBlock Text="配置管理内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                    <vista:VistaTabPane Label="角色管理" TabName="third">
+                        <TextBlock Text="角色管理内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                    <vista:VistaTabPane Label="定时任务补偿" TabName="fourth">
+                        <TextBlock Text="定时任务补偿内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                </vista:VistaTabs>
+
+                <!-- 可关闭标签 -->
+                <TextBlock Text="可关闭标签" FontSize="18" FontWeight="SemiBold" Margin="0,30,0,15" />
+                <vista:VistaTabs x:Name="tabsClosable" Width="600" Closable="True" TabRemove="TabsClosable_TabRemove" TabAdd="TabsClosable_TabAdd">
+                    <vista:VistaTabPane Label="标签一" TabName="tab1">
+                        <TextBlock Text="标签一内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                    <vista:VistaTabPane Label="标签二" TabName="tab2">
+                        <TextBlock Text="标签二内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                    <vista:VistaTabPane Label="标签三" TabName="tab3">
+                        <TextBlock Text="标签三内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                </vista:VistaTabs>
+
+                <!-- 禁用标签 -->
+                <TextBlock Text="禁用标签" FontSize="18" FontWeight="SemiBold" Margin="0,30,0,15" />
+                <vista:VistaTabs x:Name="tabsDisabled" Width="600">
+                    <vista:VistaTabPane Label="标签一" TabName="disabled1">
+                        <TextBlock Text="标签一内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                    <vista:VistaTabPane Label="标签二（禁用）" TabName="disabled2" IsTabDisabled="True">
+                        <TextBlock Text="标签二内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                    <vista:VistaTabPane Label="标签三" TabName="disabled3">
+                        <TextBlock Text="标签三内容" FontSize="14" Padding="20"/>
+                    </vista:VistaTabPane>
+                </vista:VistaTabs>
+
             </StackPanel>
         </ScrollViewer>
 

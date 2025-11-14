@@ -857,5 +857,40 @@ namespace VistaControls.Demo
                 VistaControls.MessageManager.Error($"发生错误: {ex.Message}");
             }
         }
+
+        private void TabsBasic_TabClick(object sender, TabClickEventArgs e)
+        {
+            MessageManager.Show($"切换到标签页: {e.Tab.Label}", MessageType.Info);
+        }
+
+        private void TabsClosable_TabRemove(object sender, TabRemoveEventArgs e)
+        {
+            MessageManager.Show($"关闭标签页: {e.TabName}", MessageType.Info);
+        }
+
+        private void TabsClosable_TabAdd(object sender, EventArgs e)
+        {
+            if (sender is VistaControls.VistaTabs tabs)
+            {
+                // 创建新标签页
+                var newTab = new VistaControls.VistaTabPane
+                {
+                    Label = $"标签 {tabs.Items.Count + 1}",
+                    TabName = $"tab{tabs.Items.Count + 1}",
+                    Closable = true
+                };
+                newTab.Content = new System.Windows.Controls.TextBlock
+                {
+                    Text = $"{newTab.Label}内容",
+                    FontSize = 14,
+                    Padding = new Thickness(20)
+                };
+
+                tabs.Items.Add(newTab);
+                tabs.Value = newTab.TabName;
+
+                MessageManager.Show($"添加标签页: {newTab.Label}", MessageType.Success);
+            }
+        }
     }
 }
