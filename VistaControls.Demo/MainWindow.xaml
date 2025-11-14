@@ -1346,6 +1346,27 @@
                                TextWrapping="Wrap" Margin="20"/>
                 </Border>
 
+                <!-- VistaMessageBox 演示 -->
+                <TextBlock Text="VistaMessageBox 弹框" FontSize="24" FontWeight="Bold" Margin="0,40,0,30" />
+
+                <!-- 消息提示 -->
+                <TextBlock Text="消息提示" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaButton x:Name="alertBtn" Content="点击打开 Message Box" Click="AlertButton_Click" Margin="0,0,10,0"/>
+                </StackPanel>
+
+                <!-- 确认消息 -->
+                <TextBlock Text="确认消息" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <vista:VistaButton x:Name="confirmBtn" Content="点击打开 Message Box" Click="ConfirmButton_Click" Margin="0,0,10,0"/>
+                </StackPanel>
+
+                <!-- 提交内容 -->
+                <TextBlock Text="提交内容" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,40">
+                    <vista:VistaButton x:Name="promptBtn" Content="点击打开 Message Box" Click="PromptButton_Click" Margin="0,0,10,0"/>
+                </StackPanel>
+
             </StackPanel>
         </ScrollViewer>
 

@@ -758,5 +758,104 @@ namespace VistaControls.Demo
                 closeLoadingBtn.IsEnabled = false;
             }
         }
+
+        // MessageBox 相关事件处理
+        private async void AlertButton_Click(object sender, RoutedEventArgs e)
+        {
+            VistaControls.MessageManager.Info("准备打开 Alert 弹窗");
+            
+            var result = await VistaControls.MessageBoxService.Alert(
+                "这是一段内容",
+                "标题名称",
+                new VistaControls.MessageBoxOptions
+                {
+                    ConfirmButtonText = "确定",
+                    Callback = (action, instance) =>
+                    {
+                        VistaControls.MessageManager.Show($"Alert 弹窗已关闭，action: {action}", VistaControls.MessageType.Info);
+                    }
+                }
+            );
+
+            VistaControls.MessageManager.Show($"Alert 返回结果: {result}", VistaControls.MessageType.Success);
+        }
+
+        private async void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            VistaControls.MessageManager.Info("准备打开 Confirm 弹窗");
+
+            try
+            {
+                var result = await VistaControls.MessageBoxService.Confirm(
+                    "此操作将永久删除该文件, 是否继续?",
+                    "提示",
+                    new VistaControls.MessageBoxOptions
+                    {
+                        ConfirmButtonText = "确定",
+                        CancelButtonText = "取消",
+                        Type = VistaControls.MessageBoxType.Warning,
+                        Callback = (action, instance) =>
+                        {
+                            VistaControls.MessageManager.Show($"Confirm 弹窗已关闭，action: {action}", VistaControls.MessageType.Info);
+                        }
+                    }
+                );
+
+                if (result == VistaControls.MessageBoxResult.Confirm)
+                {
+                    VistaControls.MessageManager.Success("删除成功!");
+                }
+                else
+                {
+                    VistaControls.MessageManager.Info("已取消删除");
+                }
+            }
+            catch (Exception ex)
+            {
+                VistaControls.MessageManager.Error($"发生错误: {ex.Message}");
+            }
+        }
+
+        private async void PromptButton_Click(object sender, RoutedEventArgs e)
+        {
+            VistaControls.MessageManager.Info("准备打开 Prompt 弹窗");
+
+            try
+            {
+                var emailPattern = new System.Text.RegularExpressions.Regex(
+                    @"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?"
+                );
+
+                var value = await VistaControls.MessageBoxService.Prompt(
+                    "请输入邮箱",
+                    "提示",
+                    new VistaControls.MessageBoxOptions
+                    {
+                        ConfirmButtonText = "确定",
+                        CancelButtonText = "取消",
+                        InputPattern = emailPattern,
+                        InputErrorMessage = "邮箱格式不正确",
+                        InputPlaceholder = "请输入邮箱地址",
+                        Callback = (action, instance) =>
+                        {
+                            VistaControls.MessageManager.Show($"Prompt 弹窗已关闭，action: {action}", VistaControls.MessageType.Info);
+                        }
+                    }
+                );
+
+                if (value != null)
+                {
+                    VistaControls.MessageManager.Success($"你的邮箱是: {value}");
+                }
+                else
+                {
+                    VistaControls.MessageManager.Info("取消输入");
+                }
+            }
+            catch (Exception ex)
+            {
+                VistaControls.MessageManager.Error($"发生错误: {ex.Message}");
+            }
+        }
     }
 }
