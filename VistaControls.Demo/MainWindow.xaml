@@ -25,50 +25,50 @@
                 <!-- 基础按钮类型 -->
                 <TextBlock Text="基础按钮类型" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <vista:VistaButton Content="默认按钮" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="主要按钮" ButtonType="Primary" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="成功按钮" ButtonType="Success" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="信息按钮" ButtonType="Info" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="警告按钮" ButtonType="Warning" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="危险按钮" ButtonType="Danger" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="默认按钮" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="主要按钮" ButtonType="Primary" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="成功按钮" ButtonType="Success" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="信息按钮" ButtonType="Info" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="警告按钮" ButtonType="Warning" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="危险按钮" ButtonType="Danger" Click="DemoButton_Click" Margin="0,0,10,0" />
                 </StackPanel>
 
                 <!-- 朴素按钮 -->
                 <TextBlock Text="朴素按钮" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <vista:VistaButton Content="朴素按钮" Plain="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="主要按钮" ButtonType="Primary" Plain="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="成功按钮" ButtonType="Success" Plain="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="信息按钮" ButtonType="Info" Plain="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="警告按钮" ButtonType="Warning" Plain="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="危险按钮" ButtonType="Danger" Plain="True" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="朴素按钮" Plain="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="主要按钮" ButtonType="Primary" Plain="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="成功按钮" ButtonType="Success" Plain="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="信息按钮" ButtonType="Info" Plain="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="警告按钮" ButtonType="Warning" Plain="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="危险按钮" ButtonType="Danger" Plain="True" Click="DemoButton_Click" Margin="0,0,10,0" />
                 </StackPanel>
 
                 <!-- 圆角按钮 -->
                 <TextBlock Text="圆角按钮" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <vista:VistaButton Content="圆角按钮" Round="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="主要按钮" ButtonType="Primary" Round="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="成功按钮" ButtonType="Success" Round="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="信息按钮" ButtonType="Info" Round="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="警告按钮" ButtonType="Warning" Round="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="危险按钮" ButtonType="Danger" Round="True" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="圆角按钮" Round="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="主要按钮" ButtonType="Primary" Round="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="成功按钮" ButtonType="Success" Round="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="信息按钮" ButtonType="Info" Round="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="警告按钮" ButtonType="Warning" Round="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="危险按钮" ButtonType="Danger" Round="True" Click="DemoButton_Click" Margin="0,0,10,0" />
                 </StackPanel>
 
                 <!-- 圆形按钮 -->
                 <TextBlock Text="圆形按钮" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <vista:VistaButton Icon="el-icon-search.png" Circle="True" Height="40" Width="40" Margin="0,0,10,0" />
+                    <vista:VistaButton Icon="el-icon-search.png" Circle="True" Height="40" Width="40" Click="DemoButton_Click" Margin="0,0,10,0" />
                     <vista:VistaButton Icon="el-icon-edit.png" ButtonType="Primary" Circle="True" Height="40"
-                                       Width="40" Margin="0,0,10,0" />
+                                       Width="40" Click="DemoButton_Click" Margin="0,0,10,0" />
                     <vista:VistaButton Icon="el-icon-check.png" ButtonType="Success" Circle="True" Height="40"
-                                       Width="40" Margin="0,0,10,0" />
+                                       Width="40" Click="DemoButton_Click" Margin="0,0,10,0" />
                     <vista:VistaButton Icon="el-icon-message.png" ButtonType="Info" Circle="True" Height="40"
-                                       Width="40" Margin="0,0,10,0" />
+                                       Width="40" Click="DemoButton_Click" Margin="0,0,10,0" />
                     <vista:VistaButton Icon="el-icon-delete.png" ButtonType="Warning" Circle="True" Height="40"
-                                       Width="40" Margin="0,0,10,0" />
+                                       Width="40" Click="DemoButton_Click" Margin="0,0,10,0" />
                     <vista:VistaButton Icon="el-icon-delete.png" ButtonType="Danger" Circle="True" Height="40"
-                                       Width="40" Margin="0,0,10,0" />
+                                       Width="40" Click="DemoButton_Click" Margin="0,0,10,0" />
                 </StackPanel>
 
                 <!-- 禁用状态 -->
@@ -101,30 +101,18 @@
                 <!-- 文字按钮 -->
                 <TextBlock Text="文字按钮" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <vista:VistaButton Content="文字按钮" ButtonType="Text" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="文字按钮" ButtonType="Text" Click="DemoButton_Click" Margin="0,0,10,0" />
                     <vista:VistaButton Content="文字按钮" ButtonType="Text" IsEnabled="False" Margin="0,0,10,0" />
                 </StackPanel>
 
                 <!-- 图标按钮 -->
                 <TextBlock Text="图标按钮" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <vista:VistaButton Icon="el-icon-edit.png" ButtonType="Primary" Margin="0,0,10,0" />
-                    <vista:VistaButton Icon="el-icon-search.png" ButtonType="Primary" Margin="0,0,10,0" />
-                    <vista:VistaButton Icon="el-icon-delete.png" ButtonType="Primary" Margin="0,0,10,0" />
-                    <vista:VistaButton Icon="el-icon-search.png" ButtonType="Primary" Content="搜索" Margin="0,0,10,0" />
+                    <vista:VistaButton Icon="el-icon-edit.png" ButtonType="Primary" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Icon="el-icon-search.png" ButtonType="Primary" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Icon="el-icon-delete.png" ButtonType="Primary" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Icon="el-icon-search.png" ButtonType="Primary" Content="搜索" Click="DemoButton_Click" Margin="0,0,10,0" />
                 </StackPanel>
-
-                <!-- 按钮组 -->
-                <TextBlock Text="按钮组" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
-                <vista:ButtonGroup Margin="0,0,0,20">
-                    <vista:VistaButton Content="上一页" ButtonType="Primary" Icon="el-icon-search.png" Margin="0" />
-                    <vista:VistaButton Content="下一页" ButtonType="Primary" Margin="0" />
-                </vista:ButtonGroup>
-                <vista:ButtonGroup Margin="0,0,0,20">
-                    <vista:VistaButton Icon="el-icon-edit.png" ButtonType="Primary" Margin="0" />
-                    <vista:VistaButton Icon="el-icon-search.png" ButtonType="Primary" Margin="0" />
-                    <vista:VistaButton Icon="el-icon-delete.png" ButtonType="Primary" Margin="0" />
-                </vista:ButtonGroup>
 
                 <!-- Loading 状态 -->
                 <TextBlock Text="Loading 状态" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
@@ -135,16 +123,16 @@
                 <!-- 尺寸 -->
                 <TextBlock Text="按钮尺寸" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <vista:VistaButton Content="默认按钮" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="中等按钮" ButtonSize="Medium" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="小型按钮" ButtonSize="Small" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="超小按钮" ButtonSize="Mini" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="默认按钮" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="中等按钮" ButtonSize="Medium" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="小型按钮" ButtonSize="Small" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="超小按钮" ButtonSize="Mini" Click="DemoButton_Click" Margin="0,0,10,0" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <vista:VistaButton Content="默认按钮" Round="True" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="中等按钮" Round="True" ButtonSize="Medium" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="小型按钮" Round="True" ButtonSize="Small" Margin="0,0,10,0" />
-                    <vista:VistaButton Content="超小按钮" Round="True" ButtonSize="Mini" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="默认按钮" Round="True" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="中等按钮" Round="True" ButtonSize="Medium" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="小型按钮" Round="True" ButtonSize="Small" Click="DemoButton_Click" Margin="0,0,10,0" />
+                    <vista:VistaButton Content="超小按钮" Round="True" ButtonSize="Mini" Click="DemoButton_Click" Margin="0,0,10,0" />
                 </StackPanel>
 
                 <!-- VistaMessage 演示 -->
@@ -232,8 +220,8 @@
                 <!-- 基础用法 -->
                 <TextBlock Text="基础用法" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                    <vista:VistaRadio Content="备选项1" Label="1" x:Name="radio1" IsChecked="True" Margin="0,0,20,0" />
-                    <vista:VistaRadio Content="备选项2" Label="2" x:Name="radio2" Margin="0,0,20,0" />
+                    <vista:VistaRadio Content="备选项1" Label="1" x:Name="radio1" IsChecked="True" Change="Radio_Change" Margin="0,0,20,0" />
+                    <vista:VistaRadio Content="备选项2" Label="2" x:Name="radio2" Change="Radio_Change" Margin="0,0,20,0" />
                 </StackPanel>
 
                 <!-- 禁用状态 -->

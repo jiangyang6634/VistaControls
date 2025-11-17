@@ -85,6 +85,15 @@ namespace VistaControls
 
         #endregion
 
+        #region 事件
+
+        /// <summary>
+        /// 选中状态改变事件
+        /// </summary>
+        public event EventHandler<object?>? Change;
+
+        #endregion
+
         #region 事件处理
 
         private void VistaRadio_Loaded(object sender, RoutedEventArgs e)
@@ -105,6 +114,9 @@ namespace VistaControls
                 // 如果不在 RadioGroup 中，取消同组其他单选框的选中状态
                 UncheckOtherRadiosInGroup();
             }
+
+            // 触发 Change 事件
+            Change?.Invoke(this, Label);
         }
 
         private void UncheckOtherRadiosInGroup()
@@ -200,6 +212,19 @@ namespace VistaControls
         }
 
         #endregion
+
+        protected override void OnClick()
+        {
+            // 单选框特性：已选中的单选框不能通过再次点击取消选中
+            if (IsChecked == true)
+            {
+                // 已经选中，不做任何操作
+                return;
+            }
+
+            // 未选中，执行选中操作
+            base.OnClick();
+        }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {

@@ -185,6 +185,16 @@ namespace VistaControls.Demo
             InitializeTable();
         }
 
+        private void DemoButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is VistaButton button)
+            {
+                var content = button.Content?.ToString() ?? "按钮";
+                var buttonType = button.ButtonType.ToString();
+                VistaControls.MessageManager.Success($"你点击了【{content}】按钮，类型：{buttonType}");
+            }
+        }
+
         private void ShowBasicMessage_Click(object sender, RoutedEventArgs e)
         {
             VistaControls.MessageManager.Info("这是一条消息提示");
@@ -235,11 +245,21 @@ namespace VistaControls.Demo
             VistaControls.MessageManager.Show("居中的文字", VistaControls.MessageType.Info, 3000, false, true);
         }
 
+        private void Radio_Change(object? sender, object? e)
+        {
+            if (sender is VistaRadio radio && this.IsLoaded)
+            {
+                var content = radio.Content?.ToString() ?? "单选框";
+                var label = e?.ToString() ?? "";
+                VistaControls.MessageManager.Info($"选中了【{content}】，Label: {label}");
+            }
+        }
+
         private void RadioGroup1_SelectionChanged(object sender, object? e)
         {
             if (e != null)
             {
-                VistaControls.MessageManager.Info($"选中了值: {e}");
+                VistaControls.MessageManager.Info($"单选框组选中了值: {e}");
             }
         }
 
