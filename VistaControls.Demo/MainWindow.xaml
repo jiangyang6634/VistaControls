@@ -71,6 +71,56 @@
                                        Width="40" Click="DemoButton_Click" Margin="0,0,10,0" />
                 </StackPanel>
 
+                <!-- 按钮组 -->
+                <TextBlock Text="按钮组" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
+                <StackPanel Orientation="Vertical" Margin="0,0,0,20">
+                    <!-- 默认尺寸按钮组 -->
+                    <TextBlock Text="默认尺寸" FontSize="14" FontWeight="Normal" Margin="0,0,0,10" />
+                    <vista:ButtonGroup Margin="0,0,0,15">
+                        <vista:VistaButton Content="编辑" ButtonType="Primary" Icon="el-icon-edit.png" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="分享" ButtonType="Primary" Icon="el-icon-message.png" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="删除" ButtonType="Primary" Icon="el-icon-delete.png" Click="DemoButton_Click" />
+                    </vista:ButtonGroup>
+                    
+                    <!-- 只有图标的按钮组 -->
+                    <vista:ButtonGroup Margin="0,0,0,15">
+                        <vista:VistaButton ButtonType="Primary" Icon="el-icon-edit.png" Click="DemoButton_Click" />
+                        <vista:VistaButton ButtonType="Primary" Icon="el-icon-message.png" Click="DemoButton_Click" />
+                        <vista:VistaButton ButtonType="Primary" Icon="el-icon-delete.png" Click="DemoButton_Click" />
+                    </vista:ButtonGroup>
+                    
+                    <!-- 不同按钮类型的按钮组 -->
+                    <vista:ButtonGroup Margin="0,0,0,15">
+                        <vista:VistaButton Content="默认" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="主要" ButtonType="Primary" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="成功" ButtonType="Success" Click="DemoButton_Click" />
+                    </vista:ButtonGroup>
+                    
+                    <!-- Medium 尺寸按钮组 -->
+                    <TextBlock Text="Medium 尺寸" FontSize="14" FontWeight="Normal" Margin="0,10,0,10" />
+                    <vista:ButtonGroup Margin="0,0,0,15">
+                        <vista:VistaButton Content="编辑" ButtonType="Primary" ButtonSize="Medium" Icon="el-icon-edit.png" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="分享" ButtonType="Primary" ButtonSize="Medium" Icon="el-icon-message.png" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="删除" ButtonType="Primary" ButtonSize="Medium" Icon="el-icon-delete.png" Click="DemoButton_Click" />
+                    </vista:ButtonGroup>
+                    
+                    <!-- Small 尺寸按钮组 -->
+                    <TextBlock Text="Small 尺寸" FontSize="14" FontWeight="Normal" Margin="0,10,0,10" />
+                    <vista:ButtonGroup Margin="0,0,0,15">
+                        <vista:VistaButton Content="编辑" ButtonType="Primary" ButtonSize="Small" Icon="el-icon-edit.png" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="分享" ButtonType="Primary" ButtonSize="Small" Icon="el-icon-message.png" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="删除" ButtonType="Primary" ButtonSize="Small" Icon="el-icon-delete.png" Click="DemoButton_Click" />
+                    </vista:ButtonGroup>
+                    
+                    <!-- Mini 尺寸按钮组 -->
+                    <TextBlock Text="Mini 尺寸" FontSize="14" FontWeight="Normal" Margin="0,10,0,10" />
+                    <vista:ButtonGroup Margin="0,0,0,15">
+                        <vista:VistaButton Content="编辑" ButtonType="Primary" ButtonSize="Mini" Icon="el-icon-edit.png" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="分享" ButtonType="Primary" ButtonSize="Mini" Icon="el-icon-message.png" Click="DemoButton_Click" />
+                        <vista:VistaButton Content="删除" ButtonType="Primary" ButtonSize="Mini" Icon="el-icon-delete.png" Click="DemoButton_Click" />
+                    </vista:ButtonGroup>
+                </StackPanel>
+
                 <!-- 禁用状态 -->
                 <TextBlock Text="禁用状态" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,15" />
                 <StackPanel Orientation="Horizontal" Margin="0,0,0,20">

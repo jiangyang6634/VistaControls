@@ -25,13 +25,13 @@ VistaControls/
 
 ## 技术栈
 
-- **.NET 6.0** - 目标框架
+- **.NET 6.0 / .NET 8.0** - 目标框架（同时支持）
 - **WPF (Windows Presentation Foundation)** - UI 框架
 - **C#** - 编程语言
 
 ## 环境要求
 
-- .NET 6.0 SDK 或更高版本
+- .NET 6.0 SDK 或 .NET 8.0 SDK（推荐使用 .NET 8.0 SDK，可同时构建两个目标框架）
 - Visual Studio 2022 或 JetBrains Rider（推荐）
 - Windows 操作系统
 
@@ -65,28 +65,105 @@ dotnet run
 
 ## 在您的项目中使用 VistaControls
 
-### 方法一：项目引用（开发阶段）
+### 方法一：项目引用（推荐用于开发/本地使用）
 
-1. 在您的 WPF 项目中添加项目引用：
+**不需要移动整个文件夹！** 只需要在您的项目中添加项目引用即可。
+
+1. **在您的 WPF 项目文件（.csproj）中添加项目引用**：
    ```xml
    <ItemGroup>
-     <ProjectReference Include="..\VistaControls\VistaControls.csproj" />
+     <ProjectReference Include="..\..\VistaControls\VistaControls\VistaControls.csproj" />
    </ItemGroup>
    ```
+   > 注意：路径需要根据实际的项目结构调整。如果 VistaControls 项目在解决方案的同一目录下，使用 `..\VistaControls\VistaControls.csproj`；如果在不同位置，使用相对路径或绝对路径。
 
-2. 在 XAML 文件中添加命名空间：
+2. **在 XAML 文件中添加命名空间**：
    ```xml
    xmlns:vista="clr-namespace:VistaControls;assembly=VistaControls"
    ```
 
-3. 使用控件：
+3. **在 App.xaml 中合并资源字典（重要！）**：
    ```xml
-   <vista:CustomControl1 />
+   <Application.Resources>
+       <ResourceDictionary>
+           <ResourceDictionary.MergedDictionaries>
+               <ResourceDictionary Source="pack://application:,,,/VistaControls;component/Themes/Generic.xaml"/>
+           </ResourceDictionary.MergedDictionaries>
+       </ResourceDictionary>
+   </Application.Resources>
    ```
 
-### 方法二：NuGet 包（发布后）
+4. **使用控件**：
+   ```xml
+   <vista:VistaButton Content="按钮" Type="Primary" />
+   ```
 
-待项目完善后，将提供 NuGet 包供直接安装使用。
+**优点**：
+- ✅ 不需要移动文件，保持项目结构清晰
+- ✅ 修改 VistaControls 源码后，引用项目会自动重新编译
+- ✅ 适合开发和调试阶段
+
+### 方法二：NuGet 包（推荐用于生产环境）
+
+1. **创建 NuGet 包**：
+   ```bash
+   cd VistaControls
+   dotnet pack -c Release
+   ```
+   这会在 `bin/Release` 目录下生成 `.nupkg` 文件。
+
+2. **发布到 NuGet 源**（可选）：
+   - 发布到 nuget.org：`dotnet nuget push VistaControls.1.0.0.nupkg -k YOUR_API_KEY -s https://api.nuget.org/v3/index.json`
+   - 或使用本地文件夹作为 NuGet 源
+
+3. **在项目中使用**：
+   ```bash
+   # 如果发布到 nuget.org
+   dotnet add package VistaControls
+   
+   # 如果使用本地 NuGet 源
+   dotnet add package VistaControls --source C:\path\to\packages
+   ```
+
+**优点**：
+- ✅ 版本管理清晰
+- ✅ 便于分发和共享
+- ✅ 适合生产环境
+
+### 方法三：直接引用 DLL（不推荐，但可行）
+
+如果必须使用 DLL 文件：
+
+1. **构建 VistaControls 项目**：
+   ```bash
+   cd VistaControls
+   dotnet build -c Release
+   ```
+
+2. **复制 DLL 文件**：
+   - 将 `bin/Release/net6.0-windows/VistaControls.dll`（或 `net8.0-windows`）复制到您的项目目录
+
+3. **在项目文件中添加引用**：
+   ```xml
+   <ItemGroup>
+     <Reference Include="VistaControls">
+       <HintPath>lib\VistaControls.dll</HintPath>
+     </Reference>
+   </ItemGroup>
+   ```
+
+4. **同样需要在 App.xaml 中合并资源字典**（见方法一）
+
+**缺点**：
+- ❌ 需要手动管理 DLL 文件
+- ❌ 修改源码后需要重新复制 DLL
+- ❌ 不便于版本管理
+
+### 推荐方案
+
+- **开发阶段**：使用方法一（项目引用）
+- **生产环境**：使用方法二（NuGet 包）
+- **临时使用**：如果项目结构允许，优先使用方法一；否则使用方法三
 
 ## 已实现的控件
 

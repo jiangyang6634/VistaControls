@@ -14,7 +14,46 @@
           "VistaControls.Demo.dll": {}
         }
       },
+      "SharpVectors/1.8.0": {
+        "runtime": {
+          "lib/net6.0-windows7.0/SharpVectors.Converters.Wpf.dll": {
+            "assemblyVersion": "1.8.0.0",
+            "fileVersion": "1.8.0.0"
+          },
+          "lib/net6.0-windows7.0/SharpVectors.Core.dll": {
+            "assemblyVersion": "1.8.0.0",
+            "fileVersion": "1.8.0.0"
+          },
+          "lib/net6.0-windows7.0/SharpVectors.Css.dll": {
+            "assemblyVersion": "1.8.0.0",
+            "fileVersion": "1.8.0.0"
+          },
+          "lib/net6.0-windows7.0/SharpVectors.Dom.dll": {
+            "assemblyVersion": "1.8.0.0",
+            "fileVersion": "1.8.0.0"
+          },
+          "lib/net6.0-windows7.0/SharpVectors.Model.dll": {
+            "assemblyVersion": "1.8.0.0",
+            "fileVersion": "1.8.0.0"
+          },
+          "lib/net6.0-windows7.0/SharpVectors.Rendering.Gdi.dll": {
+            "assemblyVersion": "1.8.0.0",
+            "fileVersion": "1.8.0.0"
+          },
+          "lib/net6.0-windows7.0/SharpVectors.Rendering.Wpf.dll": {
+            "assemblyVersion": "1.8.0.0",
+            "fileVersion": "1.8.0.0"
+          },
+          "lib/net6.0-windows7.0/SharpVectors.Runtime.Wpf.dll": {
+            "assemblyVersion": "1.8.0.0",
+            "fileVersion": "1.8.0.0"
+          }
+        }
+      },
       "VistaControls/1.0.0": {
+        "dependencies": {
+          "SharpVectors": "1.8.0"
+        },
         "runtime": {
           "VistaControls.dll": {}
         }
@@ -26,6 +65,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "SharpVectors/1.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sVNzeJserxfXv7G7/EhPd5IUg4hsL66pvqg31T4UWt671K0V4QqUfWlP6/sGlMX2s7IeT5NBqiP3MD9NXYKFjA==",
+      "path": "sharpvectors/1.8.0",
+      "hashPath": "sharpvectors.1.8.0.nupkg.sha512"
     },
     "VistaControls/1.0.0": {
       "type": "project",

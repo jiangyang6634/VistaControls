@@ -98,7 +98,8 @@
                                    Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSource, Converter={StaticResource NullToVisibilityConverter}}"
                                    Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSource}"
                                    Margin="0,0,10,0"
-                                   Stretch="Uniform"/>
+                                   Stretch="Uniform"
+                                   RenderOptions.BitmapScalingMode="HighQuality"/>
                             
                             <!-- 内容 -->
                             <ContentPresenter x:Name="contentPresenter"
@@ -328,7 +329,296 @@
                 <Setter Property="MinHeight" Value="28"/>
                 <Setter Property="MinWidth" Value="68"/>
             </Trigger>
+            
+            <!-- 按钮组内按钮的特殊样式 -->
+            <!-- 第一个按钮：只有右侧圆角，移除右侧边框 -->
+            <Trigger Property="ButtonGroupPosition" Value="First">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="BorderThickness" Value="1,1,0,1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:VistaButton}">
+                            <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="4,0,0,4"
+                                    Padding="{TemplateBinding Padding}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Ellipse x:Name="loadingIndicator" 
+                                             Grid.Column="0"
+                                             Width="16" Height="16"
+                                             Visibility="Collapsed"
+                                             Stroke="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}"
+                                             StrokeThickness="2"
+                                             Margin="0,0,10,0">
+                                        <Ellipse.RenderTransform>
+                                            <RotateTransform x:Name="loadingRotate"/>
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    
+                                    <Image x:Name="leftIcon"
+                                           Grid.Column="0"
+                                           Width="16" Height="16"
+                                           Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSource, Converter={StaticResource NullToVisibilityConverter}}"
+                                           Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSource}"
+                                           Margin="0,0,10,0"
+                                           Stretch="Uniform"/>
+                                    
+                                    <ContentPresenter x:Name="contentPresenter"
+                                                      Grid.Column="1"
+                                                      Content="{TemplateBinding Content}"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    
+                                    <Image x:Name="rightIcon"
+                                           Grid.Column="2"
+                                           Width="16" Height="16"
+                                           Visibility="Collapsed"
+                                           Margin="10,0,0,0"
+                                           Stretch="Uniform"/>
+                                </Grid>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Loading" Value="True">
+                                    <Setter TargetName="loadingIndicator" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="leftIcon" Property="Visibility" Value="Collapsed"/>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetName="loadingRotate"
+                                                                 Storyboard.TargetProperty="Angle"
+                                                                 From="0" To="360" Duration="0:0:1"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.6"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.8"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            
+            <!-- 中间按钮：无圆角，移除左右边框，左侧添加分隔线 -->
+            <Trigger Property="ButtonGroupPosition" Value="Middle">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="BorderThickness" Value="0,1,0,1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:VistaButton}">
+                            <Grid>
+                                <Border x:Name="border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="0"
+                                        Padding="{TemplateBinding Padding}">
+                                    <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <Ellipse x:Name="loadingIndicator" 
+                                             Grid.Column="0"
+                                             Width="16" Height="16"
+                                             Visibility="Collapsed"
+                                             Stroke="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}"
+                                             StrokeThickness="2"
+                                             Margin="0,0,10,0">
+                                        <Ellipse.RenderTransform>
+                                            <RotateTransform x:Name="loadingRotate"/>
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    
+                                    <Image x:Name="leftIcon"
+                                           Grid.Column="0"
+                                           Width="16" Height="16"
+                                           Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSource, Converter={StaticResource NullToVisibilityConverter}}"
+                                           Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSource}"
+                                           Margin="0,0,10,0"
+                                           Stretch="Uniform"/>
+                                    
+                                    <ContentPresenter x:Name="contentPresenter"
+                                                      Grid.Column="1"
+                                                      Content="{TemplateBinding Content}"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                    
+                                    <Image x:Name="rightIcon"
+                                           Grid.Column="2"
+                                           Width="16" Height="16"
+                                           Visibility="Collapsed"
+                                           Margin="10,0,0,0"
+                                           Stretch="Uniform"/>
+                                    </Grid>
+                                </Border>
+                                <!-- 左侧分隔线 - 显示在按钮左侧边缘 -->
+                                <Border Width="1" 
+                                        Background="#DCDFE6"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Stretch"
+                                        Margin="0"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Loading" Value="True">
+                                    <Setter TargetName="loadingIndicator" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="leftIcon" Property="Visibility" Value="Collapsed"/>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetName="loadingRotate"
+                                                                 Storyboard.TargetProperty="Angle"
+                                                                 From="0" To="360" Duration="0:0:1"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.6"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.8"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            
+            <!-- 最后一个按钮：只有左侧圆角，移除左侧边框，左侧添加分隔线 -->
+            <Trigger Property="ButtonGroupPosition" Value="Last">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="BorderThickness" Value="0,1,1,1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type local:VistaButton}">
+                            <Grid>
+                                <Border x:Name="border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="0,4,4,0"
+                                        Padding="{TemplateBinding Padding}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Ellipse x:Name="loadingIndicator" 
+                                                 Grid.Column="0"
+                                                 Width="16" Height="16"
+                                                 Visibility="Collapsed"
+                                                 Stroke="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Foreground}"
+                                                 StrokeThickness="2"
+                                                 Margin="0,0,10,0">
+                                            <Ellipse.RenderTransform>
+                                                <RotateTransform x:Name="loadingRotate"/>
+                                            </Ellipse.RenderTransform>
+                                        </Ellipse>
+                                        
+                                        <Image x:Name="leftIcon"
+                                               Grid.Column="0"
+                                               Width="16" Height="16"
+                                               Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSource, Converter={StaticResource NullToVisibilityConverter}}"
+                                               Source="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IconSource}"
+                                               Margin="0,0,10,0"
+                                               Stretch="Uniform"/>
+                                        
+                                        <ContentPresenter x:Name="contentPresenter"
+                                                          Grid.Column="1"
+                                                          Content="{TemplateBinding Content}"
+                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                        
+                                        <Image x:Name="rightIcon"
+                                               Grid.Column="2"
+                                               Width="16" Height="16"
+                                               Visibility="Collapsed"
+                                               Margin="10,0,0,0"
+                                               Stretch="Uniform"/>
+                                    </Grid>
+                                </Border>
+                                <!-- 左侧分隔线 - 显示在按钮左侧边缘 -->
+                                <Border Width="1" 
+                                        Background="#DCDFE6"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Stretch"
+                                        Margin="0"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Loading" Value="True">
+                                    <Setter TargetName="loadingIndicator" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="leftIcon" Property="Visibility" Value="Collapsed"/>
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard RepeatBehavior="Forever">
+                                                <DoubleAnimation Storyboard.TargetName="loadingRotate"
+                                                                 Storyboard.TargetProperty="Angle"
+                                                                 From="0" To="360" Duration="0:0:1"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.6"/>
+                                </Trigger>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.8"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="border" Property="Opacity" Value="0.7"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            
+            <!-- 只有一个按钮：正常圆角 -->
+            <Trigger Property="ButtonGroupPosition" Value="Only">
+                <Setter Property="Margin" Value="0"/>
+            </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <!-- ButtonGroup 样式 -->
+    <Style TargetType="{x:Type local:ButtonGroup}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:ButtonGroup}">
+                    <ItemsPresenter/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <!-- VistaTable 样式 -->
@@ -382,17 +672,6 @@
                         </Grid>
                     </Border>
                 </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <!-- ButtonGroup 样式 -->
-    <Style TargetType="{x:Type local:ButtonGroup}">
-        <Setter Property="ItemsPanel">
-            <Setter.Value>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
     </Style>
